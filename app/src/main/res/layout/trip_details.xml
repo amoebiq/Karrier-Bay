@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="sender"
+            type="Model.SenderOrder" />
+
+        <!--<variable-->
+            <!--name="item"-->
+            <!--type="Model.ItemAttributes" />-->
+
+        <!--<variable-->
+            <!--name="pickup"-->
+            <!--type="Model.PickupOrderMapping" />-->
+
+        <variable
+            name="user"
+            type="Model.User" />
+
+        <variable
+            name="senderorderitem"
+            type="Model.SenderOrderItemAttributes" />
+
+        <variable
+            name="carrierattribute"
+            type="Model.CarrierScheduleDetailAttributes" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/lila"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/scheduleform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="7dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/headerDetailsForm"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="7dp"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+
+                        android:id="@+id/ivPic"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/myimage" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:text="@={user.name}"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvCarrierDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:gravity="left|bottom"
+                        android:text="@={user.provider}"
+
+                        android:textColor="@color/textHintColor"
+                        android:textSize="15dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingRight="13dp">
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/rating_star_red" />
+
+                        <TextView
+                            android:id="@+id/tvRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:paddingLeft="3dp"
+                            android:text="4.0"
+                            android:textColor="@color/textColorHighlight"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="19dp"
+                    android:background="@color/textHintColor" />
+
+                <TextView
+                    android:id="@+id/labelPickDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="50"
+                    android:text="@string/trip_details"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDepartureFrom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/departure_from"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelPickFlat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@={sender.from_loc}"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelpickFlatFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDepartureaAT"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/departure_date_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelDepartureAtst"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@{carrierattribute.displayStartTime ?? senderorderitem.displayStartTime }"
+
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelDepartureDateForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDepartureDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arrival_at"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelDepartureAtt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@={sender.to_loc}"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelarrivaeDateForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelArrivalAt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelarrivalAtt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@{carrierattribute.displayEndTime ?? senderorderitem.displayEndTime }"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelWantTo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@{sender.isSender ? @string/category : @string/ready_to_carry}"
+
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelwantotsend"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@{carrierattribute.mode ?? senderorderitem.item_type}"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <!--android:text="@={senderorderitem.item_type}"-->
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelWeight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/item_details"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                    <!--android:text="@{sender.isSender ? @string/weight : @string/capacity}"-->
+                    <TextView
+                        android:id="@+id/labelweightvalue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@{sender.senderItemInfo}"
+
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelVolumetric"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/duration"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelvolume"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                    <!--android:text="@{carrierattribute.passengercount ?? item.total_distance_charge}"-->
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvVerifis"
+                    android:layout_width="70dp"
+                    android:layout_height="19dp"
+                    android:background="@drawable/tv_verify_outline"
+                    android:gravity="center"
+                    android:text="@={sender.status}"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="10dp" />
+
+
+
+                <Button
+                    android:id="@+id/btn_sender_next"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="@{sender.isSender ? @string/accept : @string/notify}"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

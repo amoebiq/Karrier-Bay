@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="citynames">
+        <item>Chennai</item>
+        <item>Banglore</item>
+        <item>Madurai</item>
+    </string-array>
+    <string-array name="wanttosend">
+        <item>Article</item>
+        <item>Passenger</item>
+    </string-array>
+    <string-array name="width">
+        <item>W: 40cm</item>
+        <item>W: 50cm</item>
+    </string-array>
+    <string-array name="height">
+        <item>H: 40cm</item>
+        <item>H: 50cm</item>
+    </string-array>
+    <string-array name="band">
+        <item>B: 40cm</item>
+        <item>B: 50cm</item>
+    </string-array>
+    <string-array name="category">
+        <item>Electronic Item</item>
+        <item>Luggage</item>
+    </string-array>
+    <string-array name="passengers">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="capacity">
+        <item>10 L</item>
+        <item>15 L</item>
+    </string-array>
+</resources>

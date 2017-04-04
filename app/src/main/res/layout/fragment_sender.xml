@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="sender"
+            type="Model.SenderOrder" />
+
+        <variable
+            name="item"
+            type="Model.ItemAttributes" />
+
+        <variable
+            name="senderitem"
+            type="Model.SenderOrderItemAttributes" />
+
+        <variable
+            name="carrierAttribute"
+            type="Model.CarrierScheduleDetailAttributes" />
+
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scheduleform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/from"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size"
+
+                    />
+
+                <!--android:text="@{user.firstName}"-->
+                <EditText
+                    android:id="@+id/et_from_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:onFocusChange="@{sender.onFocusChangeValidation}"
+                    android:spinnerMode="dialog"
+                    android:text="@={sender.from_loc}" />
+
+                <LinearLayout
+                    android:id="@+id/deplabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDEBDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/deb_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelDEBTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/deb_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/depform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDEPDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+                        android:onFocusChange="@{sender.onFocusChangeValidation}"
+                        android:singleLine="true"
+                        android:text="@={sender.fromDate}"
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etDEPTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+                        android:onFocusChange="@{sender.onFocusChangeValidation}"
+                        android:singleLine="true"
+                        android:text="@={sender.fromTime}"
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/labelTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/to"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size" />
+
+
+                <EditText
+                    android:id="@+id/et_To_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:spinnerMode="dialog"
+                    android:text="@={sender.to_loc}" />
+
+                <LinearLayout
+                    android:id="@+id/tolabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelToDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelToTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/toform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etToDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+                        android:onFocusChange="@{sender.onFocusChangeValidation}"
+                        android:singleLine="true"
+                        android:text="@={sender.toDate}"
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etToTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+                        android:onFocusChange="@{sender.onFocusChangeValidation}"
+                        android:singleLine="true"
+                        android:text="@={sender.toTime}"
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sender_flow_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{sender.isSender ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:id="@+id/labelWantTo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/wanttosend"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <Spinner
+                        android:id="@+id/spinWantTo"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:entries="@array/wanttosend"
+                        android:prompt="@string/prompt_wanttosend"
+
+                        android:spinnerMode="dialog" />
+
+                    <LinearLayout
+                        android:id="@+id/dynamicformsarticle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{sender.spinWantToSendIdx == 1 ? View.GONE : View.VISIBLE}">
+
+                        <LinearLayout
+                            android:id="@+id/articlelabelform"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/labelCategory"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+
+                                android:text="@string/category"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+
+                            <TextView
+                                android:id="@+id/labelWeight"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+
+                                android:text="@string/weight"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:id="@+id/categoryweightforms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_sub_type"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="50"
+                                android:entries="@array/category"
+                                android:prompt="@string/prompt_wanttosend"
+
+
+                                android:spinnerMode="dialog" />
+
+                            <EditText
+                                android:id="@+id/etWeight"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/edit_text_height"
+                                android:layout_weight="50"
+                                android:backgroundTint="@color/editTextSelected"
+
+                                android:inputType="number"
+                                android:maxLines="1"
+
+                                android:onFocusChange="@{sender.onFocusChangeValidation}"
+                                android:singleLine="true"
+                                android:text="@={item.weight}"
+                                android:textColor="@color/textColorDark"
+                                android:textColorHint="@color/textHintColor"
+                                android:textSize="@dimen/font_size"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/articlelabelvolumetricform"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/labelVolumetric"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+
+                                android:text="@string/dimension"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/volumetweightformsLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/labelspinHeight"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/height"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+
+                            <TextView
+                                android:id="@+id/labelWidth"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+
+                                android:text="@string/width"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+
+                            <TextView
+                                android:id="@+id/labelBan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+
+                                android:text="@string/breadth"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/volumetweightforms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etHeight"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/edit_text_height"
+                                android:layout_weight="50"
+                                android:backgroundTint="@color/editTextSelected"
+                                android:inputType="number"
+                                android:maxLines="1"
+
+                                android:onFocusChange="@{sender.onFocusChangeValidation}"
+                                android:singleLine="true"
+                                android:text="@={item.height}"
+                                android:textColor="@color/textColorDark"
+                                android:textColorHint="@color/textHintColor"
+                                android:textSize="@dimen/font_size"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/etWidth"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/edit_text_height"
+                                android:layout_weight="50"
+                                android:backgroundTint="@color/editTextSelected"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:onFocusChange="@{sender.onFocusChangeValidation}"
+                                android:singleLine="true"
+                                android:text="@={item.length}"
+                                android:textColor="@color/textColorDark"
+                                android:textColorHint="@color/textHintColor"
+                                android:textSize="@dimen/font_size"
+
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/etBreadth"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/edit_text_height"
+                                android:layout_weight="50"
+                                android:backgroundTint="@color/editTextSelected"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:onFocusChange="@{sender.onFocusChangeValidation}"
+                                android:singleLine="true"
+                                android:text="@={item.breadth}"
+                                android:textColor="@color/textColorDark"
+                                android:textColorHint="@color/textHintColor"
+                                android:textSize="@dimen/font_size"
+
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dynamicformsPassengers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{sender.spinWantToSendIdx == 0 ? View.GONE : View.VISIBLE}">
+
+                        <TextView
+                            android:id="@+id/labelSeat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noofseat"
+                            android:textColor="@color/textHintColor"
+                            android:textSize="@dimen/font_size" />
+
+
+                        <EditText
+                            android:id="@+id/etPassenger"
+                            android:layout_width="230dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="50"
+                            android:inputType="number"
+                            android:onFocusChange="@{sender.onFocusChangeValidation}"
+                            android:text="@={senderitem.quantity}" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/carrier_se__flow_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{sender.isSender ? View.GONE : View.VISIBLE}">
+
+                    <LinearLayout
+                        android:id="@+id/carrier_flow_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/labelReadyToCategory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+
+                            android:text="@string/ready_to_carry"
+                            android:textColor="@color/textHintColor"
+                            android:textSize="@dimen/font_size" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:id="@+id/categoryweightformssender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <Spinner
+                            android:id="@+id/spinSenderWantTo"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:entries="@array/wanttosend"
+                            android:prompt="@string/prompt_wanttosend"
+
+                            android:spinnerMode="dialog" />
+                        <!--<CheckBox-->
+                            <!--android:id="@+id/cbarticle"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="bottom"-->
+                            <!--android:layout_weight="50"-->
+                            <!--android:checked="@{cbpassenger.checked ? false : true}"-->
+                            <!---->
+                            <!--android:spinnerMode="dialog"-->
+                            <!--android:text="@string/article" />-->
+
+                        <!--<CheckBox-->
+                            <!--android:id="@+id/cbpassenger"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="@dimen/edit_text_height"-->
+                            <!--android:layout_weight="50"-->
+                            <!--android:checked="@{cbarticle.checked ? false : true}"-->
+                            <!--android:text="@string/passengers" />-->
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:id="@+id/catesdfr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/articlepassengerform"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
+
+                            android:visibility="@{sender.carrierWanttosSendIdx == 0 ? View.VISIBLE : View.GONE}">
+
+                            <TextView
+                                android:id="@+id/labelcapacity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/capacity"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+
+                            <EditText
+                                android:id="@+id/etCarrierCapacity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="50"
+                                android:inputType="number"
+                                android:text="@={carrierAttribute.capacity}" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/volumetw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
+                            android:visibility="@{sender.carrierWanttosSendIdx == 1? View.VISIBLE : View.GONE}">
+
+                            <TextView
+                                android:id="@+id/labelPassen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:text="@string/noofseat"
+                                android:textColor="@color/textHintColor"
+                                android:textSize="@dimen/font_size" />
+                            <EditText
+                                android:id="@+id/etCarrierPassengers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="50"
+                                android:inputType="number"
+                                android:onFocusChange="@{sender.onFocusChangeValidation}"
+                                android:text="@={carrierAttribute.passengercount}"/>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_sender_next"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:onClick="nextClick"
+                    android:text="@string/next"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

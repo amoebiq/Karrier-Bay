@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<data>
+    <variable
+        name="handler"
+        type="Fragment.ContactFragment.handler"></variable>
+    <import type="android.view.View"/>
+</data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_text_gap"
+            android:layout_marginLeft="@dimen/edit_text_gap"
+            android:layout_marginTop="@dimen/edit_text_gap"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_contact_title"
+                android:textColor="@color/textColorDark"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/contact_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_below="@+id/contact_title"
+                android:layout_margin="@dimen/edit_text_gap"
+                android:gravity="top|left"
+                android:textColor="@color/textColorDark"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/contact_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_edittext"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/button_gap"
+                android:background="@drawable/button_outline"
+                android:text="@string/action_send"
+                android:textColor="@color/textColorWhite"
+                android:textSize="@dimen/font_size_hint"
+                android:onClick="@{handler::contactOnclick}"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

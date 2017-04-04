@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group
+        android:id="@+id/nav_top_view"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/menu_settings"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_my_bay"
+            android:title="My Bay"
+            android:icon="@drawable/menu_my_bay"/>
+
+        <item
+            android:id="@+id/nav_refer_and_earn"
+            android:icon="@drawable/menu_refer"
+            android:title="Refer and Earn" />
+
+        <item
+            android:id="@+id/nav_rate_app"
+            android:icon="@drawable/menu_rate_app"
+            android:title="Rate App" />
+
+    </group>
+
+    <group
+        android:id="@+id/nav_bottom_view"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/menu_contact"
+            android:title="Contact Us" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/menu_settings"
+            android:title="Settings" />
+
+
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/menu_logout"
+            android:title="Logout" />
+    </group>
+</menu>

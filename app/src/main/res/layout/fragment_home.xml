@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboard_compress"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="7dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/be_a_carrier"
+            android:layout_width="260dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/rounded_button"
+            android:text="BE A CARRIER"
+            android:textColor="@color/textColorHighlight" />
+
+        <Button
+            android:id="@+id/be_a_sender"
+            android:layout_width="260dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/be_a_carrier"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/rounded_button_red"
+            android:text="BE A SENDER"
+            android:textColor="@color/textColorWhite" />
+
+    </RelativeLayout>
+</RelativeLayout>
