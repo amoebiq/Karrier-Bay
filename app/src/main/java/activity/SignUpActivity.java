@@ -1,8 +1,17 @@
 package activity;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.ToolbarWidgetWrapper;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.yourapp.developer.karrierbay.R;
@@ -31,6 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -42,10 +54,28 @@ public class SignUpActivity extends BaseActivity {
     private EditText fullName, phoneNumber, otp, password, email, confirmPassword;
     private SessionManager sessionManager;
 
+    private AppCompatDelegate delegate;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        delegate = AppCompatDelegate.create(this,this);
+//        delegate.onCreate(savedInstanceState);
+//        delegate.setContentView(R.layout.activity_main);
+//
+//
+//        //actionBarSetup();
+//        System.out.println("here in main Activity");
+//
+      // android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.myToolbar);
+//        delegate.setSupportActionBar(toolbar);
+
+
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
