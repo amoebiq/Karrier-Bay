@@ -196,6 +196,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment(new MyBayFragment(), "MyBayFragment");
 
         }
+        if(id==R.id.carrier_list) {
+
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isCarrierFlow", true);
+
+            CarrierListFragment clf = new CarrierListFragment();
+            clf.setArguments(bundle);
+            fragment(clf,"CarrierListFragment");
+
+        }
+
+        if(id==R.id.sender_list) {
+            this.sender = new SenderOrder();
+
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isSenderFlow", true);
+            SenderFragment senderFragment = new SenderFragment();
+            CarrierListFragment clf = new CarrierListFragment();
+            clf.setArguments(bundle);
+            fragment(clf,"CarrierListFragment");
+
+        }
         if (id == R.id.nav_contact_us) {
             fragment(new ContactFragment(), "ContactFragment");
         }

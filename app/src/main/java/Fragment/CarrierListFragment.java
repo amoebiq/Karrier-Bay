@@ -49,11 +49,11 @@ public class CarrierListFragment extends Fragment {
         Call<List<SenderOrder>> call;
         if (sender.isSender) {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIER LIST</font>"));
-            call = ((MainActivity) getActivity()).apiService.getSenderOrCarrierOrder("carrier", "schedules");
+            call = ((MainActivity) getActivity()).apiService.getAllSenderCarrierList("carrier", "schedules","all");
 
         } else {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDER LIST</font>"));
-            call = ((MainActivity) getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders");
+            call = ((MainActivity) getActivity()).apiService.getAllSenderCarrierList("sender", "orders","all");
         }
         call.enqueue(new Callback<List<SenderOrder>>() {
             @Override

@@ -44,6 +44,9 @@ public interface ApiInterface {
     @POST("{flowtype}/{flowtypeParam}")
     Call<SenderOrderResponse> postSenderOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam, @Body SenderOrderRequest senderOrderRequest);
 
+    @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
+    Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
+
 
     @GET("{flowtype}/{flowtypeParam}")
     Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam);

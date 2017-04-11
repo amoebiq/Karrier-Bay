@@ -10,20 +10,39 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/menu_settings"
             android:title="Home" />
+
+
+        <item
+            android:id="@+id/sender_list"
+            android:icon="@drawable/menu_settings"
+            android:title="Senders" />
+        <item
+            android:id="@+id/carrier_list"
+            android:icon="@drawable/menu_settings"
+            android:title="Carriers" />
+
         <item
             android:id="@+id/nav_my_bay"
             android:title="My Bay"
             android:icon="@drawable/menu_my_bay"/>
 
-        <item
-            android:id="@+id/nav_refer_and_earn"
-            android:icon="@drawable/menu_refer"
-            android:title="Refer and Earn" />
 
-        <item
-            android:id="@+id/nav_rate_app"
-            android:icon="@drawable/menu_rate_app"
-            android:title="Rate App" />
+
+    </group>
+
+    <item
+        android:id="@+id/nav_refer_and_earn"
+        android:icon="@drawable/menu_refer"
+        android:title="Refer and Earn" />
+
+    <item
+        android:id="@+id/nav_rate_app"
+        android:icon="@drawable/menu_rate_app"
+        android:title="Rate App" />
+
+    <group>
+
+
 
     </group>
 

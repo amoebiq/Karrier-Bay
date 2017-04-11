@@ -117,6 +117,8 @@ public class SignUpActivity extends BaseActivity {
 
                 Log.i("checking the i value", "i value is " + i + ".");
                 if (i == 9) {
+
+
                     Call<Otp> call = apiService.getOtp("+91" + phoneNumber.getText().toString());
                     call.enqueue(new Callback<Otp>() {
                         @Override

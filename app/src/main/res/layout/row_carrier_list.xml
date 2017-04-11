@@ -69,7 +69,7 @@
 
                 <TextView
                     android:id="@+id/tvVerifis"
-                    android:layout_width="70dp"
+                    android:layout_width="42dp"
                     android:layout_height="19dp"
                     android:background="@drawable/tv_verify_outline"
                     android:gravity="center"
@@ -134,7 +134,7 @@
                 android:id="@+id/labelfrom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:layout_weight="10.29"
 
                 android:text="@string/from"
                 android:textColor="@color/textHintColor"
@@ -164,7 +164,7 @@
                 android:id="@+id/labelTo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:layout_weight="10.63"
 
                 android:text="@string/to"
                 android:textColor="@color/textHintColor"
