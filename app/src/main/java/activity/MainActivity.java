@@ -20,8 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yourapp.developer.karrierbay.R;
@@ -105,6 +107,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
         nameHeader.setText(user.get(SessionManager.KEY_NAME));
 
+//        ImageView iv = (ImageView) findViewById(R.id.profilepic);
+//        iv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_LONG);
+//            }
+//        });
         hView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Bundle bundle = new Bundle();
             bundle.putBoolean("isCarrierFlow", true);
+            bundle.putBoolean("isSenderFlow", false);
 
             CarrierListFragment clf = new CarrierListFragment();
             clf.setArguments(bundle);
@@ -210,13 +221,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id==R.id.sender_list) {
             this.sender = new SenderOrder();
 
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("isSenderFlow", true);
-            SenderFragment senderFragment = new SenderFragment();
-            CarrierListFragment clf = new CarrierListFragment();
-            clf.setArguments(bundle);
-            fragment(clf,"CarrierListFragment");
+          //  Bundle bundle = new Bundle();
+//            bundle.putBoolean("isSenderFlow", true);
+//            bundle.putBoolean("isCarrierFlow", false);
+//            SenderFragment senderFragment = new SenderFragment();
+//
+//            CarrierListFragment clf = new CarrierListFragment();
+//            SenderListFragment slf = new SenderListFragment();
+//            clf.setArguments(bundle);
+//            fragment(slf,"SenderListFragment");
 
+            Log.d("Firing sender","Sender List");
+            fragment(new SenderListFragment(),"SenderListFragement");
         }
         if (id == R.id.nav_contact_us) {
             fragment(new ContactFragment(), "ContactFragment");

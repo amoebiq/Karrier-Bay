@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,18 @@ import android.widget.Toast;
 
 import com.yourapp.developer.karrierbay.R;
 
+import java.io.File;
+
 import Model.QuoteRequest;
 import Model.SenderOrder;
 import Utilities.BaseFragment;
 import activity.MainActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -119,4 +128,41 @@ public class HomeFragment extends BaseFragment {
 
 
     }
+
+
+    public void uploadImage(File file) {
+
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"),file);
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("picture",file.getName(),requestBody);
+//
+//        ApiService client = ApiClient.getClient().create(ApiService.class);
+//        Call<ImageUploadRes> call = client.uploadImage(body,file.getName());
+//
+//        call.enqueue(new Callback<ImageUploadRes>() {
+//            @Override
+//            public void onResponse(Call<ImageUploadRes> call, Response<ImageUploadRes> response) {
+//
+//                Log.d("UPLOAD","Success:::"+response.code()+response.body().toString());
+//
+//                ImageUploadRes object = response.body();
+//
+//                Log.d("UPLOAD","Successsss:::"+object.getUrl());
+//
+//                Toast.makeText(getApplicationContext(),"Succesfully Uploaded",Toast.LENGTH_LONG).show();
+//
+//                displayImage(object.getUrl());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ImageUploadRes> call, Throwable t) {
+//
+//                Log.d("UPLOAD","Failed "+t.getMessage());
+//
+//            }
+//        });
+
+
+    }
+
 }

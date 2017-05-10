@@ -2,8 +2,10 @@ package Utilities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -37,11 +39,26 @@ public class BindingUtils {
         spinner.setSelection(position);
     }
 
+
+    public BindingUtils() {
+
+        Log.d("","In constructor");
+
+    }
+
     public void onNotifyClick(View v, SenderOrder senderOrder) {
 
-         final MainActivity mainActivity = (MainActivity) v.getRootView().getContext();
-        mainActivity.sender=senderOrder;
-         mainActivity.fragment(new TripDetailsFragment(), Constants.DETAILSFRAGMENT);
+        Log.d("Clicked","Clicked");
+        // final MainActivity mainActivity = (MainActivity) v.getRootView().getContext();
+        Context ctx = v.getRootView().getContext();
+        MainActivity ac = (MainActivity)ctx;
+       // mainActivity.sender=senderOrder;
+         ac.fragment(new TripDetailsFragment(), Constants.DETAILSFRAGMENT);
+
+
+
+
+
 
     }
 

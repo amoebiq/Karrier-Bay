@@ -3,6 +3,7 @@ package Adapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class MyAdapter extends RecyclerView.Adapter<CustomViewHolder>     {
 
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
+        Log.d("In Custom View Holder","In CustomView Holder");
+
         ViewDataBinding viewDataBinding = customViewHolder.getViewDataBinding();
         Picasso.with(viewDataBinding.getRoot().getContext())
                 .load("http://i.imgur.com/DvpvklR.png")
@@ -50,9 +53,16 @@ public class MyAdapter extends RecyclerView.Adapter<CustomViewHolder>     {
         viewDataBinding.setVariable(BR.senderitems, orderList.get(i).getSender_order_item()[0]);
         viewDataBinding.setVariable(BR.item,orderList.get(i).getSender_order_item()[0].getItem_attributes());
         viewDataBinding.setVariable(BR.user,orderList.get(i).getUser());
-        viewDataBinding.setVariable(BR.presenter,new BindingUtils());
+        //viewDataBinding.setVariable(BR.presenter,new BindingUtils());
+
+
+
+
+
 
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -1,5 +1,6 @@
 package Fragment;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,12 +52,19 @@ public class CurrentFragment extends Fragment {
     }
 
     private void preparenotificationData() {
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setIndeterminate(true);
+        pd.setMessage("Loading...");
+        pd.show();
+
         Call<List<SenderOrder>> call = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("carrier", "schedules");
         call.enqueue(new Callback<List<SenderOrder>>() {
             @Override
             public void onResponse(Call<List<SenderOrder>> call, Response<List<SenderOrder>> response) {
 
                 if(200==response.code()) {
+                    pd.dismiss();
                     historyLists = response.body();
                     Gson gson = new Gson();
 

@@ -8,9 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,6 +50,12 @@ public class ProfileFragment extends BaseFragment implements
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setHandler(new ProfileHandler());
+        binding.emailEdittext.setEnabled(false);
+        binding.locationEdittext.setEnabled(false);
+        binding.phoneNumberEdittext.setEnabled(false);
+
+
+
         return binding.getRoot();
     }
 
@@ -55,10 +64,9 @@ public class ProfileFragment extends BaseFragment implements
         super.onViewCreated(view, savedInstanceState);
         sessionManager = new SessionManager(getActivity());
         user = sessionManager.getUserDetails();
-        binding.nameHeader.setText(user.get(SessionManager.KEY_NAME));
-        binding.emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
-        //binding.emailEdittext.setText(user.get(SessionManager.KEY_EMAIL));
-        //binding.phoneNumberEdittext.setText(user.get(SessionManager.KEY_PHONE));
+        Log.d("PROFILE_FRAGMENT","Phone set is ::: "+user.get(SessionManager.KEY_PHONE).toString());
+        binding.emailEdittext.setText(user.get(SessionManager.KEY_EMAIL));
+        binding.phoneNumberEdittext.setText(user.get(SessionManager.KEY_PHONE));
         if (user.get(SessionManager.KEY_ADDRESS) == null) {
             // for getting current location
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -77,6 +85,15 @@ public class ProfileFragment extends BaseFragment implements
         } else {
             binding.locationEdittext.setText(user.get(SessionManager.KEY_ADDRESS));
         }
+
+        ImageView iv = (ImageView)view.findViewById(R.id.profilepic);
+        iv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d("PROFILE","Clicked...");
+                return false;
+            }
+        });
     }
 
     private void callPlaceDetectionApi() throws SecurityException {

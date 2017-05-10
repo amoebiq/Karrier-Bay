@@ -1,9 +1,9 @@
 package Fragment;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -25,7 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CarrierListFragment extends Fragment {
+/**
+ * Created by skadavath on 4/14/17.
+ */
+
+public class SenderListFragment extends android.support.v4.app.Fragment {
+
     SenderOrder sender;
 
 
@@ -39,6 +44,8 @@ public class CarrierListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setIndeterminate(true);
@@ -54,8 +61,8 @@ public class CarrierListFragment extends Fragment {
 
         Call<List<SenderOrder>> call;
 
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Carriers</font>"));
-            call = ((MainActivity) getActivity()).apiService.getAllSenderCarrierList("carrier", "schedules","all");
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Senders</font>"));
+            call = ((MainActivity) getActivity()).apiService.getAllSenderCarrierList("sender", "orders","all");
 
 
         call.enqueue(new Callback<List<SenderOrder>>() {
@@ -65,9 +72,14 @@ public class CarrierListFragment extends Fragment {
                 if (response.code() == 200 && response.body() != null) {
                     pd.dismiss();
                     List<SenderOrder> list = response.body();
+                    System.out.println("here getting response for senders");
                     Log.d("LoginResponse", response.message());
                     MyAdapter mAdapter = new MyAdapter(list);
                     mRecyclerView.setAdapter(mAdapter);
+
+
+
+
                 } else {
                     Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
                 }
@@ -81,5 +93,4 @@ public class CarrierListFragment extends Fragment {
 
 
     }
-
 }
