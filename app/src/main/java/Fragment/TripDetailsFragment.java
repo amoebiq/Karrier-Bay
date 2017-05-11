@@ -1,13 +1,19 @@
 package Fragment;
 
+import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -55,6 +61,7 @@ public class TripDetailsFragment extends Fragment {
         TripDetailsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.trip_details, container, false);
         View view = binding.getRoot();
+        setHasOptionsMenu(true);
         sender = ((MainActivity) getActivity()).sender;
         SenderOrderItemAttributes[] sender_order_item_attributes = sender.getSender_order_item_attributes();
         binding.setSender(sender);
@@ -65,14 +72,39 @@ public class TripDetailsFragment extends Fragment {
         SenderOrderItemAttributes senderorderitem = sender_order_item_attributes[0];
         binding.setSenderorderitem(senderorderitem);
         Utility.hideKeyboard(getActivity());
+
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        Toolbar tb = (Toolbar) getActivity().findViewById(R.id.toolbar);
+//        tb.setNavigationIcon(getResources().getDrawable(R.drawable.back ));
+//
+//        tb.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Context ctx = view.getContext();
+//                MainActivity activity = (MainActivity)ctx;
+//                activity.fragment(new SenderListFragment(),"SenderListFragment");
+//            }
+//        });
+
+        android.support.v7.app.ActionBar bar = ((MainActivity) getActivity()).getSupportActionBar();
         if (!sender.isSender) {
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDER Details</font>"));
+            bar.setTitle(Html.fromHtml("<font color='#ffffff'>SENDER Details</font>"));
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setHomeButtonEnabled(true);
+
+
         } else {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIER Details</font>"));
 

@@ -53,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<CustomViewHolder>     {
         viewDataBinding.setVariable(BR.senderitems, orderList.get(i).getSender_order_item()[0]);
         viewDataBinding.setVariable(BR.item,orderList.get(i).getSender_order_item()[0].getItem_attributes());
         viewDataBinding.setVariable(BR.user,orderList.get(i).getUser());
-        //viewDataBinding.setVariable(BR.presenter,new BindingUtils());
+        viewDataBinding.setVariable(BR.presenter,new BindingUtils());
 
 
 
@@ -68,6 +68,8 @@ public class MyAdapter extends RecyclerView.Adapter<CustomViewHolder>     {
     public int getItemCount() {
         return (null != orderList ? orderList.size() : 0);
     }
+
+
 
 
 }

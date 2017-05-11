@@ -49,10 +49,10 @@ public class BindingUtils {
     public void onNotifyClick(View v, SenderOrder senderOrder) {
 
         Log.d("Clicked","Clicked");
-        // final MainActivity mainActivity = (MainActivity) v.getRootView().getContext();
+        final MainActivity mainActivity = (MainActivity) v.getRootView().getContext();
         Context ctx = v.getRootView().getContext();
         MainActivity ac = (MainActivity)ctx;
-       // mainActivity.sender=senderOrder;
+        mainActivity.sender=senderOrder;
          ac.fragment(new TripDetailsFragment(), Constants.DETAILSFRAGMENT);
 
 

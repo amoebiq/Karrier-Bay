@@ -111,7 +111,7 @@
                     android:paddingLeft="3dp"
                     android:text="4.0"
                     android:textColor="@color/textColorHighlight"
-                    android:textSize="16dp" />
+                    android:textSize="13dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -138,7 +138,7 @@
 
                 android:text="@string/from"
                 android:textColor="@color/textHintColor"
-                android:textSize="14dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/labelFromValue"
@@ -149,7 +149,7 @@
                 android:text="@={sender.from_loc}"
                 android:textColor="@color/textColorDark"
 
-                android:textSize="16dp" />
+                android:textSize="13dp" />
             <!--"-->
         </LinearLayout>
 
@@ -168,7 +168,7 @@
 
                 android:text="@string/to"
                 android:textColor="@color/textHintColor"
-                android:textSize="14dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/labelToValue"
@@ -178,7 +178,7 @@
 
                 android:text="@={sender.to_loc}"
                 android:textColor="@color/textColorDark"
-                android:textSize="16dp" />
+                android:textSize="13dp" />
 
         </LinearLayout>
 

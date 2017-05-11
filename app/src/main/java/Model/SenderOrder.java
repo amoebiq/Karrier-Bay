@@ -10,7 +10,7 @@ import com.yourapp.developer.karrierbay.BR;
 
 
 /**
- * Created by vel on 11/2/17.
+ * Created by shuhail on 11/2/17.
  */
 
 public class SenderOrder extends BaseObservable {

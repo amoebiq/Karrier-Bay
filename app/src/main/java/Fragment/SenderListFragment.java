@@ -4,8 +4,11 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,7 @@ public class SenderListFragment extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("SENDER_LIST","onCreateView of Sender");
         return inflater.inflate(R.layout.carrier_mainlayout, container, false);
 
 
@@ -47,6 +51,10 @@ public class SenderListFragment extends android.support.v4.app.Fragment {
 
 
         super.onViewCreated(view, savedInstanceState);
+
+
+
+        Log.d("SENDER_LIST","onViewCreated of Sender");
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setIndeterminate(true);
         pd.setMessage("Loading...");
