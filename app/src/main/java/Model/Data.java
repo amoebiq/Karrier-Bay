@@ -33,6 +33,16 @@ public class Data {
     @Expose
     private String phone;
 
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Data(Integer id, String provider, String uid, String nickname, String name, String image, String phone, String email) {
         this.id = id;
         this.provider = provider;

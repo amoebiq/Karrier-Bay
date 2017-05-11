@@ -13,6 +13,8 @@ import Model.SenderOrder;
 import Model.SenderOrderRequest;
 import Model.SenderOrderResponse;
 import Model.SignUpResponse;
+import Model.User;
+import Model.UserUpdateRequest;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -61,6 +63,9 @@ public interface ApiInterface {
 
     @PUT("orchestrator/order/{orderId}/accept")
     Call<AcceptResponse>  acceptOrders(@Path("orderId") String orderId);
+
+    @PUT("orchestrator/user/update")
+    Call<User>  editUserDetails(@Body UserUpdateRequest request);
 
     @GET("sender/orders}")
     Call<List<SenderOrder>> getMyBayHistory();

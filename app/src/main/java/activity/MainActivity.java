@@ -1,6 +1,7 @@
 package activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.Calendar;
@@ -40,6 +42,7 @@ import Model.QuoteRequest;
 import Model.SenderOrder;
 import RetroGit.ApiClient;
 import RetroGit.ApiInterface;
+import Utilities.CircleTransform;
 import Utilities.SessionManager;
 
 import static Utilities.Utility.hideKeyboard;
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
+
         View hView = navigationView.getHeaderView(0);
 
         emailHeader = (TextView) hView.findViewById(R.id.email_header);
@@ -124,8 +128,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        displayImage(hView ,"https://s3.amazonaws.com/ucarrytest/docs/72/IMG-20170509-WA0048_72.jpg");
 
         fragment(new HomeFragment(), "MainFragment");
+    }
+
+    public void displayImage(View view ,final String url) {
+
+
+
+
+        String endpoint = url.split("https://s3.amazonaws.com")[1];
+        Log.d("IMAGE_DISPLAY",endpoint);
+        final String uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
+        ImageView iv = (ImageView) view.findViewById(R.id.profile_avatar);
+        Picasso.with(view.getContext()).load(uri).transform(new CircleTransform()).into(iv);
+        Log.d("IMAGE_DISPLAY",url);
+
+
+
+
     }
     @Override
     protected void onResume() {

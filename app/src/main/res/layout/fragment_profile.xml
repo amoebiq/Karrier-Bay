@@ -42,7 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Nirmal"
+                        android:text="Shuhail"
                         android:textColor="@color/textColorWhite"
                         android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                         android:layout_below="@+id/name_header"
                         android:layout_centerInParent="true"
                         android:layout_margin="@dimen/edit_text_gap"
-                        android:text="nirmal6060@gmail.com"
+                        android:text="shukad33@gmail.com"
                         android:textColor="@color/textColorWhite"
                         android:inputType="none"/>
 
@@ -149,16 +149,40 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/aadhar_upload_rl"
+                    android:layout_margin="@dimen/edit_text_gap"
+                    android:layout_below="@+id/email_details">
+
+
+                    <TextView
+                        android:id="@+id/aadhar_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:text="@string/prompt_aadhar"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/attachment"/>
+
+                </RelativeLayout>
+
                 <Button
-                    android:id="@+id/contact_button"
+                    android:id="@+id/profile_save_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/email_details"
+                    android:layout_below="@id/aadhar_upload_rl"
+
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/button_gap"
                     android:background="@drawable/button_outline"
-                    android:onClick="@{handler::ProfileOnClick}"
                     android:text="@string/action_save"
                     android:textColor="@color/textColorWhite"
                     android:textSize="@dimen/font_size_hint"

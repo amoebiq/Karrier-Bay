@@ -65,6 +65,14 @@ public class SessionManager {
 
         editor.putString(KEY_PHONE, phone);
 
+
+
+        editor.commit();
+    }
+
+    public void put(String key , String val) {
+
+        editor.putString(key,val);
         editor.commit();
     }
 
