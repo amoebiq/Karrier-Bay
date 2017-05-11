@@ -45,7 +45,8 @@ public class MyAdapter extends RecyclerView.Adapter<CustomViewHolder>     {
 
         ViewDataBinding viewDataBinding = customViewHolder.getViewDataBinding();
         Picasso.with(viewDataBinding.getRoot().getContext())
-                .load("http://i.imgur.com/DvpvklR.png")
+                //.load("http://i.imgur.com/DvpvklR.png")
+                .load(orderList.get(i).getUser().getImage())
 //                .placeholder(R.drawable.user_placeholder)
                 .error(R.drawable.myimage).transform(new CircleTransform())
                 .into(customViewHolder.imageView);
