@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#c4362c</color>
+    <color name="colorPrimaryTransparent">#00c4362c</color>
     <color name="colorPrimaryDark">#c4362c</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textHintColor">#969696</color>
@@ -10,4 +11,5 @@
     <color name="editTextSelected">#c8c8c8</color>
     <color name="editTextNotSelected">#969696</color>
     <color name="buttonBackground">#c4362c</color>
+    <color name="greyColor">#A9A9A9</color>
 </resources>

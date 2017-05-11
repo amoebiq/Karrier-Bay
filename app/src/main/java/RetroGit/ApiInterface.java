@@ -57,8 +57,8 @@ public interface ApiInterface {
     Call<QuoteResponse> getQuote(@Body QuoteRequest quoteRequest);
 
     @Multipart
-    @POST("orchestrator/image")
-    Call<ImageUploadResponse> uploadFile(@Part MultipartBody.Part file, @Part("file") RequestBody name);
+    @PUT("orchestrator/image")
+    Call<ImageUploadResponse> uploadFile(@Part MultipartBody.Part file, @Part("name")String name);
 
 
     @PUT("orchestrator/order/{orderId}/accept")

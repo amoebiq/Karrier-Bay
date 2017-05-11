@@ -2,7 +2,7 @@
     <string name="app_name">Karrier Bay</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_phonenumber">PHONE NUMBER</string>
+    <string name="prompt_phonenumber">PHONE</string>
     <string name="prompt_password">PASSWORD</string>
     <string name="prompt_confirm_password">CONFIRM PASSWORD</string>
     <string name="action_sign_in">SIGN IN</string>
@@ -11,7 +11,7 @@
     <string name="prompt_mobile_phonenumber">MOBILE NUMBER</string>
     <string name="prompt_otp">OTP</string>
     <string name="title">EMAIL</string>
-    <string name="prompt_email">EMAIL ADDRESS</string>
+    <string name="prompt_email">EMAIL</string>
     <string name="prompt_aadhar">AADHAR DOC</string>
     <string name="action_forgot_password">Forgot Password</string>
     <string name="prompt_account">Do not have an account? </string>
@@ -64,7 +64,7 @@
     <string name="dimension">DIMENSIONS</string>
     <string name="flatename">FLAT NAME</string>
     <string name="action_loaction">Enter your location</string>
-    <string name="tv_phone_number">Phone Number</string>
+    <string name="tv_phone_number">PHONE</string>
     <string name="total_price">Total Price</string>
     <string name="trip_details">Trip Detail</string>
     <string name="item_details">Item Details</string>
@@ -76,5 +76,6 @@
     <string name="picked">Picked</string>
     <string name="intransit">Intransit</string>
     <string name="delivered">Delivered</string>
+
 
 </resources>
