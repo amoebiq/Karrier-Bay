@@ -17,16 +17,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.yourapp.developer.karrierbay.R;
-
+import com.yourapp.developer.karrierbay.dummy.DummyContent;
 
 import java.util.List;
 
-import Adapter.MyAdapter;
+import Adapter.CarrierAdapter;
 import Adapter.SenderAdapter;
+import Model.CarrierSchedules;
 import Model.SenderOrder;
 import RetroGit.ApiClient;
 import RetroGit.ApiInterface;
@@ -38,12 +38,11 @@ import retrofit2.Response;
  * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link SenderListActivityDetailActivity} representing
+ * lead to a {@link CarrierDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class SenderListActivityListActivity extends AppCompatActivity {
-
+public class CarrierListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -51,53 +50,36 @@ public class SenderListActivityListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
-    SenderAdapter senderAdapter;
-    List<SenderOrder> senderOrderList;
+    CarrierAdapter carrierAdapter;
+    List<CarrierSchedules> carrierSchedulesList;
     RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_senderlistactivity_list);
+        setContentView(R.layout.activity_carrier_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarsender);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarcarrier);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDERS</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIERS</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Log.d("SENDER_LIST","Setting title....");
 
-        loadSenderList();
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        View recyclerView = findViewById(R.id.senderlistactivity_list);
+        View recyclerView = findViewById(R.id.carrier_list);
         assert recyclerView != null;
-        //setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.senderlistactivity_detail_container) != null) {
+
+        if (findViewById(R.id.carrier_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-    }
 
-
-
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this , MainActivity.class);
-        startActivity(intent);
+        loadSenderList();
     }
 
 
@@ -106,40 +88,43 @@ public class SenderListActivityListActivity extends AppCompatActivity {
         initViews();
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setIndeterminate(true);
-        pd.setMessage("Loading Senders...");
+        pd.setMessage("Loading Carriers...");
         pd.show();
 
-        Call<List<SenderOrder>> call;
+        Call<List<CarrierSchedules>> call;
 
         ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
 
 
-        call = apiInterface.getAllSenderCarrierList("sender", "orders","all");
+        call = apiInterface.getAllCarrierList("carrier", "schedules","all");
 
-        call.enqueue(new Callback<List<SenderOrder>>() {
+        call.enqueue(new Callback<List<CarrierSchedules>>() {
             @Override
-            public void onResponse(Call<List<SenderOrder>> call, Response<List<SenderOrder>> response) {
+            public void onResponse(Call<List<CarrierSchedules>> call, Response<List<CarrierSchedules>> response) {
 
+                Log.d("CARRIER_LIST",response.code()+"");
                 if (response.code() == 200 && response.body() != null) {
                     pd.dismiss();
-                    List<SenderOrder> list = response.body();
+                    List<CarrierSchedules> list = response.body();
                     System.out.println("here getting response for senders");
                     Log.d("LoginResponse", response.message());
-                   senderAdapter = new SenderAdapter(list);
-                    recyclerView.setAdapter(senderAdapter);
+                    carrierAdapter = new CarrierAdapter(list);
+                    recyclerView.setAdapter(carrierAdapter);
 //                    mRecyclerView.setAdapter(mAdapter);
 
 
 
 
                 } else {
-  //                  Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
+                    //                  Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<SenderOrder>> call, Throwable t) {
-    //            Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<List<CarrierSchedules>> call, Throwable t) {
+                pd.dismiss();
+                Log.d("CARRIER_LIST",t.getLocalizedMessage()+"");
+                //            Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -149,8 +134,8 @@ public class SenderListActivityListActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         //recyclerView.setHasFixedSize(true);
-      //  RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-       recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        //  RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
     }

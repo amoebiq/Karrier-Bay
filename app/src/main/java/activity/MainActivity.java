@@ -230,13 +230,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if(id==R.id.carrier_list) {
 
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("isCarrierFlow", true);
-            bundle.putBoolean("isSenderFlow", false);
+//            Bundle bundle = new Bundle();
+//            bundle.putBoolean("isCarrierFlow", true);
+//            bundle.putBoolean("isSenderFlow", false);
+//
+//            CarrierListFragment clf = new CarrierListFragment();
+//            clf.setArguments(bundle);
+//            fragment(clf,"CarrierListFragment");
 
-            CarrierListFragment clf = new CarrierListFragment();
-            clf.setArguments(bundle);
-            fragment(clf,"CarrierListFragment");
+            Intent intent = new Intent(this,CarrierListActivity.class);
+            startActivity(intent);
 
         }
 

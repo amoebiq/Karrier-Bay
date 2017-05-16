@@ -3,6 +3,7 @@ package RetroGit;
 import java.util.List;
 
 import Model.AcceptResponse;
+import Model.CarrierSchedules;
 import Model.ImageUploadResponse;
 import Model.LoginRequest;
 import Model.LoginResponse;
@@ -48,6 +49,9 @@ public interface ApiInterface {
 
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
     Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
+
+    @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
+    Call<List<CarrierSchedules>> getAllCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
 
 
     @GET("{flowtype}/{flowtypeParam}")

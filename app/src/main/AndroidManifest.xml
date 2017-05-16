@@ -49,6 +49,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activity.SenderListActivityListActivity" />
         </activity>
+        <activity
+            android:name="activity.CarrierListActivity"
+            android:label="@string/title_carrier_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="activity.CarrierDetailActivity"
+            android:label="@string/title_carrier_detail"
+            android:parentActivityName="activity.CarrierListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yourapp.developer.karrierbay.activity.CarrierListActivity" />
+        </activity>
     </application>
 
 </manifest>
