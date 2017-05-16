@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Observable;
 
 /**
@@ -22,6 +24,7 @@ public class CarrierSchedules extends Observable {
     private String from_geo_long;
     private String to_geo_long;
     private User user;
+    @SerializedName("carrier_schedule_detail")
     private CarrierScheduleDetail carrierScheduleDetail;
 
     public String getId() {

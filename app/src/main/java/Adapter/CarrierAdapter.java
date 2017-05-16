@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import Utilities.CircleTransform;
 import Utilities.HeaderViewHolder;
 import Utilities.SenderViewHolder;
 import activity.CarrierDetailActivity;
+import activity.CarrierDetailFragment;
 import activity.SenderListActivityDetailActivity;
 import activity.SenderListActivityDetailFragment;
 
@@ -109,7 +112,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         Context context = view.getContext();
                         Intent intent = new Intent(context, CarrierDetailActivity.class);
                         intent.putExtra(SenderListActivityDetailFragment.ARG_ITEM_ID, "1");
-                        //getDetails(intent,senderOrderList.get(position));
+                        getDetails(intent,carrierSchedules.get(position));
                         context.startActivity(intent);
 
                     }
@@ -132,6 +135,28 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return carrierSchedules.size();
     }
 
+
+    public Intent getDetails(Intent intent , CarrierSchedules schedules) {
+
+
+        Log.d("CARRIERS_EXTRA_INENT",schedules.getUser().getImage());
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.SSSZ'");
+
+
+
+        intent.putExtra(CarrierDetailFragment.USER_NAME, schedules.getUser().getName());
+        intent.putExtra(CarrierDetailFragment.ADDRESS,schedules.getUser().getAddress());
+        intent.putExtra(CarrierDetailFragment.IMAGE,schedules.getUser().getImage());
+        intent.putExtra(CarrierDetailFragment.FROM_ADDRESS,schedules.getFrom_loc());
+        intent.putExtra(CarrierDetailFragment.TO_ADDRESS,schedules.getTo_loc());
+
+        intent.putExtra(CarrierDetailFragment.DATE_FROM,schedules.getCarrierScheduleDetail().getStart_time());
+        intent.putExtra(CarrierDetailFragment.DATE_TO,schedules.getCarrierScheduleDetail().getEnd_time());
+        intent.putExtra(CarrierDetailFragment.CATEGORY,schedules.getCarrierScheduleDetail().getReady_to_carry());
+
+        return intent;
+    }
 
 
 }

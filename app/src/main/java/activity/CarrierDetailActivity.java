@@ -51,6 +51,16 @@ public class CarrierDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(CarrierDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(CarrierDetailFragment.ARG_ITEM_ID));
+            arguments.putString(CarrierDetailFragment.USER_NAME,getIntent().getStringExtra(CarrierDetailFragment.USER_NAME));
+            arguments.putString(CarrierDetailFragment.ADDRESS,getIntent().getStringExtra(CarrierDetailFragment.ADDRESS));
+            arguments.putString(CarrierDetailFragment.IMAGE,getIntent().getStringExtra(CarrierDetailFragment.IMAGE));
+            arguments.putString(CarrierDetailFragment.FROM_ADDRESS,getIntent().getStringExtra(CarrierDetailFragment.FROM_ADDRESS));
+            arguments.putString(CarrierDetailFragment.TO_ADDRESS,getIntent().getStringExtra(CarrierDetailFragment.TO_ADDRESS));
+
+            arguments.putString(CarrierDetailFragment.CATEGORY,getIntent().getStringExtra(CarrierDetailFragment.CATEGORY));
+            arguments.putString(CarrierDetailFragment.DATE_FROM,getIntent().getStringExtra(CarrierDetailFragment.DATE_FROM));
+            arguments.putString(CarrierDetailFragment.DATE_TO,getIntent().getStringExtra(CarrierDetailFragment.DATE_TO));
+
             CarrierDetailFragment fragment = new CarrierDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
