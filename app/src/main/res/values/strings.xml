@@ -76,6 +76,8 @@
     <string name="picked">Picked</string>
     <string name="intransit">Intransit</string>
     <string name="delivered">Delivered</string>
+    <string name="title_senderlistactivity_list">Items</string>
+    <string name="title_senderlistactivity_detail">SenderListActivity Detail</string>
 
 
 </resources>

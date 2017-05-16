@@ -8,12 +8,14 @@ import android.widget.EditText;
 import com.google.gson.annotations.SerializedName;
 import com.yourapp.developer.karrierbay.BR;
 
+import java.io.Serializable;
+
 
 /**
  * Created by shuhail on 11/2/17.
  */
 
-public class SenderOrder extends BaseObservable {
+public class SenderOrder extends BaseObservable implements Serializable{
     private User user;
     private String toDate;
     private String fromDate;

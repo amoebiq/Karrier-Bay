@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if(id==R.id.sender_list) {
-            this.sender = new SenderOrder();
+//            this.sender = new SenderOrder();
 
           //  Bundle bundle = new Bundle();
 //            bundle.putBoolean("isSenderFlow", true);
@@ -253,8 +253,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            clf.setArguments(bundle);
 //            fragment(slf,"SenderListFragment");
 
-            Log.d("Firing sender","Sender List");
-            fragment(new SenderListFragment(),"SenderListFragement");
+           // Log.d("Firing sender","Sender List");
+          //  fragment(new SenderListFragment(),"SenderListFragement");
+
+            Intent intent = new Intent(this,SenderListActivityListActivity.class);
+            startActivity(intent);
         }
         if (id == R.id.nav_contact_us) {
             fragment(new ContactFragment(), "ContactFragment");
