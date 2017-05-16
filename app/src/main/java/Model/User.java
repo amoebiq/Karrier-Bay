@@ -36,7 +36,17 @@ public class User  extends BaseObservable{
 
         private String provider;
 
-        public String getUid ()
+        private String address;
+
+        public String getAddress() {
+        return address;
+        }
+
+        public void setAddress(String address) {
+        this.address = address;
+        }
+
+    public String getUid ()
         {
             return uid;
         }

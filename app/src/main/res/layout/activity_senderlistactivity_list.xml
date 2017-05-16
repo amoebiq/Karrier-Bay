@@ -9,8 +9,6 @@
 
 
 
-
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -25,6 +23,13 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/sender_header_list_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6 Senders Found" />
 
 
     <!--<android.support.design.widget.FloatingActionButton-->
@@ -47,9 +52,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="578dp"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:background="@color/greyColor"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

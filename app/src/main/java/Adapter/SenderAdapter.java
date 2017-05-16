@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import Model.SenderOrder;
 import Utilities.CircleTransform;
+import Utilities.HeaderViewHolder;
 import Utilities.SenderViewHolder;
 import activity.SenderListActivityDetailActivity;
 import activity.SenderListActivityDetailFragment;
@@ -25,60 +27,103 @@ import activity.SenderListActivityDetailFragment;
  * Created by skadavath on 5/15/17.
  */
 
-    public class SenderAdapter extends RecyclerView.Adapter<SenderViewHolder> {
+    public class SenderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<SenderOrder> senderOrderList;
 
     private View mView;
+
+    private static final int TYPE_HEADER = 0;
+
+    private static final int TYPE_CELL = 1;
 
     public SenderAdapter(List<SenderOrder> list) {
 
         this.senderOrderList = list;
 
     }
-    @Override
-    public SenderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.senderlistactivity_list_content,parent,false);
-        return new SenderViewHolder(view);
+    @Override
+    public int getItemViewType(int position) {
+        return (position==0) ? 0 : 1;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        Log.d("ON_CREATE",""+viewType);
+        View view;
+        switch (viewType) {
+
+            case (TYPE_HEADER):
+                Log.d("SENDER_LIST","Type Header");
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_header_text_view, parent, false);
+                return new HeaderViewHolder(view);
+
+            case (TYPE_CELL):
+                Log.d("SENDER_LIST","Type Cell");
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.senderlistactivity_list_content, parent, false);
+                return new SenderViewHolder(view);
+
+        }
+
+        return null;
 
     }
 
     @Override
-    public void onBindViewHolder(SenderViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
 
        // holder.sender_from_loc.setText(senderOrderList.get(position).getFrom_loc());
 
+        Log.d("ON_CREATE",""+position);
 
-        holder.sender_name.setText(senderOrderList.get(position).getUser().getName());
-        holder.sender_from_val.setText(senderOrderList.get(position).getFrom_loc());
-        holder.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
+        switch(getItemViewType(position)) {
 
-        Picasso.with(holder.mView.getContext())
+            case TYPE_CELL:
+            SenderViewHolder sVH = (SenderViewHolder)holder;
+                sVH.sender_name.setText(senderOrderList.get(position).getUser().getName());
+                sVH.sender_from_val.setText(senderOrderList.get(position).getFrom_loc());
+                sVH.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
+                sVH.sender_address.setText(senderOrderList.get(position).getUser().getAddress());
 
-                .load(senderOrderList.get(position).getUser().getImage())
-                .placeholder(R.drawable.carrier)
-                .error(R.drawable.myimage).transform(new CircleTransform())
-                .into(holder.sender_image);
+            Picasso.with(sVH.mView.getContext())
+
+                    .load(senderOrderList.get(position).getUser().getImage())
+                    .placeholder(R.drawable.carrier)
+                    .error(R.drawable.myimage).transform(new CircleTransform())
+                    .into(sVH.sender_image);
 
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                sVH.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Context context = view.getContext();
-                Intent intent = new Intent(context, SenderListActivityDetailActivity.class);
-                intent.putExtra(SenderListActivityDetailFragment.ARG_ITEM_ID, "1");
-                 context.startActivity(intent);
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, SenderListActivityDetailActivity.class);
+                    intent.putExtra(SenderListActivityDetailFragment.ARG_ITEM_ID, "1");
+                    context.startActivity(intent);
 
-            }
-        });
+                }
+            });
 
+                break;
+
+            case TYPE_HEADER:
+                HeaderViewHolder hVH = (HeaderViewHolder)holder;
+                hVH.custom_header.setText(senderOrderList.size()+" SENDERS FOUND");
+                break;
+
+        }
     }
 
     @Override
     public int getItemCount() {
+
+        Log.d("GET_ITEM_COUNT","GET_ITEM_COUNT::: "+senderOrderList.size());
         return senderOrderList.size();
     }
+
+
 }
