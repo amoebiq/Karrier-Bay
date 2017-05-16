@@ -77,7 +77,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         sender = ((MainActivity) getActivity()).sender;
         quoteRequest = ((MainActivity) getActivity()).quoteRequest;
 
-        sender_order_item_attributes = sender.getSender_order_item_attributes();
+        //sender_order_item_attributes = sender.getSender_order_item_attributes();
         senderitem = sender_order_item_attributes[0];
         binding.setSenderitem(senderitem);
         item = sender_order_item_attributes[0].getItem_attributes();
@@ -136,12 +136,12 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
                 if (sender.isSender) {
                     if (sender.getSpinWantToSendIdx() == 0) {
-                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
-                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
-                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
-                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
-                    } else {
-                        quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
+//                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
+//                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
+//                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
+//                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
+                        } else {
+                       // quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
                     }
 
                     if (isPageValidationSuccess()) {
@@ -162,7 +162,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
                                     sender.getPickupOrderMapping().setAddress_line_2(sender.getFrom_loc());
                                     sender.getReceiverOrderMapping().setAddress_line_2(sender.getTo_loc());
-                                    sender.getSender_order_item_attributes()[0].getItem_attributes().setTotal_distance_charge(quoteResponse.quote.getTotal_distance_charge());
+                                   // sender.getSender_order_item_attributes()[0].getItem_attributes().setTotal_distance_charge(quoteResponse.quote.getTotal_distance_charge());
                                     // set the custom dialog components - text, image and button
                                     TextView text = (TextView) dialog.findViewById(R.id.textView2);
                                     text.setText("The appropriate charge for your courier is RS." + quoteResponse.quote.getTotal_distance_charge() + " The prices may be vary according to the exact " +
@@ -271,7 +271,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String selectedValue = adapterView.getSelectedItem().toString();
 
-        SenderOrderItemAttributes[] sender_order_item_attributes = sender.getSender_order_item_attributes();
+        SenderOrderItemAttributes[] sender_order_item_attributes = null;//sender.getSender_order_item_attributes();
         ItemAttributes item_attributes = sender_order_item_attributes[0].getItem_attributes();
 
 

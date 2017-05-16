@@ -39,7 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         ViewDataBinding viewDataBinding = customViewHolder.getViewDataBinding();
         viewDataBinding.setVariable(BR.sender, historyList.get(i));
         //I think this is for Sender
-        historyItemAttributes = historyList.get(i).getSender_order_item_attributes();
+        //historyItemAttributes = historyList.get(i).getSender_order_item_attributes();
        //I think this is for currier
         historyItemAttributes = historyList.get(i).getSender_order_item();
           for(int j=0; j<historyItemAttributes.length ; j++)

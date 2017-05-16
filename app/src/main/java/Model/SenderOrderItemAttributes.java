@@ -63,6 +63,10 @@ public class SenderOrderItemAttributes extends BaseObservable {
 
     private String id;
 
+
+
+
+
     public String getTotal_amount() {
         return total_amount;
     }

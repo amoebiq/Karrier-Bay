@@ -2,6 +2,7 @@ package Model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -9,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import com.yourapp.developer.karrierbay.BR;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -27,6 +29,23 @@ public class SenderOrder extends BaseObservable implements Serializable{
     public boolean isSender;
     private String status;
     //For currier list
+
+    @SerializedName("sender_order_item")
+    private ArrayList<SenderOrderItemAttributes> order_items;
+
+    public String getSenderItemInfo() {
+        return senderItemInfo;
+    }
+
+    public ArrayList<SenderOrderItemAttributes> getOrder_items() {
+        return order_items;
+    }
+
+    public void setOrder_items(ArrayList<SenderOrderItemAttributes> order_items) {
+        this.order_items = order_items;
+    }
+
+    @SerializedName("sender_order_item123")
     private SenderOrderItemAttributes[] sender_order_item;
     private String id;
     private String order_id;
@@ -91,24 +110,24 @@ public class SenderOrder extends BaseObservable implements Serializable{
         return fromTime;
     }
 
-    public String getSenderItemInfo() {
-        if (isSender) {
-            if (getSender_order_item_attributes()[0].getItem_type() != null && getSender_order_item_attributes()[0].getItem_type().equals(Constants.ARTICLE)) {
-                senderItemInfo = getSender_order_item_attributes()[0].getItem_attributes().getWeight() + " Kg";
-            } else {
-                senderItemInfo = getSender_order_item_attributes()[0].getQuantity() + " Persons";
-
-            }
-        } else {
-            if (getCarrierScheduleDetailAttributes().getMode() != null && getCarrierScheduleDetailAttributes().getMode().equals(Constants.ARTICLE)) {
-                senderItemInfo = getCarrierScheduleDetailAttributes().getCapacity() + " kg";
-            } else {
-                senderItemInfo = getCarrierScheduleDetailAttributes().getPassengercount() + " Persons";
-            }
-        }
-
-        return senderItemInfo;
-    }
+//    public String getSenderItemInfo() {
+//        if (isSender) {
+//            if (getSender_order_item_attributes()[0].getItem_type() != null && getSender_order_item_attributes()[0].getItem_type().equals(Constants.ARTICLE)) {
+//                senderItemInfo = getSender_order_item_attributes()[0].getItem_attributes().getWeight() + " Kg";
+//            } else {
+//                senderItemInfo = getSender_order_item_attributes()[0].getQuantity() + " Persons";
+//
+//            }
+//        } else {
+//            if (getCarrierScheduleDetailAttributes().getMode() != null && getCarrierScheduleDetailAttributes().getMode().equals(Constants.ARTICLE)) {
+//                senderItemInfo = getCarrierScheduleDetailAttributes().getCapacity() + " kg";
+//            } else {
+//                senderItemInfo = getCarrierScheduleDetailAttributes().getPassengercount() + " Persons";
+//            }
+//        }
+//
+//        return senderItemInfo;
+//    }
 
     public void setSenderItemInfo(String senderItemInfo) {
         this.senderItemInfo = senderItemInfo;
@@ -268,6 +287,7 @@ public class SenderOrder extends BaseObservable implements Serializable{
     @SerializedName("pickup_order_mapping")
     private PickupOrderMapping pickupOrderMapping;
 
+    @SerializedName("sender_order_item3456")
     private SenderOrderItemAttributes[] sender_order_item_attributes;
     @SerializedName("receiver_order_mapping")
     private ReceiverOrderMapping receiverOrderMapping;
@@ -304,7 +324,11 @@ public class SenderOrder extends BaseObservable implements Serializable{
 
 
     public SenderOrderItemAttributes[] getSender_order_item_attributes() {
+
+
+
         if (sender_order_item_attributes == null || sender_order_item_attributes.length == 0) {
+
             sender_order_item_attributes = new SenderOrderItemAttributes[1];
             sender_order_item_attributes[0] = new SenderOrderItemAttributes();
         }

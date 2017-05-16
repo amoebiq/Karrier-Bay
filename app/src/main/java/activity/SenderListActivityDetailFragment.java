@@ -8,13 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.dummy.DummyContent;
 
 import Model.SenderOrder;
+import Utilities.CircleTransform;
 
 /**
  * A fragment representing a single SenderListActivity detail screen.
@@ -28,7 +31,17 @@ public class SenderListActivityDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-
+    public static final String USER_NAME = "name";
+    public static final String ADDRESS = "address";
+    public static final String IMAGE = "image_url";
+    public static final String FROM_ADDRESS = "from_address";
+    public static final String TO_ADDRESS = "to_address";
+    public static final String CATEGORY = "category";
+    public static final String SUB_CATEGORY = "sub_category";
+    public static final String ITEM_WEIGHT = "item_weight";
+    public static final String ITEM_VALUE = "item_value";
+    public static final String RATE = "rate";
+    //public static final String IMAGE = "image_url";
     /**
      * The dummy content this fragment is presenting.
      */
@@ -44,18 +57,15 @@ public class SenderListActivityDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        Log.d("SENDER_DETAIL","OnCreate");
+        if (getArguments().containsKey(USER_NAME)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(USER_NAME));
 
             Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
+
         }
     }
 
@@ -64,10 +74,28 @@ public class SenderListActivityDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.senderlistactivity_detail, container, false);
 
+        Log.d("SENDER_DETAIL","OnViewCreated");
+
         // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.senderlistactivity_detail)).setText(mItem.details);
-        }
+
+        String image_url = getArguments().getString(IMAGE);
+        ImageView iv = (ImageView) rootView.findViewById(R.id.sender_detail_image);
+        Picasso.with(rootView.getContext())
+
+                .load(image_url)
+                .placeholder(R.drawable.carrier)
+                .error(R.drawable.myimage).transform(new CircleTransform())
+                .into(iv);
+
+
+        ((TextView) rootView.findViewById(R.id.sender_detail_name)).setText(getArguments().getString(USER_NAME));
+        ((TextView) rootView.findViewById(R.id.sender_detail_address)).setText(getArguments().getString(ADDRESS));
+        ((TextView) rootView.findViewById(R.id.sender_detail_from)).setText(getArguments().getString(FROM_ADDRESS));
+        ((TextView) rootView.findViewById(R.id.sender_detail_to)).setText(getArguments().getString(TO_ADDRESS));
+        ((TextView) rootView.findViewById(R.id.sender_detail_item_rate)).setText(getArguments().getString(RATE));
+        ((TextView) rootView.findViewById(R.id.sender_detail_category)).setText(getArguments().getString(CATEGORY));
+        ((TextView) rootView.findViewById(R.id.sender_detail_sub_category)).setText(getArguments().getString(SUB_CATEGORY));
+
 
         return rootView;
     }

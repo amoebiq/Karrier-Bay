@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -24,23 +25,22 @@ public class SenderListActivityDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senderlistactivity_detail);
+
+        // Show the Up button in the action bar.
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        // Show the Up button in the action bar.
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(Html.fromHtml("<font color='#ffffff'>SENDER DETAILS</font>"));
+
         }
+
+
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -58,6 +58,14 @@ public class SenderListActivityDetailActivity extends AppCompatActivity {
             arguments.putString(SenderListActivityDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(SenderListActivityDetailFragment.ARG_ITEM_ID));
 
+            arguments.putString(SenderListActivityDetailFragment.USER_NAME,getIntent().getStringExtra(SenderListActivityDetailFragment.USER_NAME));
+            arguments.putString(SenderListActivityDetailFragment.ADDRESS,getIntent().getStringExtra(SenderListActivityDetailFragment.ADDRESS));
+            arguments.putString(SenderListActivityDetailFragment.IMAGE,getIntent().getStringExtra(SenderListActivityDetailFragment.IMAGE));
+            arguments.putString(SenderListActivityDetailFragment.FROM_ADDRESS,getIntent().getStringExtra(SenderListActivityDetailFragment.FROM_ADDRESS));
+            arguments.putString(SenderListActivityDetailFragment.TO_ADDRESS,getIntent().getStringExtra(SenderListActivityDetailFragment.TO_ADDRESS));
+            arguments.putString(SenderListActivityDetailFragment.RATE,getIntent().getStringExtra(SenderListActivityDetailFragment.RATE));
+            arguments.putString(SenderListActivityDetailFragment.CATEGORY,getIntent().getStringExtra(SenderListActivityDetailFragment.CATEGORY));
+            arguments.putString(SenderListActivityDetailFragment.SUB_CATEGORY,getIntent().getStringExtra(SenderListActivityDetailFragment.SUB_CATEGORY));
             SenderListActivityDetailFragment fragment = new SenderListActivityDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

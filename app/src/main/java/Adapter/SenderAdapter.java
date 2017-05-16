@@ -3,6 +3,7 @@ package Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,9 +15,12 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.SenderOrder;
+import Model.SenderOrderItemAttributes;
+import Model.SenderOrderResponse;
 import Utilities.CircleTransform;
 import Utilities.HeaderViewHolder;
 import Utilities.SenderViewHolder;
@@ -72,7 +76,7 @@ import activity.SenderListActivityDetailFragment;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
 
        // holder.sender_from_loc.setText(senderOrderList.get(position).getFrom_loc());
@@ -87,6 +91,10 @@ import activity.SenderListActivityDetailFragment;
                 sVH.sender_from_val.setText(senderOrderList.get(position).getFrom_loc());
                 sVH.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
                 sVH.sender_address.setText(senderOrderList.get(position).getUser().getAddress());
+
+
+
+              //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
 
             Picasso.with(sVH.mView.getContext())
 
@@ -103,6 +111,7 @@ import activity.SenderListActivityDetailFragment;
                     Context context = view.getContext();
                     Intent intent = new Intent(context, SenderListActivityDetailActivity.class);
                     intent.putExtra(SenderListActivityDetailFragment.ARG_ITEM_ID, "1");
+                    getDetails(intent,senderOrderList.get(position));
                     context.startActivity(intent);
 
                 }
@@ -123,6 +132,27 @@ import activity.SenderListActivityDetailFragment;
 
         Log.d("GET_ITEM_COUNT","GET_ITEM_COUNT::: "+senderOrderList.size());
         return senderOrderList.size();
+    }
+
+
+    public Intent getDetails(Intent intent , SenderOrder order) {
+
+        ArrayList<SenderOrderItemAttributes> items = order.getOrder_items();
+        SenderOrderItemAttributes item = (SenderOrderItemAttributes)items.get(0);
+
+        Log.d("XXXXX",item.getItem_type());
+
+
+        intent.putExtra(SenderListActivityDetailFragment.USER_NAME, order.getUser().getName());
+        intent.putExtra(SenderListActivityDetailFragment.ADDRESS,order.getUser().getAddress());
+        intent.putExtra(SenderListActivityDetailFragment.IMAGE,order.getUser().getImage());
+        intent.putExtra(SenderListActivityDetailFragment.FROM_ADDRESS,order.getFrom_loc());
+        intent.putExtra(SenderListActivityDetailFragment.TO_ADDRESS,order.getTo_loc());
+        intent.putExtra(SenderListActivityDetailFragment.RATE,order.getTotal_amount());
+        intent.putExtra(SenderListActivityDetailFragment.SUB_CATEGORY,item.getItem_subtype());
+        intent.putExtra(SenderListActivityDetailFragment.CATEGORY,item.getItem_type());
+
+        return intent;
     }
 
 
