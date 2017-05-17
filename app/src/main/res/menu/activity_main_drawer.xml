@@ -14,7 +14,7 @@
 
         <item
             android:id="@+id/sender_list"
-            android:icon="@drawable/menu_settings"
+            android:icon="@drawable/menu_active_senders"
             android:title="Senders" />
         <item
             android:id="@+id/carrier_list"
