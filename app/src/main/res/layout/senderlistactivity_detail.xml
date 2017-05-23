@@ -231,7 +231,7 @@
 
 
     <Button
-        android:id="@+id/btn_sender_next"
+        android:id="@+id/sender_trip_accept"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

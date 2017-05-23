@@ -113,6 +113,7 @@ import activity.SenderListActivityDetailFragment;
                 @Override
                 public void onClick(View view) {
 
+                    Log.d("SENDER_LIST","TOT:::POS"+senderOrderList.size()+" "+position);
                     Context context = view.getContext();
                     Intent intent = new Intent(context, SenderListActivityDetailActivity.class);
                     intent.putExtra(SenderListActivityDetailFragment.ARG_ITEM_ID, "1");
@@ -143,9 +144,17 @@ import activity.SenderListActivityDetailFragment;
     public Intent getDetails(Intent intent , SenderOrder order) {
 
         ArrayList<SenderOrderItemAttributes> items = order.getOrder_items();
-        SenderOrderItemAttributes item = (SenderOrderItemAttributes)items.get(0);
 
-        Log.d("XXXXX",item.getItem_type());
+        SenderOrderItemAttributes item = null;
+        if(items==null || items.size()==0) {
+
+            item = new SenderOrderItemAttributes();
+
+        }
+        else
+            item = (SenderOrderItemAttributes)items.get(0);
+
+        //Log.d("XXXXX",item.getItem_type());
 
 
         intent.putExtra(SenderListActivityDetailFragment.USER_NAME, order.getUser().getName());

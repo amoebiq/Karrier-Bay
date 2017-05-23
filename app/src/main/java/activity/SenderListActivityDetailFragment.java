@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -18,6 +20,7 @@ import com.yourapp.developer.karrierbay.R;
 
 import Model.SenderOrder;
 import Utilities.CircleTransform;
+import Utilities.Utility;
 
 /**
  * A fragment representing a single SenderListActivity detail screen.
@@ -72,7 +75,7 @@ public class SenderListActivityDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.senderlistactivity_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.senderlistactivity_detail, container, false);
 
         Log.d("SENDER_DETAIL","OnViewCreated");
 
@@ -82,7 +85,7 @@ public class SenderListActivityDetailFragment extends Fragment {
         ImageView iv = (ImageView) rootView.findViewById(R.id.sender_detail_image);
         Picasso.with(rootView.getContext())
 
-                .load(image_url)
+                .load(Utility.getAwsUrl(image_url))
                 .placeholder(R.drawable.carrier)
                 .error(R.drawable.myimage).transform(new CircleTransform())
                 .into(iv);
@@ -96,6 +99,16 @@ public class SenderListActivityDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.sender_detail_category)).setText(getArguments().getString(CATEGORY));
         ((TextView) rootView.findViewById(R.id.sender_detail_sub_category)).setText(getArguments().getString(SUB_CATEGORY));
 
+        Button acceptButton = (Button) rootView.findViewById(R.id.sender_trip_accept);
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("DETAIL","CLICKED");
+                Toast.makeText(view.getContext(),"Clicked",Toast.LENGTH_SHORT);
+
+            }
+        });
 
         return rootView;
     }
