@@ -33,9 +33,9 @@ public class SenderOrder extends BaseObservable implements Serializable{
     @SerializedName("sender_order_item")
     private ArrayList<SenderOrderItemAttributes> order_items;
 
-    public String getSenderItemInfo() {
-        return senderItemInfo;
-    }
+//    public String getSenderItemInfo() {
+//        return senderItemInfo;
+//    }
 
     public ArrayList<SenderOrderItemAttributes> getOrder_items() {
         return order_items;
@@ -110,24 +110,24 @@ public class SenderOrder extends BaseObservable implements Serializable{
         return fromTime;
     }
 
-//    public String getSenderItemInfo() {
-//        if (isSender) {
-//            if (getSender_order_item_attributes()[0].getItem_type() != null && getSender_order_item_attributes()[0].getItem_type().equals(Constants.ARTICLE)) {
-//                senderItemInfo = getSender_order_item_attributes()[0].getItem_attributes().getWeight() + " Kg";
-//            } else {
-//                senderItemInfo = getSender_order_item_attributes()[0].getQuantity() + " Persons";
-//
-//            }
-//        } else {
-//            if (getCarrierScheduleDetailAttributes().getMode() != null && getCarrierScheduleDetailAttributes().getMode().equals(Constants.ARTICLE)) {
-//                senderItemInfo = getCarrierScheduleDetailAttributes().getCapacity() + " kg";
-//            } else {
-//                senderItemInfo = getCarrierScheduleDetailAttributes().getPassengercount() + " Persons";
-//            }
-//        }
-//
-//        return senderItemInfo;
-//    }
+    public String getSenderItemInfo() {
+        if (isSender) {
+            if (getSender_order_item_attributes()[0].getItem_type() != null && getSender_order_item_attributes()[0].getItem_type().equals(Constants.ARTICLE)) {
+                senderItemInfo = getSender_order_item_attributes()[0].getItem_attributes().getWeight() + " Kg";
+            } else {
+                senderItemInfo = getSender_order_item_attributes()[0].getQuantity() + " Persons";
+
+            }
+        } else {
+            if (getCarrierScheduleDetailAttributes().getMode() != null && getCarrierScheduleDetailAttributes().getMode().equals(Constants.ARTICLE)) {
+                senderItemInfo = getCarrierScheduleDetailAttributes().getCapacity() + " kg";
+            } else {
+                senderItemInfo = getCarrierScheduleDetailAttributes().getPassengercount() + " Persons";
+            }
+        }
+
+        return senderItemInfo;
+    }
 
     public void setSenderItemInfo(String senderItemInfo) {
         this.senderItemInfo = senderItemInfo;

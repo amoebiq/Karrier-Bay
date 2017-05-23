@@ -40,10 +40,15 @@ import Fragment.*;
 import Model.Constants;
 import Model.QuoteRequest;
 import Model.SenderOrder;
+import Model.User;
 import RetroGit.ApiClient;
 import RetroGit.ApiInterface;
 import Utilities.CircleTransform;
 import Utilities.SessionManager;
+import Utilities.Utility;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static Utilities.Utility.hideKeyboard;
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getAndUpdateUserDetails();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -122,31 +127,90 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 fragment(new ProfileFragment(), "ProfileFragment");
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
 
-        displayImage(hView ,"https://s3.amazonaws.com/ucarrytest/docs/72/IMG-20170509-WA0048_72.jpg");
+        Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS CHECKED");
+        String image = sessionManager.getvalStr("image");
+        if(image!=null) {
+
+            Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS NOT NULL");
+               displayImage(hView, image);
+
+        }
+        else {
+
+            Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS NULL");
+        }
 
         fragment(new HomeFragment(), "MainFragment");
+    }
+
+
+    public void getAndUpdateUserDetails() {
+
+        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
+//        pd.setMessage("Loading...");
+  //      pd.setIndeterminate(true);
+    //    pd.show();
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
+        Call<User> call = apiInterface.getUserDetails();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                if(response.code()==200) {
+
+                    Log.d("USER_GET_DETAILS","Got 200!");
+                    User user = response.body();
+                    if(user.getImage()!=null)
+                        sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
+                    if(user.getAadhar_link()!=null)
+                        sessionManager.put(SessionManager.KEY_AADHAR,user.getAadhar_link());
+
+                    sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
+
+                    HashMap<String,String> u = sessionManager.getUserDetails();
+                    Log.d("Verify","Verify User");
+                    if(u.get(SessionManager.KEY_IMAGE)!=null)
+                    Log.d("image",u.get("image"));
+                    if(u.get(SessionManager.KEY_AADHAR)!=null)
+                        Log.d("aadhar image",u.get(SessionManager.KEY_AADHAR));
+
+                  //  pd.dismiss();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+
+            }
+        });
+
+
     }
 
     public void displayImage(View view ,final String url) {
 
 
+        final ProgressDialog pd = new ProgressDialog(view.getContext());
+        pd.setIndeterminate(true);
+        pd.setMessage("Downloading Image...");
+        pd.show();
 
-
-        String endpoint = url.split("https://s3.amazonaws.com")[1];
-        Log.d("IMAGE_DISPLAY",endpoint);
-        final String uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
+        String uri = Utility.getAwsUrl(url);
         ImageView iv = (ImageView) view.findViewById(R.id.profile_avatar);
         Picasso.with(view.getContext()).load(uri).transform(new CircleTransform()).into(iv);
-        Log.d("IMAGE_DISPLAY",url);
+        Log.d("IMAGE_DISPLAY",uri);
 
-
-
+        pd.dismiss();
 
     }
     @Override
@@ -213,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

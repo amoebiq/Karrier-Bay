@@ -74,4 +74,7 @@ public interface ApiInterface {
     @GET("sender/orders}")
     Call<List<SenderOrder>> getMyBayHistory();
 
+    @GET("orchestrator/user/detail")
+    Call<User> getUserDetails();
+
 }

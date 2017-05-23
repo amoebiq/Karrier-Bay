@@ -39,6 +39,14 @@ public class SessionManager {
     // User Phone
     public static final String KEY_PHONE = "phone";
 
+    public static final String KEY_IMAGE = "image";
+
+    public static final String KEY_AADHAR = "aadhar_link";
+
+    public static final String KEY_VERIFIED = "verified";
+
+
+
     public static final String ACCESS_TOKEN = "Access-Token";
     public static final String CLIENT = "Client";
     // Constructor
@@ -76,6 +84,13 @@ public class SessionManager {
         editor.commit();
     }
 
+    public String getvalStr(String key) {
+
+        String val = sharedPreferences.getString(key,null);
+        return val;
+
+    }
+
     /**
      * Quick check for login
      * **/
@@ -95,6 +110,12 @@ public class SessionManager {
         user.put(KEY_ADDRESS, sharedPreferences.getString(KEY_ADDRESS, null));
         // return user
         user.put(KEY_PHONE, sharedPreferences.getString(KEY_PHONE, null));
+
+        user.put(KEY_IMAGE, sharedPreferences.getString(KEY_IMAGE, null));
+
+        user.put(KEY_AADHAR, sharedPreferences.getString(KEY_AADHAR, null));
+
+        user.put(KEY_VERIFIED , sharedPreferences.getString(KEY_VERIFIED,null));
 
         return user;
     }

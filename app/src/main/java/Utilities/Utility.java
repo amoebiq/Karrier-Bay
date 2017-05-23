@@ -1,6 +1,7 @@
 package Utilities;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -70,5 +71,20 @@ public class Utility {
         return calendar.get(Calendar.DATE) + " - " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + "-" +
                 calendar.get(Calendar.YEAR) + " , " + calendar.get(Calendar.HOUR) + " : " + calendar.get(Calendar.MINUTE) + " " + calendar.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
 
+    }
+
+    public static String getAwsUrl(String originalUri) {
+
+        String uri = null;
+        String endpoint = null;
+        if(originalUri.contains("https://s3.amazonaws.com")) {
+
+            endpoint = originalUri.split("https://s3.amazonaws.com")[1];
+            uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
+        }
+        else
+            uri = originalUri;
+        Log.d("IMAGE_DISPLAY",uri);
+        return uri;
     }
 }

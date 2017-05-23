@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -44,7 +45,9 @@ import Model.SenderOrder;
 import Model.SenderOrderItemAttributes;
 import Utilities.SessionManager;
 import Utilities.Utility;
+import activity.CarrierListActivity;
 import activity.MainActivity;
+import activity.SenderListActivityListActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,7 +80,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         sender = ((MainActivity) getActivity()).sender;
         quoteRequest = ((MainActivity) getActivity()).quoteRequest;
 
-        //sender_order_item_attributes = sender.getSender_order_item_attributes();
+        sender_order_item_attributes = sender.getSender_order_item_attributes();
         senderitem = sender_order_item_attributes[0];
         item = sender_order_item_attributes[0].getItem_attributes();
         binding.setSender(sender);
@@ -223,7 +226,21 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                     }
                     if (isPageValidationSuccess()) {
 
-                        ((MainActivity) getActivity()).fragment(new TripSummaryFragment(), Constants.TRIPSUMMARYFRAGMENT);
+                        //((MainActivity) getActivity()).fragment(new TripSummaryFragment(), Constants.TRIPSUMMARYFRAGMENT);
+
+                        if(sender.isSender) {
+                            Context ctx = getContext();
+                            Intent intent = new Intent(ctx, CarrierListActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+
+                            Context ctx = getContext();
+                            Intent intent = new Intent(ctx, SenderListActivityListActivity.class);
+                            startActivity(intent);
+
+                        }
+
 
                     } else {
                         Toast.makeText(getActivity(), "Please provide all fields value", Toast.LENGTH_LONG).show();
@@ -270,7 +287,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String selectedValue = adapterView.getSelectedItem().toString();
 
-        SenderOrderItemAttributes[] sender_order_item_attributes = null;//sender.getSender_order_item_attributes();
+        SenderOrderItemAttributes[] sender_order_item_attributes = sender.getSender_order_item_attributes();
         ItemAttributes item_attributes = sender_order_item_attributes[0].getItem_attributes();
 
 

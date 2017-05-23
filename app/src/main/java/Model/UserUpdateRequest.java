@@ -8,13 +8,24 @@ public class UserUpdateRequest {
 
     private String address;
     private String image;
+    private String aadhar_link;
 
-    public UserUpdateRequest(String address , String image) {
+    public UserUpdateRequest(String address , String image,String aadhar_link) {
 
         this.address = address;
         this.image = image;
+        this.aadhar_link = aadhar_link;
 
     }
+
+    public String getAadhar_link() {
+        return aadhar_link;
+    }
+
+    public void setAadhar_link(String aadhar_link) {
+        this.aadhar_link = aadhar_link;
+    }
+
     public String getAddress() {
         return address;
     }

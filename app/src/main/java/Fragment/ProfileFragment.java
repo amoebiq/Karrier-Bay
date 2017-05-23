@@ -71,6 +71,9 @@ public class ProfileFragment extends BaseFragment implements
     private static final int PERMISSION_REQUEST_CODE = 100;
     ViewGroup currView;
     private static final int PICK_IMAGE = 1;
+    private String attachmentType = "image";
+    private static final String attachmentTypeImage = "image";
+    private static final String attachmentTypeAadhar = "aadhar";
 
     @Nullable
     @Override
@@ -83,11 +86,19 @@ public class ProfileFragment extends BaseFragment implements
         binding.locationEdittext.setEnabled(false);
         binding.phoneNumberEdittext.setEnabled(false);
         binding.locationEdittext.setBackgroundColor(getResources().getColor(R.color.colorPrimaryTransparent));
-
+        binding.profilepic.setEnabled(false);
+        binding.aadharAttachment.setVisibility(currView.INVISIBLE);
+        binding.aadharAttachmentVerified.setVisibility(currView.INVISIBLE);
+        binding.pendingNotofication.setVisibility(currView.INVISIBLE);
         binding.profileSaveButton.setVisibility(container.INVISIBLE);
+
+        binding.aadharAttachment.setEnabled(false);
+
+
 
 
         return binding.getRoot();
+
     }
 
     @Override
@@ -96,10 +107,37 @@ public class ProfileFragment extends BaseFragment implements
         //setHasOptionsMenu(true);
         //MenuItem item = (MenuItem) view.findViewById(R.id.action_home);
         //item.setVisible(false);
+       // getAndUpdateUserDetails();
         sessionManager = new SessionManager(getActivity());
+        HashMap<String,String> u = sessionManager.getUserDetails();
+        Log.d("Verify","Verify Start User");
+        if(u.get(SessionManager.KEY_IMAGE)!=null)
+        Log.d("image",u.get(SessionManager.KEY_IMAGE));
+        if(u.get(SessionManager.KEY_AADHAR)!=null) {
+
+            Log.d("aadhar image", u.get(SessionManager.KEY_AADHAR));
+
+        }
         user = sessionManager.getUserDetails();
-        displayImage("https://s3.amazonaws.com/ucarrytest/docs/72/IMG-20170509-WA0048_72.jpg");
+        if(user.get("image")!=null)
+        displayImage(user.get("image"));
         Log.d("PROFILE_FRAGMENT","Phone set is ::: "+user.get(SessionManager.KEY_PHONE).toString());
+        if(user.get(SessionManager.KEY_VERIFIED)!=null) {
+            Log.d("AADHAR_VERIFY",user.get(SessionManager.KEY_VERIFIED));
+        }
+        if(user.get(SessionManager.KEY_VERIFIED)!=null && user.get(SessionManager.KEY_VERIFIED).equals("verified")) {
+
+           binding.aadharAttachmentVerified.setVisibility(currView.VISIBLE);
+        }
+        else if(user.get(SessionManager.KEY_AADHAR)!=null) {
+
+            binding.pendingNotofication.setVisibility(currView.VISIBLE);
+        }
+        else {
+
+            binding.aadharAttachment.setVisibility(currView.VISIBLE);
+
+        }
         binding.emailEdittext.setText(user.get(SessionManager.KEY_EMAIL));
         binding.phoneNumberEdittext.setText(user.get(SessionManager.KEY_PHONE));
         binding.locationEdittext.setText(user.get(SessionManager.KEY_ADDRESS));
@@ -122,16 +160,20 @@ public class ProfileFragment extends BaseFragment implements
             binding.locationEdittext.setText(user.get(SessionManager.KEY_ADDRESS));
         }
 
-        ImageButton ib = (ImageButton)view.findViewById(R.id.edit_profile);
+
+        ImageButton ib = (ImageButton)getView().findViewById(R.id.edit_profile);
         ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 binding.locationEdittext.setEnabled(true);
                 binding.profileSaveButton.setVisibility(currView.VISIBLE);
+                binding.profilepic.setEnabled(true);
+                binding.aadharAttachment.setEnabled(true);
 
             }
         });
+
         Button updateButton = (Button) view.findViewById(R.id.profile_save_button);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +186,8 @@ public class ProfileFragment extends BaseFragment implements
                 Log.d("PROFILE_UPDATE","Button Clicked");
 
                 ApiInterface apiInterface = ApiClient.getClientWithHeader(getContext()).create(ApiInterface.class);
-                Call<User> call = apiInterface.editUserDetails(new UserUpdateRequest(binding.locationEdittext.getText().toString(),null));
+                user = sessionManager.getUserDetails();
+                Call<User> call = apiInterface.editUserDetails(new UserUpdateRequest(binding.locationEdittext.getText().toString(),user.get(SessionManager.KEY_IMAGE),user.get(SessionManager.KEY_AADHAR)));
                 call.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -155,6 +198,8 @@ public class ProfileFragment extends BaseFragment implements
                             pd.dismiss();
                             binding.profileSaveButton.setVisibility(currView.INVISIBLE);
                             binding.locationEdittext.setEnabled(false);
+                            binding.profilepic.setClickable(false);
+                            binding.profilepic.setEnabled(false);
                             sessionManager.put(sessionManager.KEY_ADDRESS,binding.locationEdittext.getText().toString());
 
                         }
@@ -178,16 +223,78 @@ public class ProfileFragment extends BaseFragment implements
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Log.d("PROFILE","Clicked...");
-
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"),PICK_IMAGE);
+                attachmentType = attachmentTypeImage;
+                chooseImage();
                 return false;
+            }
+        });
+
+        ImageView iv_aadhar = (ImageView)view.findViewById(R.id.aadhar_attachment);
+        iv_aadhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                attachmentType=attachmentTypeAadhar;
+                chooseImage();
+
             }
         });
     }
 
+    public void chooseImage() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),PICK_IMAGE);
+
+    }
+    public void getAndUpdateUserDetails() {
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setMessage("Loading...");
+        pd.setIndeterminate(true);
+        pd.show();
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(getContext()).create(ApiInterface.class);
+        Call<User> call = apiInterface.getUserDetails();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                if(response.code()==200) {
+
+                    Log.d("USER_GET_DETAILS","Got 200!");
+                    User user = response.body();
+                    if(user.getImage()!=null)
+                        sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
+                    if(user.getAadhar_link()!=null)
+                        sessionManager.put(SessionManager.KEY_AADHAR,user.getAadhar_link());
+
+                    sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
+
+                    HashMap<String,String> u = sessionManager.getUserDetails();
+                    Log.d("Verify","Verify User");
+                    Log.d("image",u.get("image"));
+                    if(u.get(SessionManager.KEY_AADHAR)!=null)
+                    Log.d("aadhar image",u.get(SessionManager.KEY_AADHAR));
+
+                    pd.dismiss();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                if(pd.isShowing()) {
+                    pd.dismiss();
+                }
+
+            }
+        });
+
+
+    }
     private void callPlaceDetectionApi() throws SecurityException {
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
                 .getCurrentPlace(mGoogleApiClient, null);
@@ -239,8 +346,13 @@ public class ProfileFragment extends BaseFragment implements
         int it = item.getItemId();
         if(it==R.id.editIcon) {
 
+
             binding.locationEdittext.setEnabled(true);
             binding.profileSaveButton.setVisibility(currView.VISIBLE);
+            binding.profilepic.setEnabled(true);
+
+
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -250,21 +362,38 @@ public class ProfileFragment extends BaseFragment implements
 
     public void displayImage(final String url) {
 
+        Log.d("IMAGE_DISPLAY",url);
 
         final ProgressDialog pd = new ProgressDialog(currView.getContext());
         pd.setIndeterminate(true);
         pd.setMessage("Downloading Image...");
-        //pd.show();
+        pd.show();
 
+        String uri = null;
+        String endpoint = null;
+        if(url.contains("https://s3.amazonaws.com")) {
 
-        String endpoint = url.split("https://s3.amazonaws.com")[1];
-        Log.d("IMAGE_DISPLAY",endpoint);
-        final String uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
-        ImageView iv = (ImageView) currView.findViewById(R.id.profilepic);
+             endpoint = url.split("https://s3.amazonaws.com")[1];
+             uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
+        }
+        else
+            uri = url;
+        Log.d("IMAGE_DISPLAY",uri);
+        //final String uri = "https://s3-us-west-2.amazonaws.com/"+endpoint;
+
+        int id = 0;
+        if(attachmentType.equals(attachmentTypeImage)) {
+            id = R.id.profilepic;
+        }
+        else if(attachmentType.equals(attachmentTypeAadhar)) {
+            id = R.id.aadhar_attachment;
+        }
+        ImageView iv = (ImageView) currView.findViewById(id);
+        if(id==R.id.profilepic)
         Picasso.with(currView.getContext()).load(uri).transform(new CircleTransform()).into(iv);
-        Log.d("IMAGE_DISPLAY",url);
+        Log.d("IMAGE_DISPLAY",uri);
 
-       // pd.dismiss();
+        pd.dismiss();
 
 
     }
@@ -329,6 +458,11 @@ public class ProfileFragment extends BaseFragment implements
                 Log.d("UPLOAD","Successsss:::"+object.getUrl());
 
                 Toast.makeText(currView.getContext(),"Succesfully Uploaded",Toast.LENGTH_LONG).show();
+
+                if(attachmentType.equals(attachmentTypeImage))
+                    sessionManager.put(SessionManager.KEY_IMAGE,object.getUrl());
+                else if(attachmentType.equals(attachmentTypeAadhar))
+                    sessionManager.put(SessionManager.KEY_AADHAR,object.getUrl());
 
                 displayImage(object.getUrl());
                 //displayImageWithTN(object.getUrl());

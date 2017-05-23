@@ -2,6 +2,7 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import Utilities.CarrierViewHolder;
 import Utilities.CircleTransform;
 import Utilities.HeaderViewHolder;
 import Utilities.SenderViewHolder;
+import Utilities.Utility;
 import activity.CarrierDetailActivity;
 import activity.CarrierDetailFragment;
 import activity.SenderListActivityDetailActivity;
@@ -97,13 +99,23 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
 
-                Picasso.with(sVH.mView.getContext())
+                Log.d("IMAGE_CARRIER",carrierSchedules.get(position).getUser().getImage());
+//                Picasso.with(sVH.mView.getContext())
+//
+//                        .load(carrierSchedules.get(position).getUser().getImage())
+//                        .placeholder(R.drawable.carrier)
+//                        .error(R.drawable.myimage).transform(new CircleTransform())
+//                        .into(sVH.carrier_image);
 
-                        .load(carrierSchedules.get(position).getUser().getImage())
-                        .placeholder(R.drawable.carrier)
-                        .error(R.drawable.myimage).transform(new CircleTransform())
-                        .into(sVH.carrier_image);
 
+                Picasso.Builder picBuilder = new Picasso.Builder(sVH.mView.getContext());
+                picBuilder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
+                picBuilder.build().load(Utility.getAwsUrl(carrierSchedules.get(position).getUser().getImage())).placeholder(R.drawable.carrier).transform(new CircleTransform()).error(R.drawable.carrier).into(sVH.carrier_image);
 
                 sVH.mView.setOnClickListener(new View.OnClickListener() {
                     @Override

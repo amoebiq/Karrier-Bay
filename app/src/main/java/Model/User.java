@@ -38,7 +38,47 @@ public class User  extends BaseObservable{
 
         private String address;
 
-        public String getAddress() {
+        private String aadhar_link;
+
+        private String voterid_link;
+
+        private String dl_link;
+
+        private String verified;
+
+    public String getAadhar_link() {
+        return aadhar_link;
+    }
+
+    public void setAadhar_link(String aadhar_link) {
+        this.aadhar_link = aadhar_link;
+    }
+
+    public String getVoterid_link() {
+        return voterid_link;
+    }
+
+    public void setVoterid_link(String voterid_link) {
+        this.voterid_link = voterid_link;
+    }
+
+    public String getDl_link() {
+        return dl_link;
+    }
+
+    public void setDl_link(String dl_link) {
+        this.dl_link = dl_link;
+    }
+
+    public String getVerified() {
+        return verified;
+    }
+
+    public void setVerified(String verified) {
+        this.verified = verified;
+    }
+
+    public String getAddress() {
         return address;
         }
 

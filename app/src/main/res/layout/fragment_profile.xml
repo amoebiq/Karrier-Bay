@@ -31,9 +31,11 @@
 
                     <ImageView
                         android:id="@+id/profilepic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/common_google_signin_btn_text_dark" />
+                        android:layout_width="40dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="0.5"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/carrier" />
 
                     <TextView
                         android:id="@+id/name_header"
@@ -201,7 +203,23 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/attachment" />
+                        android:src="@drawable/attachment"
+                        android:id="@+id/aadhar_attachment"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/verified"
+                        android:id="@+id/aadhar_attachment_verified"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Verification Pending"
+                        android:textSize="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="right"
+                        android:id="@+id/pending_notofication"/>
 
                 </RelativeLayout>
 

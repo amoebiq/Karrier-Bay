@@ -3,6 +3,7 @@ package Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ import Model.SenderOrderResponse;
 import Utilities.CircleTransform;
 import Utilities.HeaderViewHolder;
 import Utilities.SenderViewHolder;
+import Utilities.Utility;
 import activity.SenderListActivityDetailActivity;
 import activity.SenderListActivityDetailFragment;
 
@@ -96,12 +98,15 @@ import activity.SenderListActivityDetailFragment;
 
               //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
 
-            Picasso.with(sVH.mView.getContext())
+                   Picasso.Builder picBuilder = new Picasso.Builder(sVH.mView.getContext());
+                picBuilder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        exception.printStackTrace();
+                    }
+                });
 
-                    .load(senderOrderList.get(position).getUser().getImage())
-                    .placeholder(R.drawable.carrier)
-                    .error(R.drawable.myimage).transform(new CircleTransform())
-                    .into(sVH.sender_image);
+                picBuilder.build().load(Utility.getAwsUrl(senderOrderList.get(position).getUser().getImage())).placeholder(R.drawable.carrier).transform(new CircleTransform()).error(R.drawable.carrier).into(sVH.sender_image);
 
 
                 sVH.mView.setOnClickListener(new View.OnClickListener() {
