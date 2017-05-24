@@ -5,7 +5,7 @@
 <data>
     <variable
         name="handler"
-        type="Fragment.ContactFragment.handler"></variable>
+        type="com.ucarry.developer.android.Fragment.ContactFragment.handler"></variable>
     <import type="android.view.View"/>
 </data>
     <RelativeLayout

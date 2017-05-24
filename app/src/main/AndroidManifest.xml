@@ -18,7 +18,7 @@
             android:value="AIzaSyAoO982LyvlPW4VQevHR-voXPRpoztlqlc" />
 
         <activity
-            android:name="activity.LoginActivity"
+            android:name="com.ucarry.developer.android.activity.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -28,35 +28,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="activity.SignUpActivity"
+            android:name="com.ucarry.developer.android.activity.SignUpActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="activity.MainActivity"
+            android:name="com.ucarry.developer.android.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="activity.SenderListActivityListActivity"
+            android:name="com.ucarry.developer.android.activity.SenderListActivityListActivity"
             android:label="@string/title_senderlistactivity_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="activity.SenderListActivityDetailActivity"
+            android:name="com.ucarry.developer.android.activity.SenderListActivityDetailActivity"
             android:label="@string/title_senderlistactivity_detail"
-            android:parentActivityName="activity.SenderListActivityListActivity"
+            android:parentActivityName="com.ucarry.developer.android.activity.SenderListActivityListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="activity.SenderListActivityListActivity" />
+                android:value="com.ucarry.developer.android.activity.SenderListActivityListActivity" />
         </activity>
         <activity
-            android:name="activity.CarrierListActivity"
+            android:name="com.ucarry.developer.android.activity.CarrierListActivity"
             android:label="@string/title_carrier_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="activity.CarrierDetailActivity"
+            android:name="com.ucarry.developer.android.activity.CarrierDetailActivity"
             android:label="@string/title_carrier_detail"
-            android:parentActivityName="activity.CarrierListActivity"
+            android:parentActivityName="com.ucarry.developer.android.activity.CarrierListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

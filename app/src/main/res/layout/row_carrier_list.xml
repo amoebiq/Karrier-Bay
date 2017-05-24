@@ -7,23 +7,23 @@
 
         <variable
             name="sender"
-            type="Model.SenderOrder" />
+            type="com.ucarry.developer.android.Model.SenderOrder" />
 
         <variable
             name="item"
-            type="Model.ItemAttributes" />
+            type="com.ucarry.developer.android.Model.ItemAttributes" />
 
         <variable
             name="senderitems"
-            type="Model.SenderOrderItemAttributes" />
+            type="com.ucarry.developer.android.Model.SenderOrderItemAttributes" />
 
         <variable
             name="user"
-            type="Model.User" />
+            type="com.ucarry.developer.android.Model.User" />
 
         <variable
             name="presenter"
-            type="Utilities.BindingUtils" />
+            type="com.ucarry.developer.android.Utilities.BindingUtils" />
 
     </data>
 

@@ -7,7 +7,7 @@
 
         <variable
             name="sender"
-            type="Model.SenderOrder" />
+            type="com.ucarry.developer.android.Model.SenderOrder" />
 
         <!--<variable-->
             <!--name="item"-->
@@ -19,15 +19,15 @@
 
         <variable
             name="user"
-            type="Model.User" />
+            type="com.ucarry.developer.android.Model.User" />
 
         <variable
             name="senderorderitem"
-            type="Model.SenderOrderItemAttributes" />
+            type="com.ucarry.developer.android.Model.SenderOrderItemAttributes" />
 
         <variable
             name="carrierattribute"
-            type="Model.CarrierScheduleDetailAttributes" />
+            type="com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes" />
 
         <import type="android.view.View" />
     </data>

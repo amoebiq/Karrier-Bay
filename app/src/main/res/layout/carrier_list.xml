@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="activity.CarrierListActivity"
+    tools:context="com.ucarry.developer.android.activity.CarrierListActivity"
     tools:listitem="@layout/carrier_list_content" />

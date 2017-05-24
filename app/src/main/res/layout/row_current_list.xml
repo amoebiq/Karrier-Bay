@@ -7,15 +7,15 @@
 
         <variable
             name="sender"
-            type="Model.SenderOrder" />
+            type="com.ucarry.developer.android.Model.SenderOrder" />
 
         <variable
             name="carrier"
-            type="Model.CarrierScheduleDetailAttributes" />
+            type="com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes" />
 
         <variable
             name="user"
-            type="Model.User" />
+            type="com.ucarry.developer.android.Model.User" />
     </data>
 
     <LinearLayout

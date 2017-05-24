@@ -9,7 +9,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="activity.SenderListActivityListActivity">
+    tools:context="com.ucarry.developer.android.activity.SenderListActivityListActivity">
 
     <!--
     This layout is a two-pane layout for the Items
