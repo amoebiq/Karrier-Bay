@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //String refreshToken = FirebaseInstanceId.getInstance().getToken();
+        //Log.d("TOKEN", "Refreshed token: " + refreshToken);
         getAndUpdateUserDetails();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -41,6 +41,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
     public SenderAdapter(List<SenderOrder> list) {
 
         this.senderOrderList = list;
+        this.senderOrderList.add(0,new SenderOrder());
 
     }
 
@@ -54,7 +55,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
 
         Log.d("ON_CREATE",""+viewType);
         View view;
-        switch (viewType) {
+        switch (getItemViewType(viewType)) {
 
             case (TYPE_HEADER):
                 Log.d("SENDER_LIST","Type Header");
@@ -89,7 +90,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
                 sVH.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
                 sVH.sender_address.setText(senderOrderList.get(position).getUser().getAddress());
 
-
+                Log.d("SENDER_LIST",senderOrderList.get(position).getFrom_loc()+" ::: "+senderOrderList.get(position).getId());
 
               //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
 
@@ -122,7 +123,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
 
             case TYPE_HEADER:
                 HeaderViewHolder hVH = (HeaderViewHolder)holder;
-                hVH.custom_header.setText(senderOrderList.size()+" SENDERS FOUND");
+                hVH.custom_header.setText(senderOrderList.size()-1+" SENDERS FOUND");
                 break;
 
         }

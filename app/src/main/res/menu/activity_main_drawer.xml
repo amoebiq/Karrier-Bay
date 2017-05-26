@@ -18,7 +18,7 @@
             android:title="Senders" />
         <item
             android:id="@+id/carrier_list"
-            android:icon="@drawable/menu_settings"
+            android:icon="@drawable/menu_active_carriers"
             android:title="Carriers" />
 
         <item

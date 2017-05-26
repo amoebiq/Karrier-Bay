@@ -42,6 +42,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public CarrierAdapter(List<CarrierSchedules> list) {
 
         this.carrierSchedules = list;
+        this.carrierSchedules.add(0,new CarrierSchedules());
 
     }
 
@@ -129,7 +130,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             case TYPE_HEADER:
                 HeaderViewHolder hVH = (HeaderViewHolder)holder;
-                hVH.custom_header.setText(carrierSchedules.size()+" CARRIERS FOUND");
+                hVH.custom_header.setText(carrierSchedules.size()-1+" CARRIERS FOUND");
                 break;
 
         }

@@ -9,5 +9,6 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context="com.ucarry.developer.android.activity.SenderListActivityListActivity"
     tools:listitem="@layout/senderlistactivity_list_content" />
