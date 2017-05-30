@@ -1,9 +1,11 @@
 package com.ucarry.developer.android.activity;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -57,6 +60,7 @@ import static com.ucarry.developer.android.Utilities.Utility.hideKeyboard;
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static String TAG = "MAINACTIVITY";
     private SessionManager sessionManager;
     private NavigationView navigationView;
     private String tag;
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public ApiInterface apiService;
     public SenderOrder sender = new SenderOrder();
     public QuoteRequest quoteRequest = new QuoteRequest();
+    private static int NOTIFICATION_ID = 1;
 
 
 
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createNotification();
         //String refreshToken = FirebaseInstanceId.getInstance().getToken();
         //Log.d("TOKEN", "Refreshed token: " + refreshToken);
         getAndUpdateUserDetails();
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
         nameHeader.setText(user.get(SessionManager.KEY_NAME));
 
+
 //        ImageView iv = (ImageView) findViewById(R.id.profilepic);
 //        iv.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -136,22 +143,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS CHECKED");
+        Log.d(TAG,"IMAGE IS CHECKED");
         String image = sessionManager.getvalStr("image");
         if(image!=null) {
 
-            Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS NOT NULL");
+            Log.d(TAG,"IMAGE IS NOT NULL");
                displayImage(hView, image);
 
         }
         else {
 
-            Log.d("IMAGE_DRAWER_DISPLAY","IMAGE IS NULL");
+            Log.d(TAG,"IMAGE IS NULL");
         }
 
         fragment(new HomeFragment(), "MainFragment");
     }
 
+
+    public void createNotification() {
+
+
+        Log.d("MAIN_ACTIVITY","CREATE NOTIFICATION");
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        int color = 0xff123456;
+        builder.setSmallIcon(R.mipmap.ic_kb_notify)
+                .setContentTitle("KarrierBay")
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentText("Enthello")
+                .setColor(color);
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(NOTIFICATION_ID,builder.build());
+
+    }
 
     public void getAndUpdateUserDetails() {
 
@@ -167,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if(response.code()==200) {
 
-                    Log.d("USER_GET_DETAILS","Got 200!");
+                    Log.d(TAG,"Got 200!");
                     User user = response.body();
                     if(user.getImage()!=null)
                         sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
@@ -177,11 +204,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
 
                     HashMap<String,String> u = sessionManager.getUserDetails();
-                    Log.d("Verify","Verify User");
+                    Log.d(TAG,"Verify User");
                     if(u.get(SessionManager.KEY_IMAGE)!=null)
-                    Log.d("image",u.get("image"));
+                    Log.d(TAG,u.get("image"));
                     if(u.get(SessionManager.KEY_AADHAR)!=null)
-                        Log.d("aadhar image",u.get(SessionManager.KEY_AADHAR));
+                        Log.d(TAG,u.get(SessionManager.KEY_AADHAR));
 
                   //  pd.dismiss();
 
@@ -210,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String uri = Utility.getAwsUrl(url);
         ImageView iv = (ImageView) view.findViewById(R.id.profile_avatar);
         Picasso.with(view.getContext()).load(uri).transform(new CircleTransform()).into(iv);
-        Log.d("IMAGE_DISPLAY",uri);
+        Log.d(TAG,uri);
 
         pd.dismiss();
 

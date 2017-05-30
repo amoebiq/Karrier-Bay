@@ -56,7 +56,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         Log.d("ON_CREATE",""+viewType);
         View view;
-        switch (viewType) {
+        switch (getItemViewType(viewType)) {
 
             case (TYPE_HEADER):
                 Log.d("CARRIER_LIST","Type Header");

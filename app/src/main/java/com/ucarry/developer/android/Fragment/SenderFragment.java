@@ -137,12 +137,12 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
                 if (sender.isSender) {
                     if (sender.getSpinWantToSendIdx() == 0) {
-//                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
-//                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
-//                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
-//                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
+                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
+                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
+                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
+                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
                         } else {
-                       // quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
+                        quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
                     }
 
                     if (isPageValidationSuccess()) {
