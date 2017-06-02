@@ -1,6 +1,7 @@
 package com.ucarry.developer.android.activity;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -77,12 +78,22 @@ public class CarrierDetailFragment extends Fragment {
 
         String image_url = getArguments().getString(IMAGE);
         ImageView iv = (ImageView) rootView.findViewById(R.id.carrier_detail_image);
-        Picasso.with(rootView.getContext())
+//        Picasso.with(rootView.getContext())
+//
+//                .load(image_url)
+//                .placeholder(R.drawable.carrier)
+//                .error(R.drawable.myimage).transform(new CircleTransform())
+//                .into(iv);
+//
 
-                .load(image_url)
-                .placeholder(R.drawable.carrier)
-                .error(R.drawable.myimage).transform(new CircleTransform())
-                .into(iv);
+        Picasso.Builder picBuilder = new Picasso.Builder(rootView.getContext());
+        picBuilder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        picBuilder.build().load(Utility.getAwsUrl(image_url)).placeholder(R.drawable.carrier).transform(new CircleTransform()).error(R.drawable.carrier).into(iv);
 
 
         ((TextView) rootView.findViewById(R.id.carrier_detail_name)).setText(getArguments().getString(USER_NAME));
