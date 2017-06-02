@@ -184,21 +184,21 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ivHrs"
+                    android:id="@+id/ivRate"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/card_time" />
+                    android:background="@drawable/card_rate" />
 
                 <TextView
-                    android:id="@+id/tvHrs"
+                    android:id="@+id/tvRate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_weight="50"
 
-
+                    android:text="600"
                     android:textColor="@color/textColorDark"
-                    android:textSize="15dp" />
+                    android:textSize="12dp" />
 
                 <ImageView
                     android:id="@+id/ivItem"
@@ -213,22 +213,22 @@
                     android:layout_marginLeft="6dp"
                     android:layout_weight="50"
 
-
+                    android:text="Documents"
                     android:textColor="@color/textColorDark"
-                    android:textSize="15dp" />
+                    android:textSize="12dp" />
 
-                <TextView
-                    android:id="@+id/tvnotify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/tv_notify_outline"
+                <!--<TextView-->
+                    <!--android:id="@+id/tvnotify"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:background="@drawable/tv_notify_outline"-->
 
-                    android:text="   NOTIFY   "
-                    android:textColor="@color/textColorHighlight"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    <!--android:text="   NOTIFY   "-->
+                    <!--android:textColor="@color/textColorHighlight"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:textStyle="bold" />-->
             </LinearLayout>
 
         </LinearLayout>
