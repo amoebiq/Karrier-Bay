@@ -195,10 +195,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_weight="50"
+                    android:text="12hours"
 
 
                     android:textColor="@color/textColorDark"
-                    android:textSize="15dp" />
+                    android:textSize="10dp" />
 
                 <ImageView
                     android:id="@+id/ivItem"
@@ -212,23 +213,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_weight="50"
-
+                    android:text="Articles"
 
                     android:textColor="@color/textColorDark"
-                    android:textSize="15dp" />
+                    android:textSize="10dp" />
 
-                <TextView
-                    android:id="@+id/tvnotify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/tv_notify_outline"
+                <!--<TextView-->
+                    <!--android:id="@+id/tvnotify"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:background="@drawable/tv_notify_outline"-->
 
-                    android:text="   NOTIFY   "
-                    android:textColor="@color/textColorHighlight"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    <!--android:text="   NOTIFY   "-->
+                    <!--android:textColor="@color/textColorHighlight"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:textStyle="bold" />-->
             </LinearLayout>
 
         </LinearLayout>

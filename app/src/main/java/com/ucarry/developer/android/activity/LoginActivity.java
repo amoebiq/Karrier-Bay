@@ -1,5 +1,6 @@
 package com.ucarry.developer.android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 
 import com.ucarry.developer.android.Model.LoginRequest;
@@ -61,10 +64,18 @@ public class LoginActivity extends BaseActivity {
             finish();
         }
 
-
         signIn.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
+
+                final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+                pd.setIndeterminate(true);
+                pd.setMessage(Constants.LOGIN_MESSAGE);
+                pd.show();
+
+
                 Boolean validate = Validation();
                 if (validate) {
                     Call<LoginResponse> call = apiService.getLogin(new LoginRequest(email.getText().toString(), password.getText().toString()));
@@ -72,6 +83,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
+                            pd.dismiss();
                             if (response.code() == 200) {
                                 Log.d(LOGIN_RESPONSE_TAG, response.body().getData().getEmail().toString());
                                 Log.d(LOGIN_RESPONSE_TAG, response.body().getData().getPhone().toString());
@@ -79,7 +91,7 @@ public class LoginActivity extends BaseActivity {
                                 sessionManager.createLoginSession(response.body().getData().getEmail().toString(),
                                         response.body().getData().getName().toString(), response.headers(), response.body().getData().getPhone().toString());
                                 sessionManager.put("image",response.body().getData().getImage());
-                                Toast.makeText(getApplicationContext(), response.body().getData().getEmail().toString(), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), response.body().getData().getEmail().toString(), Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
 
@@ -91,6 +103,9 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                            if(pd.isShowing())
+                                pd.dismiss();
 
                         }
                     });

@@ -32,6 +32,7 @@ import android.widget.TimePicker;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.Utilities.MyFirebaseInstanceIDService;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.Calendar;
@@ -79,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
+        startService(intent);
+
         //createNotification();
         //String refreshToken = FirebaseInstanceId.getInstance().getToken();
         //Log.d("TOKEN", "Refreshed token: " + refreshToken);
@@ -110,18 +115,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Karrier Bay</font>"));
 
+        View hView = navigationView.getHeaderView(0);
+        emailHeader = (TextView) hView.findViewById(R.id.email_header);
+        nameHeader = (TextView) hView.findViewById(R.id.name_header);
+        user = sessionManager.getUserDetails();
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                // Do whatever you want here
+
+                Log.d(TAG , "Drawer Closed:::"+user.get(SessionManager.KEY_NAME));
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                // Do whatever you want here
+
+                Log.d(TAG , "Drawer Opened:::"+user.get(SessionManager.KEY_NAME));
+                emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
+                nameHeader.setText(user.get(SessionManager.KEY_NAME));
+
+            }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
 
 
-        View hView = navigationView.getHeaderView(0);
 
-        emailHeader = (TextView) hView.findViewById(R.id.email_header);
-        nameHeader = (TextView) hView.findViewById(R.id.name_header);
-        user = sessionManager.getUserDetails();
+
+
         emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
         nameHeader.setText(user.get(SessionManager.KEY_NAME));
 
@@ -157,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(image!=null) {
 
             Log.d(TAG,"IMAGE IS NOT NULL");
-               displayImage(hView, image);
+              displayImage(hView, image);
 
         }
         else {
@@ -413,6 +439,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         }, year, month, day).show();
     }
+
+
 
     public void timeClick(View view) {
         final EditText et = (EditText) view;

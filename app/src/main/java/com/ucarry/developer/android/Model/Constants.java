@@ -12,5 +12,6 @@ public class Constants {
     public static String TRIPSUMMARYFRAGMENT="TripSummaryFragment";
     public static String DETAILSFRAGMENT="DetailsFragment";
     public static String LOADING_MESSAGE = "Loading...";
+    public static String LOGIN_MESSAGE = "Logging in...";
     public static String WAIT_MESSAGE = "Please Wait...";
 }

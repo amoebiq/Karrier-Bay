@@ -13,7 +13,9 @@ import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.ucarry.developer.android.Model.CarrierSchedules;
@@ -90,7 +92,32 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 sVH.carrier_from_val.setText(carrierSchedules.get(position).getFrom_loc());
                 sVH.carrier_to_val.setText(carrierSchedules.get(position).getTo_loc());
                 sVH.carrier_address.setText(carrierSchedules.get(position).getUser().getAddress());
+                sVH.items.setText(carrierSchedules.get(position).getCarrierScheduleDetail().getReady_to_carry());
 
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                Date date = new Date();
+                System.out.println(dateFormat.format(date));
+
+                try {
+                    Date d = dateFormat.parse(carrierSchedules.get(position).getCarrierScheduleDetail().getStart_time());
+                    long diff = d.getTime() - date.getTime();
+                    int diffDays = (int)diff/(24 * 60 * 60 * 1000);
+                    String diffFinal = "";
+                    if(diffDays>0)
+                        diffFinal = diffDays+" days";
+                    else if(diffDays==0){
+
+                        diffDays = (int)diff/(60 * 60 * 1000);
+                        diffFinal = diffDays+" hours";
+
+                    }
+
+                    sVH.noOfHours.setText(diffFinal);
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
 
                 //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
