@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -136,6 +137,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         hView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                Fragment frg = null;
+//                frg = getSupportFragmentManager().findFragmentByTag("ProfileFragment");
+//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                ft.detach(frg);
+//                ft.attach(frg);
+//                ft.commit();
+
 
                 fragment(new ProfileFragment(), "ProfileFragment");
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

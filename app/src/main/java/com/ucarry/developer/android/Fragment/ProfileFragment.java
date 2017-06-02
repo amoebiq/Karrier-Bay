@@ -141,6 +141,7 @@ public class ProfileFragment extends BaseFragment implements
         binding.emailEdittext.setText(user.get(SessionManager.KEY_EMAIL));
         binding.phoneNumberEdittext.setText(user.get(SessionManager.KEY_PHONE));
         binding.locationEdittext.setText(user.get(SessionManager.KEY_ADDRESS));
+        binding.nameHeader.setText(user.get(SessionManager.KEY_NAME));
         if (user.get(SessionManager.KEY_ADDRESS) == null) {
             // for getting current location
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -451,7 +452,7 @@ public class ProfileFragment extends BaseFragment implements
             public void onResponse(Call<ImageUploadResponse> call, Response<ImageUploadResponse> response) {
 
                 pd.dismiss();
-                Log.d("UPLOAD","Success:::"+response.code()+response.body().toString());
+                Log.d("UPLOAD","Success:::"+response.code());
 
                 ImageUploadResponse object = response.body();
 
