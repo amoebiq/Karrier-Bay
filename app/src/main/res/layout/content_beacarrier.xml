@@ -306,21 +306,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/carrier_litre_capacity"
+                    <!--<Spinner-->
+                        <!--android:id="@+id/carrier_litre_capacity"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+
+                    <!--</Spinner>-->
+
+                    <!--<Spinner-->
+                        <!--android:id="@+id/carrier_passenger_capacity"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+
+                    <!--</Spinner>-->
+
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </Spinner>
-
-                    <Spinner
-                        android:id="@+id/carrier_passenger_capacity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                    </Spinner>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/carrier_passenger_capacityET"/>
 
 
                 </LinearLayout>

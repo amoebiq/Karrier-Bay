@@ -64,6 +64,8 @@ public class CarrierSummaryView extends AppCompatActivity {
         TextView end = (TextView) findViewById(R.id.csummarytodate);
         end.setText(carrierSchedules.getCarrierScheduleDetailAttributes().getEnd_time());
 
+        TextView capacity = (TextView) findViewById(R.id.csummarycappacity);
+        capacity.setText(carrierSchedules.getCarrierScheduleDetailAttributes().getCapacity());
 
         Button proceed = (Button) findViewById(R.id.proceedbeacarrier);
         proceed.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +113,10 @@ public class CarrierSummaryView extends AppCompatActivity {
                     public void onFailure(Call<CarrierScheduleRequest> call, Throwable t) {
 
                         Log.d(TAG,t.getLocalizedMessage()+"");
+
+                        if(pd.isShowing()) {
+                            pd.dismiss();
+                        }
 
                         Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_LONG);
 

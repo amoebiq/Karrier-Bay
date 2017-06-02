@@ -57,6 +57,7 @@ public class BEACARRIER extends AppCompatActivity {
     private static String fromDataTime = null;
     private static String toDateData = null;
     private static String toDataTime = null;
+    private static boolean isPassenger = false;
     Fragment fragment ;
 
     @Override
@@ -69,16 +70,20 @@ public class BEACARRIER extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         carrierSchedules.setCarrierScheduleDetailAttributes(carrierScheduleDetailAttributes);
-        final Spinner litreSpinner = (Spinner) findViewById(R.id.carrier_litre_capacity);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.capacity,R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        litreSpinner.setAdapter(adapter);
 
-        final Spinner passengerSpinner = (Spinner)findViewById(R.id.carrier_passenger_capacity);
-        ArrayAdapter<CharSequence> adapterPassenger = ArrayAdapter.createFromResource(this,R.array.passengers,R.layout.support_simple_spinner_dropdown_item);
-        adapterPassenger.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        passengerSpinner.setAdapter(adapterPassenger);
-        passengerSpinner.setVisibility(View.GONE);
+        EditText et = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+        et.setVisibility(View.GONE);
+
+//        final Spinner litreSpinner = (Spinner) findViewById(R.id.carrier_litre_capacity);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.capacity,R.layout.support_simple_spinner_dropdown_item);
+//        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        litreSpinner.setAdapter(adapter);
+//
+//        final Spinner passengerSpinner = (Spinner)findViewById(R.id.carrier_passenger_capacity);
+//        ArrayAdapter<CharSequence> adapterPassenger = ArrayAdapter.createFromResource(this,R.array.passengers,R.layout.support_simple_spinner_dropdown_item);
+//        adapterPassenger.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        passengerSpinner.setAdapter(adapterPassenger);
+//        passengerSpinner.setVisibility(View.GONE);
         fromLocTextView = (TextView) findViewById(R.id.carrier_schedule_from_edittext);
         fromLocTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +145,7 @@ public class BEACARRIER extends AppCompatActivity {
 
 
         final CheckBox cbArticle = (CheckBox) findViewById(R.id.article_checkbox);
-        cbArticle.setChecked(true);
+        //cbArticle.setChecked(true);
         final CheckBox cbPassenger = (CheckBox) findViewById(R.id.passenger_checkbox);
 
         cbArticle.setOnClickListener(new View.OnClickListener() {
@@ -148,10 +153,15 @@ public class BEACARRIER extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(cbArticle.isChecked()) {
+                    isPassenger = false;
                     cbPassenger.setChecked(false);
-                    passengerSpinner.setVisibility(View.GONE);
-                    litreSpinner.setVisibility(View.VISIBLE);
+//                    passengerSpinner.setVisibility(View.GONE);
+//                    litreSpinner.setVisibility(View.VISIBLE);
                     carrierSchedules.getCarrierScheduleDetailAttributes().setReady_to_carry(ARTICLE);
+                    EditText et = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+                    et.setVisibility(View.VISIBLE);
+                    //et.append("");
+
                 }
 
             }
@@ -161,11 +171,16 @@ public class BEACARRIER extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(cbPassenger.isChecked()) {
+                    isPassenger = true;
                     cbArticle.setChecked(false);
-                    litreSpinner.setVisibility(View.GONE);
-
-                    passengerSpinner.setVisibility(View.VISIBLE);
+//                    litreSpinner.setVisibility(View.GONE);
+//
+//                    passengerSpinner.setVisibility(View.VISIBLE);
                     carrierSchedules.getCarrierScheduleDetailAttributes().setReady_to_carry(PASSENGER);
+                    EditText et = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+                    et.setVisibility(View.VISIBLE);
+                    //et.append("L");
+
                 }
             }
         });
@@ -186,7 +201,13 @@ public class BEACARRIER extends AppCompatActivity {
                 carrierSchedules.getCarrierScheduleDetailAttributes().setEnd_time(toDateData+" "+toDataTime);
 
                 Log.d(TAG,fromDataTime+":::"+fromDateData+":::"+toDateData+":::"+toDataTime);
+                EditText capacityET = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+                String capacity = capacityET.getText().toString();
+                if(!isPassenger) {
+                    capacity = capacity+"L";
+                }
 
+                carrierSchedules.getCarrierScheduleDetailAttributes().setCapacity(capacity);
                 intent.putExtra("CarrierSchedules",carrierSchedules);
                 startActivity(intent);
 

@@ -208,31 +208,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/detail_view_margin">
 
-
-                <TextView
-                    android:id="@+id/textView1111"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="DEPARTURE TO"
-                    android:textColor="@color/greyColor"
-                    android:layout_gravity="left"/>
-
-                <TextView
-                    android:id="@+id/csummarynoofseats"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="2"
-                    android:textColor="@color/textColorDark"
-                    android:gravity="right"/>
-            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
