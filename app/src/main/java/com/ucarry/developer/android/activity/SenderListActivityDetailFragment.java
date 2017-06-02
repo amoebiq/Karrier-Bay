@@ -1,6 +1,8 @@
 package com.ucarry.developer.android.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.Model.Constants;
 import com.yourapp.developer.karrierbay.R;
 
 
@@ -117,14 +120,23 @@ public class SenderListActivityDetailFragment extends Fragment {
 
                 Call<AcceptOrderResponse> call = apiInterface.acceptOrder(getArguments().getString(ORDER_ID));
 
+                final ProgressDialog pd = new ProgressDialog(getContext());
+                pd.setMessage(Constants.LOADING_MESSAGE);
+                pd.setIndeterminate(true);
+                pd.show();
+
                 call.enqueue(new Callback<AcceptOrderResponse>() {
                     @Override
                     public void onResponse(Call<AcceptOrderResponse> call, Response<AcceptOrderResponse> response) {
 
+                        pd.dismiss();
                         Log.d("ACCEPT_RESPONSE",""+response.code());
                         if(response.code()==200)
                             Log.d("ACCEPT_RESPONSE",""+response.code()+" accepted");
                         Toast.makeText(rootView.getContext(),"Accepted",Toast.LENGTH_LONG);
+
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
 
                     }
 
@@ -132,6 +144,8 @@ public class SenderListActivityDetailFragment extends Fragment {
                     public void onFailure(Call<AcceptOrderResponse> call, Throwable t) {
 
                         Log.d("ACCEPT_ERROR",t.getLocalizedMessage());
+                        if(pd.isShowing())
+                            pd.dismiss();
                     }
                 });
 
