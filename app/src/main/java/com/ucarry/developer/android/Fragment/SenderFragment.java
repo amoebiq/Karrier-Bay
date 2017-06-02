@@ -81,6 +81,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
         sender_order_item_attributes = sender.getSender_order_item_attributes();
         senderitem = sender_order_item_attributes[0];
+
         item = sender_order_item_attributes[0].getItem_attributes();
         binding.setSender(sender);
         binding.setItem(item);

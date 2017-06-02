@@ -1,6 +1,7 @@
 package com.ucarry.developer.android.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 
@@ -69,6 +71,17 @@ public class CarrierListActivity extends AppCompatActivity {
         }
 
         loadSenderList();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            navigateUpTo(new Intent(this, MainActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

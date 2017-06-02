@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 
@@ -82,6 +83,16 @@ public class SenderListActivityListActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            navigateUpTo(new Intent(this, MainActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

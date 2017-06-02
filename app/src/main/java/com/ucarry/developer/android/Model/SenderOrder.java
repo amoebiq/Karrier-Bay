@@ -56,7 +56,7 @@ public class SenderOrder extends BaseObservable implements Serializable{
         this.order_items = order_items;
     }
 
-    @SerializedName("sender_order_item123")
+    @SerializedName("sender_order_item_attributes123")
     private SenderOrderItemAttributes[] sender_order_item;
     private String id;
     @SerializedName("Something")
@@ -299,7 +299,7 @@ public class SenderOrder extends BaseObservable implements Serializable{
     @SerializedName("pickup_order_mapping")
     private PickupOrderMapping pickupOrderMapping;
 
-    @SerializedName("sender_order_item3456")
+    @SerializedName("sender_order_item_attributes")
     private SenderOrderItemAttributes[] sender_order_item_attributes;
     @SerializedName("receiver_order_mapping")
     private ReceiverOrderMapping receiverOrderMapping;

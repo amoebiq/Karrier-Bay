@@ -36,6 +36,7 @@ public class TripSummaryFragment extends Fragment {
 
 
     SenderOrder sender;
+    private static String TAG = "TRIP_SUMMARY_FRAGMENT";
 
     @Nullable
     @Override
@@ -84,6 +85,7 @@ public class TripSummaryFragment extends Fragment {
                 senderOrderRequest.setSenderOrder(sender);
               ((MainActivity) getActivity()).fragment(new CarrierListFragment(), Constants.LISTFRAGMENT);
                 if (sender.isSender) {
+                    Log.d(TAG,"CREATING SENDER ORDER REQUEST");
                     call = ((MainActivity) getActivity()).apiService.postSenderOrder("sender", "order", senderOrderRequest);
                     //  call = ((MainActivity) getActivity()).apiService.postSenderOrder("carrier", "schedule", senderOrderRequest);
 
