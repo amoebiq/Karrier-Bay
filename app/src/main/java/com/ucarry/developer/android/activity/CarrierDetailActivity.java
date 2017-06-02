@@ -54,7 +54,8 @@ public class CarrierDetailActivity extends AppCompatActivity {
             arguments.putString(CarrierDetailFragment.FROM_ADDRESS,getIntent().getStringExtra(CarrierDetailFragment.FROM_ADDRESS));
             arguments.putString(CarrierDetailFragment.TO_ADDRESS,getIntent().getStringExtra(CarrierDetailFragment.TO_ADDRESS));
 
-            arguments.putString(CarrierDetailFragment.CATEGORY,getIntent().getStringExtra(CarrierDetailFragment.CATEGORY));
+            arguments.putString(CarrierDetailFragment.READY_TO_CARRY,getIntent().getStringExtra(CarrierDetailFragment.READY_TO_CARRY));
+            arguments.putString(CarrierDetailFragment.CAPACITY,getIntent().getStringExtra(CarrierDetailFragment.CAPACITY));
             arguments.putString(CarrierDetailFragment.DATE_FROM,getIntent().getStringExtra(CarrierDetailFragment.DATE_FROM));
             arguments.putString(CarrierDetailFragment.DATE_TO,getIntent().getStringExtra(CarrierDetailFragment.DATE_TO));
 

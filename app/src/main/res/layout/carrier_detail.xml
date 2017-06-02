@@ -187,12 +187,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CATEGORY"
+                android:text="READY TO CARRY"
                 android:textColor="@color/greyColor"
                 android:layout_gravity="left"/>
 
             <TextView
-                android:id="@+id/carrier_detail_category"
+                android:id="@+id/carrier_detail_ready_to_carry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -213,12 +213,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SUB CATEGORY"
+                android:text="CAPACITY"
                 android:textColor="@color/greyColor"
                 android:layout_gravity="left"/>
 
             <TextView
-                android:id="@+id/carrier_detail_sub_category"
+                android:id="@+id/carrier_detail_capacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -227,59 +227,7 @@
                 android:gravity="right"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/detail_view_margin">
 
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ITEM WEIGHT"
-                android:textColor="@color/greyColor"
-                android:layout_gravity="left"/>
-
-            <TextView
-                android:id="@+id/carrier_detail_item_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Calicut"
-                android:textColor="@color/textColorDark"
-                android:gravity="right"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/detail_view_margin">
-
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RATE"
-                android:textColor="@color/greyColor"
-                android:layout_gravity="left"/>
-
-            <TextView
-                android:id="@+id/carrier_detail_item_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Calicut"
-                android:textColor="@color/textColorDark"
-                android:gravity="right"/>
-
-
-        </LinearLayout>
 
 
         <Button
@@ -290,7 +238,7 @@
             android:layout_marginBottom="27dp"
             android:layout_marginTop="@dimen/button_gap"
             android:background="@drawable/button_outline"
-            android:text="ACCEPT"
+            android:text="NOTIFY"
             android:textColor="@color/textColorWhite"
             android:textSize="@dimen/font_size_hint"
             android:textStyle="bold" />

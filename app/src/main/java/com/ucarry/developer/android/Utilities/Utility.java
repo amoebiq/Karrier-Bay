@@ -76,6 +76,8 @@ public class Utility {
 
     }
 
+
+
     public static String convertToProperDate(String dateTime) {
 
         if(dateTime==null)
@@ -92,6 +94,24 @@ public class Utility {
         }
 
             return df.format(d);
+    }
+
+    public static String convertToProperDateFromServer(String dateTime) {
+
+        if(dateTime==null)
+            return null;
+
+        Log.d(TAG , dateTime);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        Date d = null;
+        try {
+            d = df.parse(dateTime);
+            df = new SimpleDateFormat("yyyy-MMM-dd hh:mm");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return df.format(d);
     }
 
     public static String getAwsUrl(String originalUri) {

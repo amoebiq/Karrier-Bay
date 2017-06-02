@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.dummy.DummyContent;
 
@@ -36,6 +37,8 @@ public class CarrierDetailFragment extends Fragment {
     public static final String DATE_FROM = "from_date";
     public static final String ITEM_WEIGHT = "item_weight";
     public static final String DATE_TO = "to_date";
+    public static final String READY_TO_CARRY = "ready_to_carry";
+    public static final String CAPACITY = "capacity";
     public static final String STOP_OVERS = "stop_overs";
 
     /**
@@ -86,9 +89,10 @@ public class CarrierDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.carrier_detail_address)).setText(getArguments().getString(ADDRESS));
         ((TextView) rootView.findViewById(R.id.carrier_detail_from)).setText(getArguments().getString(FROM_ADDRESS));
         ((TextView) rootView.findViewById(R.id.carrier_detail_to)).setText(getArguments().getString(TO_ADDRESS));
-        ((TextView) rootView.findViewById(R.id.carrier_detail_from_date)).setText(getArguments().getString(DATE_FROM));
-        ((TextView) rootView.findViewById(R.id.carrier_detail_to_date)).setText(getArguments().getString(DATE_TO));
-        ((TextView) rootView.findViewById(R.id.carrier_detail_category)).setText(getArguments().getString(CATEGORY));
+        ((TextView) rootView.findViewById(R.id.carrier_detail_from_date)).setText(Utility.convertToProperDateFromServer(getArguments().getString(DATE_FROM)));
+        ((TextView) rootView.findViewById(R.id.carrier_detail_to_date)).setText(Utility.convertToProperDateFromServer(getArguments().getString(DATE_TO)));
+        ((TextView) rootView.findViewById(R.id.carrier_detail_ready_to_carry)).setText(getArguments().getString(READY_TO_CARRY));
+        ((TextView) rootView.findViewById(R.id.carrier_detail_capacity)).setText(getArguments().getString(CAPACITY));
 
         return rootView;
     }
