@@ -1,5 +1,6 @@
 package com.ucarry.developer.android.Fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.ucarry.developer.android.activity.CarrierListActivity;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.databinding.FragmentTripSummaryBinding;
 
@@ -83,7 +85,7 @@ public class TripSummaryFragment extends Fragment {
                 SenderOrderRequest senderOrderRequest = new SenderOrderRequest();
 
                 senderOrderRequest.setSenderOrder(sender);
-              ((MainActivity) getActivity()).fragment(new CarrierListFragment(), Constants.LISTFRAGMENT);
+             // ((MainActivity) getActivity()).fragment(new CarrierListFragment(), Constants.LISTFRAGMENT);
                 if (sender.isSender) {
                     Log.d(TAG,"CREATING SENDER ORDER REQUEST");
                     call = ((MainActivity) getActivity()).apiService.postSenderOrder("sender", "order", senderOrderRequest);
@@ -107,15 +109,19 @@ public class TripSummaryFragment extends Fragment {
                         if (response.code() == 201) {
                             Log.d("LoginResponse", response.message());
                             // Log.d("Error",response.body().getErrors().toString());
-                            ((MainActivity) getActivity()).fragment(new CarrierListFragment(), Constants.LISTFRAGMENT);
+                            //((MainActivity) getActivity()).fragment(new CarrierListFragment(), Constants.LISTFRAGMENT);
+                            Intent intent = new Intent(getActivity(), CarrierListActivity.class);
+                            startActivity(intent);
                         } else {
-                            Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
+                            Log.d("LoginResponseXXX", response.message());
+                            Toast.makeText(getActivity(), "Incorrect RequesZZZt", Toast.LENGTH_LONG).show();
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<SenderOrderResponse> call, Throwable t) {
+                        Log.d("ERROR",t.getLocalizedMessage()+"");
                         Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
 
                     }
