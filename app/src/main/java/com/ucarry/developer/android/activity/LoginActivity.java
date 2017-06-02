@@ -31,6 +31,8 @@ public class LoginActivity extends BaseActivity {
     private Button signIn;
     private EditText email, password;
     private SessionManager sessionManager;
+    private static String TAG = "LOGINACTIVITY";
+    private static String LOGIN_RESPONSE_TAG = "LOGIN_RESPONSE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,8 @@ public class LoginActivity extends BaseActivity {
                         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                             if (response.code() == 200) {
-                                Log.d("LoginResponse", response.body().getData().getEmail().toString());
-                                Log.d("LoginResponse", response.body().getData().getPhone().toString());
+                                Log.d(LOGIN_RESPONSE_TAG, response.body().getData().getEmail().toString());
+                                Log.d(LOGIN_RESPONSE_TAG, response.body().getData().getPhone().toString());
                                 // Log.d("Error",response.body().getErrors().toString());
                                 sessionManager.createLoginSession(response.body().getData().getEmail().toString(),
                                         response.body().getData().getName().toString(), response.headers(), response.body().getData().getPhone().toString());

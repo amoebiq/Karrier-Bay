@@ -10,6 +10,7 @@ import android.widget.EditText;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -18,6 +19,8 @@ import java.util.TimeZone;
  */
 
 public class Utility {
+
+    private static String TAG = "Utility";
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -71,6 +74,24 @@ public class Utility {
         return calendar.get(Calendar.DATE) + " - " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + "-" +
                 calendar.get(Calendar.YEAR) + " , " + calendar.get(Calendar.HOUR) + " : " + calendar.get(Calendar.MINUTE) + " " + calendar.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
 
+    }
+
+    public static String convertToProperDate(String dateTime) {
+
+        if(dateTime==null)
+            return null;
+
+        Log.d(TAG , dateTime);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date d = null;
+        try {
+            d = df.parse(dateTime);
+            df = new SimpleDateFormat("yyyy-MMM-dd hh:mm");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+            return df.format(d);
     }
 
     public static String getAwsUrl(String originalUri) {

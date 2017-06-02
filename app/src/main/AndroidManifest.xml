@@ -16,11 +16,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAoO982LyvlPW4VQevHR-voXPRpoztlqlc" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_kb_notify" />
-        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPrimary" />
 
         <activity
@@ -58,7 +58,7 @@
         <activity
             android:name="com.ucarry.developer.android.activity.CarrierListActivity"
             android:label="@string/title_carrier_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.CarrierDetailActivity"
             android:label="@string/title_carrier_detail"
@@ -68,19 +68,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yourapp.developer.karrierbay.activity.CarrierListActivity" />
         </activity>
-        <service
-            android:name="com.ucarry.developer.android.Utilities.MyFirebaseInstanceIDService">
+
+        <service android:name="com.ucarry.developer.android.Utilities.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.ucarry.developer.android.Utilities.FBMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name="com.ucarry.developer.android.Utilities.FBMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <activity
+            android:name="com.ucarry.developer.android.activity.BEACARRIER"
+            android:label="@string/title_activity_beacarrier"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.ucarry.developer.android.activity.CarrierSummaryView"
+            android:label="@string/title_activity_carrier_summary_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

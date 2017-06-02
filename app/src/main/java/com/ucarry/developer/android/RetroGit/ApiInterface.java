@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ucarry.developer.android.Model.AcceptOrderResponse;
 import com.ucarry.developer.android.Model.AcceptResponse;
+import com.ucarry.developer.android.Model.CarrierScheduleRequest;
 import com.ucarry.developer.android.Model.CarrierSchedules;
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.LoginRequest;
@@ -47,6 +48,9 @@ public interface ApiInterface {
 
     @POST("{flowtype}/{flowtypeParam}")
     Call<SenderOrderResponse> postSenderOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam, @Body SenderOrderRequest senderOrderRequest);
+
+    @POST("carrier/schedule")
+    Call<CarrierScheduleRequest > createSchedule(@Body CarrierScheduleRequest carrierScheduleRequest);
 
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
     Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);

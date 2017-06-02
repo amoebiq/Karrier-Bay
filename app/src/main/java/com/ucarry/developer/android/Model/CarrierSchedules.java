@@ -2,13 +2,14 @@ package com.ucarry.developer.android.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 /**
  * Created by skadavath on 5/16/17.
  */
 
-public class CarrierSchedules extends Observable {
+public class CarrierSchedules extends Observable implements Serializable{
 
     private String id;
     private String schedule_id;
@@ -24,8 +25,36 @@ public class CarrierSchedules extends Observable {
     private String from_geo_long;
     private String to_geo_long;
     private User user;
+    @SerializedName("carrier_schedule_detail_attributes")
+    private CarrierScheduleDetailAttributes carrierScheduleDetailAttributes;
+
     @SerializedName("carrier_schedule_detail")
     private CarrierScheduleDetail carrierScheduleDetail;
+
+    public CarrierScheduleDetailAttributes getCarrierScheduleDetailAttributes() {
+        return carrierScheduleDetailAttributes;
+    }
+
+    public void setCarrierScheduleDetailAttributes(CarrierScheduleDetailAttributes carrierScheduleDetailAttributes) {
+        this.carrierScheduleDetailAttributes = carrierScheduleDetailAttributes;
+    }
+
+    public CarrierSchedules() {
+
+    }
+
+    public CarrierSchedules(  String from_loc , String to_loc,String stop_overs,String from_geo_lat,String to_geo_lat, CarrierScheduleDetail carrierScheduleDetail) {
+
+        this.from_loc = from_loc;
+        this.to_loc = to_loc;
+        this.stop_overs = stop_overs;
+        this.from_geo_lat = from_geo_lat;
+        this.to_geo_lat = to_geo_lat;
+        this.carrierScheduleDetail = carrierScheduleDetail;
+
+
+
+    }
 
     public String getId() {
         return id;

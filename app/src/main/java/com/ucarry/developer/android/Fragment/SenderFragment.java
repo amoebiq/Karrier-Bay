@@ -104,6 +104,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         if (sender.isSender) {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDER TRIP SCHEDULE</font>"));
         } else {
+            Log.d("SENDER_FRAGMENT","SENDER FRAGMENT");
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIER TRIP SCHEDULE</font>"));
 
         }
@@ -137,12 +138,12 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
                 if (sender.isSender) {
                     if (sender.getSpinWantToSendIdx() == 0) {
-                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
-                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
-                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
-                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
-                        } else {
-                        quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
+//                        quoteRequest.setBreadth(sender.getSender_order_item_attributes()[0].getItem_attributes().getBreadth() + "");
+//                        quoteRequest.setHeight(sender.getSender_order_item_attributes()[0].getItem_attributes().getHeight() + "");
+//                        quoteRequest.setLength(sender.getSender_order_item_attributes()[0].getItem_attributes().getLength() + "");
+//                        quoteRequest.setItem_weight(sender.getSender_order_item_attributes()[0].getItem_attributes().getWeight() + "");
+                    } else {
+                        //quoteRequest.setItem_value(sender.getSender_order_item_attributes()[0].getQuantity());
                     }
 
                     if (isPageValidationSuccess()) {

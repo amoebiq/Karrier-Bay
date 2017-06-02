@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ucarry.developer.android.activity.BEACARRIER"
+    tools:showIn="@layout/activity_beacarrier">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scheduleform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <requestFocus/>
+                <TextView
+
+                    android:id="@+id/carrier_schedule_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/from"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size"
+
+                    />
+
+                <!--android:text="@{user.firstName}"-->
+                <EditText
+                    android:id="@+id/carrier_schedule_from_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="text"
+                    android:spinnerMode="dialog"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/deplabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDEBDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/deb_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/depCarrierDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:onClick="dateClick"
+                        android:text="@string/deb_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/depform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDEPDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/depCarrierTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/labelTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/to"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size" />
+
+
+                <EditText
+                    android:id="@+id/becarrier_to_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:spinnerMode="dialog"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/tolabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelToDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/arrCarrierDAte"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/toform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etToDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/arrCarrierTIme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ready To Carry"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ready_to_carry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+
+                <CheckBox
+                    android:id="@+id/article_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Articles"/>
+
+                <CheckBox
+                    android:id="@+id/passenger_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Passenger"
+                    android:layout_marginLeft="25dp"/>
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--<CheckBox-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Articles"/>-->
+                    <!--<CheckBox-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Passenger"/>-->
+                <!--</LinearLayout>-->
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Capacity"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/carrier_litre_capacity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                    </Spinner>
+
+                    <Spinner
+                        android:id="@+id/carrier_passenger_capacity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                    </Spinner>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/beacarrier_next"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="@string/next"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

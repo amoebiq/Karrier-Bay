@@ -1,7 +1,9 @@
 package com.ucarry.developer.android.Fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +34,7 @@ import com.ucarry.developer.android.RetroGit.ApiClient;
 import com.ucarry.developer.android.RetroGit.ApiInterface;
 import com.ucarry.developer.android.Utilities.Utility;
 import com.ucarry.developer.android.activity.MainActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -166,4 +169,14 @@ public class TripDetailsFragment extends Fragment {
         });
 
     }
+
+    /**
+     * A simple {@link Fragment} subclass.
+     * Activities that contain this fragment must implement the
+     * {@link OnFragmentInteractionListener} interface
+     * to handle interaction events.
+     * Use the {@link CarrierScheduleSummary#newInstance} factory method to
+     * create an instance of this fragment.
+     */
+
 }

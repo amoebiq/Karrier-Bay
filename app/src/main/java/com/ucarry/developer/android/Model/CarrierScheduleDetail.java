@@ -1,12 +1,13 @@
 package com.ucarry.developer.android.Model;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 /**
  * Created by skadavath on 5/16/17.
  */
 
-public class CarrierScheduleDetail extends Observable{
+public class CarrierScheduleDetail extends Observable implements Serializable{
 
     private String id;
     private String schedule_id;

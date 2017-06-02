@@ -4,11 +4,13 @@ import android.databinding.BaseObservable;
 
 import com.ucarry.developer.android.Utilities.Utility;
 
+import java.io.Serializable;
+
 /**
  * Created by vel on 16/2/17.
  */
 
-public class CarrierScheduleDetailAttributes extends BaseObservable {
+public class CarrierScheduleDetailAttributes extends BaseObservable implements Serializable{
     private String id;
 
     private String schedule_id;

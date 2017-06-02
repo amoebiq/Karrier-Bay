@@ -95,7 +95,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 //  Log.d("SENDER_DETAIL",senderOrderList.get(position).getSender_order_item_attributes()[0].getItem_type());
 
-                Log.d("IMAGE_CARRIER",carrierSchedules.get(position).getUser().getImage());
+//                Log.d("IMAGE_CARRIER",carrierSchedules.get(position).getUser().getImage());
 //                Picasso.with(sVH.mView.getContext())
 //
 //                        .load(carrierSchedules.get(position).getUser().getImage())

@@ -82,6 +82,11 @@
     <string name="title_detail_detail">Detail Detail</string>
     <string name="title_carrier_list">Items</string>
     <string name="title_carrier_detail">Carrier Detail</string>
+    <string name="title_activity_beacarrier">BEACARRIER</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_carrier_summary_view">CarrierSummaryView</string>
 
 
 </resources>
