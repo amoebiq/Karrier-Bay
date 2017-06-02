@@ -197,9 +197,9 @@
                     android:layout_weight="50"
                     android:text="12hours"
 
-
+                    android:textStyle="bold|italic"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10dp" />
+                    android:textSize="12dp" />
 
                 <ImageView
                     android:id="@+id/ivItem"
@@ -214,9 +214,9 @@
                     android:layout_marginLeft="6dp"
                     android:layout_weight="50"
                     android:text="Articles"
-
+                    android:textStyle="bold|italic"
                     android:textColor="@color/textColorDark"
-                    android:textSize="10dp" />
+                    android:textSize="12dp" />
 
                 <!--<TextView-->
                     <!--android:id="@+id/tvnotify"-->
