@@ -46,7 +46,8 @@ public class CarrierListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String from_loc_filter;
     String to_loc_filter;
-
+    String fromTime ;
+    String toTime ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class CarrierListActivity extends AppCompatActivity {
 
         from_loc_filter = getIntent().getStringExtra("FROM_LOC");
         to_loc_filter = getIntent().getStringExtra("TO_LOC");
+        fromTime = getIntent().getStringExtra("FROM_TIME");
+        toTime = getIntent().getStringExtra("TO_TIME");
 
         if(from_loc_filter!=null){
 
@@ -114,7 +117,16 @@ public class CarrierListActivity extends AppCompatActivity {
         if(to_loc_filter==null)
             to_loc_filter = "";
 
-        call = apiInterface.getAllCarrierList("carrier", "schedules","all",from_loc_filter,to_loc_filter);
+        if(fromTime==null)
+            fromTime = "";
+
+
+        if(toTime==null)
+            toTime = "";
+
+
+
+        call = apiInterface.getAllCarrierList("carrier", "schedules","all",from_loc_filter,to_loc_filter,fromTime,toTime);
 
         call.enqueue(new Callback<List<CarrierSchedules>>() {
             @Override
