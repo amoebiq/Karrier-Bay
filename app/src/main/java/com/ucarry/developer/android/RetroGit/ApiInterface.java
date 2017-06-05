@@ -6,6 +6,7 @@ import com.ucarry.developer.android.Model.AcceptOrderResponse;
 import com.ucarry.developer.android.Model.AcceptResponse;
 import com.ucarry.developer.android.Model.CarrierScheduleRequest;
 import com.ucarry.developer.android.Model.CarrierSchedules;
+import com.ucarry.developer.android.Model.FCMRequest;
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.LoginRequest;
 import com.ucarry.developer.android.Model.LoginResponse;
@@ -86,5 +87,8 @@ public interface ApiInterface {
 
     @PUT("orchestrator/order/{orderId}/accept")
     Call<AcceptOrderResponse> acceptOrder(@Path("orderId") String orderId);
+
+    @POST("auth/update_fcm")
+    Call<User> updateFCM(@Body FCMRequest fcmRequest);
 
 }

@@ -45,6 +45,8 @@ public class SessionManager {
 
     public static final String KEY_VERIFIED = "verified";
 
+    public static final String FCM_REG_ID = "reg_id";
+
 
 
     public static final String ACCESS_TOKEN = "Access-Token";

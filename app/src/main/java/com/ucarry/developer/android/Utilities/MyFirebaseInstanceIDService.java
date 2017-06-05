@@ -1,9 +1,18 @@
 package com.ucarry.developer.android.Utilities;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.ucarry.developer.android.Model.FCMRequest;
+import com.ucarry.developer.android.Model.User;
+import com.ucarry.developer.android.RetroGit.ApiClient;
+import com.ucarry.developer.android.RetroGit.ApiInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by skadavath on 5/24/17.
@@ -43,8 +52,43 @@ public class MyFirebaseInstanceIDService  extends FirebaseInstanceIdService{
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+
         Log.d(TAG,token);
+        Log.d("FCM","Updating token");
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.put(SessionManager.FCM_REG_ID,token);
+
+
+
     }
 
+
+    public static void updateFCMRegId(String token , Context ctx) {
+
+        Call<User> call ;
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(ctx).create(ApiInterface.class);
+        FCMRequest request = new FCMRequest();
+        request.setRegId(token);
+
+
+        call = apiInterface.updateFCM(request);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                Log.d(TAG,response.code()+"");
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                Log.d(TAG,t.getLocalizedMessage());
+
+            }
+        });
+    }
 
 }

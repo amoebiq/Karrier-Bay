@@ -151,6 +151,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
         nameHeader.setText(user.get(SessionManager.KEY_NAME));
 
+        String token = sessionManager.getvalStr(SessionManager.FCM_REG_ID);
+
+
+        if(token!=null) {
+
+            Log.d("FCM TOKEN:::", token);
+
+            MyFirebaseInstanceIDService.updateFCMRegId(token, getApplicationContext());
+
+        }
+
 
 //        ImageView iv = (ImageView) findViewById(R.id.profilepic);
 //        iv.setOnClickListener(new View.OnClickListener() {
