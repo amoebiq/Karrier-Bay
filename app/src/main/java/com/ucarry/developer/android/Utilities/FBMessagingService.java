@@ -43,12 +43,13 @@ public class FBMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_kb_notify)
-                .setContentTitle("Firebase Push Notification")
-                .setContentText(messageBody)
+                //.setContentTitle("Firebase Push Notification")
+                //.setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
-                .setColor(getResources().getColor(R.color.colorPrimaryDark));
+                .setColor(getResources().getColor(R.color.colorPrimaryDark))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody));
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

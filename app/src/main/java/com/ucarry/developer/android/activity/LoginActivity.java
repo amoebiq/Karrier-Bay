@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
@@ -91,6 +92,15 @@ public class LoginActivity extends BaseActivity {
                                 sessionManager.createLoginSession(response.body().getData().getEmail().toString(),
                                         response.body().getData().getName().toString(), response.headers(), response.body().getData().getPhone().toString());
                                 sessionManager.put("image",response.body().getData().getImage());
+
+                                String token = FirebaseInstanceId.getInstance().getToken();
+                                if(token!=null) {
+                                    Log.d("TOKENLOGIN", token);
+                                    SessionManager sessionManager = new SessionManager(getApplicationContext());
+                                    sessionManager.put(SessionManager.FCM_REG_ID,token);
+
+
+                                }
                                 //Toast.makeText(getApplicationContext(), response.body().getData().getEmail().toString(), Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
