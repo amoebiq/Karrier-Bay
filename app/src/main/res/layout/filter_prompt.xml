@@ -49,7 +49,8 @@
         android:id="@+id/depform"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
 
             <EditText
             android:id="@+id/from_date_filter"
@@ -81,7 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:layout_width="match_parent"
@@ -104,7 +106,8 @@
         android:id="@+id/toDateform"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/to_date_filter"
