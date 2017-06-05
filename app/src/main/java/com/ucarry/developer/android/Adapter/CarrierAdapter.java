@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.activity.CarrierListActivity;
 import com.yourapp.developer.karrierbay.R;
 
 import java.text.DateFormat;
@@ -163,18 +164,26 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 hVH.custom_header.setText(carrierSchedules.size()-1+" CARRIERS FOUND");
                 hVH.filter.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(final View view) {
 
                         Log.d("DIALOFUE","Clicked");
                         LayoutInflater li = LayoutInflater.from(view.getContext());
                         View prompt = li.inflate(R.layout.filter_prompt,null);
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
                         alertBuilder.setView(prompt);
+                        //alertBuilder.setTitle("FILTER");
                         final EditText from_loc_et = (EditText) prompt.findViewById(R.id.from_loc_filter);
+                        final EditText to_loc_et = (EditText) prompt.findViewById(R.id.to_loc_filter);
                         alertBuilder.setCancelable(false)
                                     .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            Log.d("DIALOFUE",from_loc_et.getText().toString());
+                                            Intent intent = new Intent(view.getContext() , CarrierListActivity.class);
+                                            intent.putExtra("FROM_LOC",from_loc_et.getText().toString());
+                                            intent.putExtra("TO_LOC",to_loc_et.getText().toString());
+                                            view.getContext().startActivity(intent);
 
                                         }
                                     })

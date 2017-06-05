@@ -44,6 +44,8 @@ public class CarrierListActivity extends AppCompatActivity {
     CarrierAdapter carrierAdapter;
     List<CarrierSchedules> carrierSchedulesList;
     RecyclerView recyclerView;
+    String from_loc_filter;
+    String to_loc_filter;
 
 
     @Override
@@ -56,6 +58,15 @@ public class CarrierListActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIERS</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        from_loc_filter = getIntent().getStringExtra("FROM_LOC");
+        to_loc_filter = getIntent().getStringExtra("TO_LOC");
+
+        if(from_loc_filter!=null){
+
+            Log.d("CARRIER_LIST_FROM",from_loc_filter);
+
+        }
 
 
         View recyclerView = findViewById(R.id.carrier_list);
@@ -97,8 +108,13 @@ public class CarrierListActivity extends AppCompatActivity {
 
         ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
 
+        if(from_loc_filter==null)
+            from_loc_filter = "";
 
-        call = apiInterface.getAllCarrierList("carrier", "schedules","all");
+        if(to_loc_filter==null)
+            to_loc_filter = "";
+
+        call = apiInterface.getAllCarrierList("carrier", "schedules","all",from_loc_filter,to_loc_filter);
 
         call.enqueue(new Callback<List<CarrierSchedules>>() {
             @Override

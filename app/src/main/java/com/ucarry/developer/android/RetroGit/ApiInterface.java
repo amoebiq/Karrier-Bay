@@ -57,7 +57,7 @@ public interface ApiInterface {
     Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2 , @Query("from_loc") String from_loc , @Query(("to_loc")) String to_loc);
 
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
-    Call<List<CarrierSchedules>> getAllCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
+    Call<List<CarrierSchedules>> getAllCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2, @Query("from_loc") String from_loc , @Query(("to_loc")) String to_loc);
 
 
     @GET("{flowtype}/{flowtypeParam}")
