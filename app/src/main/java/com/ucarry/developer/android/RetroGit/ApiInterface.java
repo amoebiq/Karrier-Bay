@@ -28,6 +28,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by narasinga_m on 8/26/2016.
@@ -53,14 +54,14 @@ public interface ApiInterface {
     Call<CarrierScheduleRequest > createSchedule(@Body CarrierScheduleRequest carrierScheduleRequest);
 
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
-    Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
+    Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2 , @Query("from_loc") String from_loc , @Query(("to_loc")) String to_loc);
 
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
     Call<List<CarrierSchedules>> getAllCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2);
 
 
     @GET("{flowtype}/{flowtypeParam}")
-    Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam);
+    Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam );
 
     @POST("orchestrator/quote")
     Call<QuoteResponse> getQuote(@Body QuoteRequest quoteRequest);

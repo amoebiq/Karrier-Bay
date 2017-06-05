@@ -1,13 +1,16 @@
 package com.ucarry.developer.android.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.squareup.picasso.Picasso;
 import com.yourapp.developer.karrierbay.R;
@@ -158,6 +161,35 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case TYPE_HEADER:
                 HeaderViewHolder hVH = (HeaderViewHolder)holder;
                 hVH.custom_header.setText(carrierSchedules.size()-1+" CARRIERS FOUND");
+                hVH.filter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Log.d("DIALOFUE","Clicked");
+                        LayoutInflater li = LayoutInflater.from(view.getContext());
+                        View prompt = li.inflate(R.layout.filter_prompt,null);
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
+                        alertBuilder.setView(prompt);
+                        final EditText from_loc_et = (EditText) prompt.findViewById(R.id.from_loc_filter);
+                        alertBuilder.setCancelable(false)
+                                    .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                        AlertDialog dialog = alertBuilder.create();
+                        dialog.show();
+
+                    }
+                });
                 break;
 
         }
