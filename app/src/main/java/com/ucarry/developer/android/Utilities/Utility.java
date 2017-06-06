@@ -116,6 +116,8 @@ public class Utility {
 
     public static String getAwsUrl(String originalUri) {
 
+        if(originalUri==null || originalUri.isEmpty())
+            return null;
         String uri = null;
         String endpoint = null;
         if(originalUri.contains("https://s3.amazonaws.com")) {

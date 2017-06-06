@@ -419,6 +419,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
             //Toast.makeText(getApplicationContext(), "User Login Status: " + sessionManager.checkLogin(), Toast.LENGTH_LONG).show();
         }
+
+        if(id == R.id.nav_settings) {
+
+            Intent intent = new Intent(this,Settings.class);
+            startActivity(intent);
+        }
         return false;
     }
 
