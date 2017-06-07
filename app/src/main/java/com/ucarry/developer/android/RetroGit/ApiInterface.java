@@ -65,6 +65,11 @@ public interface ApiInterface {
     @GET("{flowtype}/{flowtypeParam}")
     Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam );
 
+
+    @GET("{flowtype}/{flowtypeParam}")
+    Call<List<SenderOrder>> getSenderOrCarrierOrderForMyBay(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam  , @Query("status") String status);
+
+
     @POST("orchestrator/quote")
     Call<QuoteResponse> getQuote(@Body QuoteRequest quoteRequest);
 

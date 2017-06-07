@@ -17,7 +17,10 @@ import com.google.gson.Gson;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.databinding.FragmentCurrentBinding;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.ucarry.developer.android.Adapter.CurrentAdapter;
 import com.ucarry.developer.android.Model.SenderOrder;
@@ -34,6 +37,7 @@ public class CurrentFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<SenderOrder> historyLists;
+    private List<SenderOrder> historyLists1;
 
     @Nullable
     @Override
@@ -69,13 +73,53 @@ public class CurrentFragment extends Fragment {
                     Gson gson = new Gson();
 
                     Log.d("currentresult",  gson.toJson(historyLists).toString());
-                    mAdapter = new CurrentAdapter(historyLists);
-                    mRecyclerView.setHasFixedSize(true);
+//                    mAdapter = new CurrentAdapter(historyLists);
+//                    mRecyclerView.setHasFixedSize(true);
+//                    // use a linear layout manager
+//                    mLayoutManager = new LinearLayoutManager(getActivity());
+//                    mRecyclerView.setLayoutManager(mLayoutManager);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                   // Toast.makeText(getActivity(), "No problem"+ historyLists.get(0).getCarrier_schedule_detail().getMode(), Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Authentication problem", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SenderOrder>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        final List<SenderOrder> previousList = historyLists;
+        Call<List<SenderOrder>> call1 = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders");
+        call1.enqueue(new Callback<List<SenderOrder>>() {
+            @Override
+            public void onResponse(Call<List<SenderOrder>> call1, Response<List<SenderOrder>> response) {
+
+                if(200==response.code()) {
+                    pd.dismiss();
+                    historyLists1 = response.body();
+
+                    Log.d("SIZE:::",""+historyLists.size());
+                    List<SenderOrder> newList = new ArrayList<SenderOrder>(historyLists.size()+historyLists1.size());
+                    newList.addAll(historyLists);
+                    newList.addAll(historyLists1);
+
+                    Gson gson = new Gson();
+
+                    Log.d("currentressenderoder",  gson.toJson(newList).toString());
+                    mAdapter = new CurrentAdapter(newList);
+                    //mRecyclerView.setHasFixedSize(true);
                     // use a linear layout manager
                     mLayoutManager = new LinearLayoutManager(getActivity());
                     mRecyclerView.setLayoutManager(mLayoutManager);
                     mRecyclerView.setAdapter(mAdapter);
-                   // Toast.makeText(getActivity(), "No problem"+ historyLists.get(0).getCarrier_schedule_detail().getMode(), Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getActivity(), "No problem"+ historyLists.get(0).getCarrier_schedule_detail().getMode(), Toast.LENGTH_LONG).show();
 
                 }
                 else

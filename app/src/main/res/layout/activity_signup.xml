@@ -23,7 +23,7 @@
             android:layout_height="62dp"
             android:ems="10"
             android:enabled="false"
-            android:text="KarrierBay"
+            android:text="Sign Up"
             android:background="@color/buttonBackground"
             android:layout_marginLeft="40dp"
             android:textColor="#ffffff"

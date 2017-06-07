@@ -33,7 +33,15 @@
                 android:layout_width="40dp"
                 android:layout_height="60dp"
                 android:layout_weight="0.5"
-                android:src="@drawable/carrier" />
+                android:src="@drawable/carrier"
+                android:id="@+id/carrier_image_ico"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/sender"
+                android:id="@+id/sender_image_ico"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -56,12 +64,14 @@
 
                     <TextView
                         android:id="@+id/history_from"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="@={sender.from_loc}"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"
+
+
                         android:textColor="@color/textColorDark"
-                        android:textSize="13sp" />
+
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
@@ -193,12 +203,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <View
+        android:id="@+id/created_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginLeft="27dp"
         android:layout_weight="1"
         android:background="@drawable/solid_circle" />
     <View
+        android:id="@+id/picked_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_weight="1"
@@ -206,6 +218,8 @@
 
         android:background="@drawable/solid_circle" />
     <View
+
+        android:id="@+id/transit_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginLeft="67dp"
