@@ -34,5 +34,7 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
         pickedView = (View) view.findViewById(R.id.picked_order_view);
 
         transitView = (View) view.findViewById(R.id.transit_order_view);
+
+
     }
 }

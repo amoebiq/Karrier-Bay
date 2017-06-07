@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ucarry.developer.android.Model.SenderOrderItemAttributes;
+import com.ucarry.developer.android.Model.SenderOrderResponse;
 import com.ucarry.developer.android.Utilities.CurrentBayViewHolder;
 import com.yourapp.developer.karrierbay.BR;
 import com.yourapp.developer.karrierbay.R;
@@ -53,7 +55,24 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
         cVH.fromLoc.setText(historyList.get(position).getFrom_loc());
         cVH.toLoc.setText(historyList.get(position).getTo_loc());
 
-        if(historyList.get(position).getSender_id()==null) {
+
+        if(historyList.get(position).getOrder_items()!=null) {
+
+            SenderOrderItemAttributes so = historyList.get(position).getOrder_items().get(0);
+
+            cVH.item.setText(so.getItem_type());
+
+
+        } else if(historyList.get(position).getCarrier_schedule_detail()!=null) {
+
+            cVH.item.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
+        }
+        else {
+
+
+        }
+
+        if(historyList.get(position).getSender_id()!=null) {
 
             cVH.carrierImageView.setVisibility(View.VISIBLE);
             cVH.senderImageView.setVisibility(View.GONE);
