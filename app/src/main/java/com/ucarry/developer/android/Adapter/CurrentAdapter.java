@@ -58,9 +58,15 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
 
         if(historyList.get(position).getOrder_items()!=null) {
 
-            SenderOrderItemAttributes so = historyList.get(position).getOrder_items().get(0);
 
-            cVH.item.setText(so.getItem_type());
+            if(historyList.get(position).getOrder_items().size()>0) {
+
+                SenderOrderItemAttributes so = historyList.get(position).getOrder_items().get(0);
+
+
+                cVH.item.setText(so.getItem_type());
+
+            }
 
 
         } else if(historyList.get(position).getCarrier_schedule_detail()!=null) {

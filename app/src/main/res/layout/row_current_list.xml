@@ -33,21 +33,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_margin="7dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="60dp"
-                android:layout_weight="0.5"
                 android:src="@drawable/carrier"
                 android:id="@+id/carrier_image_ico"/>
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="60dp"
-                android:layout_weight="0.5"
+
                 android:src="@drawable/sender"
                 android:id="@+id/sender_image_ico"/>
 
@@ -59,7 +58,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="50dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -79,13 +78,13 @@
                         android:text="06-08 01:38:59.539 30250-30250/com.ucarry.developer.android D/RECYCLE VIEW: GET ITEM COUNT18"
                         android:textColor="@color/textColorDark"
 
-                        android:textSize="9dp" />
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -102,12 +101,12 @@
                         android:layout_height="wrap_content"
                         android:text="06-08 01:38:59.539 30250-30250/com.ucarry.developer.android D/RECYCLE VIEW: GET ITEM COUNT18"
                         android:textColor="@color/textColorDark"
-                        android:textSize="9dp" />
+                        android:textSize="13dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="50dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -123,7 +122,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:text="@={carrier.mode}"
                         android:textColor="@color/textColorDark"
                         android:textSize="13sp" />
                 </LinearLayout>
