@@ -150,11 +150,12 @@ public class SignUpActivity extends BaseActivity {
                             if (response.code() == 200) {
                                 Log.d("LoginResponse", response.body().toString());
                                 Toast.makeText(getApplicationContext(), response.body().getMessage().toString(), Toast.LENGTH_LONG).show();
+                                phoneNumber.setEnabled(false);
                             }
                             if (response.code() == 400) {
 
                                 Log.d("LoginResponse", response.raw().request().url().toString());
-                                Toast.makeText(getApplicationContext(), "bad response", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Wrong OTP . Please try again", Toast.LENGTH_LONG).show();
                             }
 
                         }

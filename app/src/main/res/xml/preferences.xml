@@ -14,7 +14,7 @@
 
     </PreferenceCategory>
 
-   
+
 
     <PreferenceCategory
         android:title="Customisations"
@@ -33,3 +33,13 @@
     </PreferenceCategory>
 
 </PreferenceScreen>
+
+    <!--<PreferenceCategory-->
+        <!--android:title="Others"-->
+        <!--android:key="other_category">-->
+
+        <!---->
+
+
+        <!--</PreferenceCategory>-->
+
