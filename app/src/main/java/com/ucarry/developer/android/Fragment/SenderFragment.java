@@ -11,6 +11,9 @@ import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -68,6 +71,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
     SenderOrderItemAttributes senderitem;
     ItemAttributes item;
     private SessionManager sessionManager;
+    private static String TAG = "SENDER_FRAGMENT";
 
     @Nullable
     @Override
@@ -75,6 +79,9 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         // return inflater.inflate(R.layout.fragment_sender, container, false);
         FragmentSenderBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sender, container, false);
         View view = binding.getRoot();
+
+        //getActivity().invalidateOptionsMenu();
+        setHasOptionsMenu(true);
 
         //here data must be an instance of the class MarsDataProvider
         sender = ((MainActivity) getActivity()).sender;
@@ -92,6 +99,22 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 //        user.getText().set("Lugggage");
 
         return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Log.d(TAG,"On prepare options menu");
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        Log.d(TAG,"Clearing menu");
+        MenuItem item = menu.findItem(R.id.action_home);
+        item.setVisible(false);
+        inflater.inflate(R.menu.menu_home,menu);
     }
 
     @Override
@@ -350,6 +373,26 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         }
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home_ico:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+
+                return true;
+
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

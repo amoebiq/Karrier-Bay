@@ -1,5 +1,6 @@
 package com.ucarry.developer.android.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -50,7 +54,7 @@ public class TripSummaryFragment extends Fragment {
         sender = ((MainActivity) getActivity()).sender;
         SenderOrderItemAttributes[] sender_order_item_attributes = sender.getSender_order_item_attributes();
         ItemAttributes item = sender_order_item_attributes[0].getItem_attributes();
-
+        setHasOptionsMenu(true);
         binding.setSender(sender);
         binding.setItem(item);
         PickupOrderMapping pickup = sender.getPickupOrderMapping();
@@ -77,6 +81,11 @@ public class TripSummaryFragment extends Fragment {
 
         }
         ((MainActivity) getActivity()).apiService = ApiClient.getClientWithHeader(getActivity()).create(ApiInterface.class);
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setIndeterminate(true);
+        pd.setMessage(Constants.WAIT_MESSAGE);
+        pd.show();
 
         view.findViewById(R.id.btn_sender_next).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +117,7 @@ public class TripSummaryFragment extends Fragment {
                     @Override
                     public void onResponse(Call<SenderOrderResponse> call, Response<SenderOrderResponse> response) {
 
+                        pd.dismiss();
                         if (response.code() == 201) {
                             Log.d("LoginResponse", response.message());
                             // Log.d("Error",response.body().getErrors().toString());
@@ -125,6 +135,8 @@ public class TripSummaryFragment extends Fragment {
                     public void onFailure(Call<SenderOrderResponse> call, Throwable t) {
                         Log.d("ERROR",t.getLocalizedMessage()+"");
                         Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
+                        if(pd.isShowing())
+                            pd.dismiss();
 
                     }
                 });
@@ -132,6 +144,43 @@ public class TripSummaryFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Log.d(TAG,"On prepare options menu");
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        Log.d(TAG,"Clearing menu");
+        MenuItem item = menu.findItem(R.id.action_home);
+        item.setVisible(false);
+        inflater.inflate(R.menu.menu_home,menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home_ico:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+
+                return true;
+
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 

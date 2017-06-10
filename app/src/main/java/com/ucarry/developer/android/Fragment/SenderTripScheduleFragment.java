@@ -1,11 +1,16 @@
 package com.ucarry.developer.android.Fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -24,6 +29,8 @@ public class SenderTripScheduleFragment extends Fragment {
 
 
     SenderOrder sender;
+    private static String TAG = "SenderTripSchedule";
+
 
     @Nullable
     @Override
@@ -31,6 +38,7 @@ public class SenderTripScheduleFragment extends Fragment {
         FragmentPickupDeliveryScheduleBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pickup_delivery_schedule, container, false);
         View view = binding.getRoot();
         sender = ((MainActivity) getActivity()).sender;
+        setHasOptionsMenu(true);
         binding.setSender(sender);
         PickupOrderMapping pickup = sender.getPickupOrderMapping();
         binding.setPickup(pickup);
@@ -40,6 +48,43 @@ public class SenderTripScheduleFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Log.d(TAG,"On prepare options menu");
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        Log.d(TAG,"Clearing menu");
+        MenuItem item = menu.findItem(R.id.action_home);
+        item.setVisible(false);
+        inflater.inflate(R.menu.menu_home,menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home_ico:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+
+                return true;
+
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
