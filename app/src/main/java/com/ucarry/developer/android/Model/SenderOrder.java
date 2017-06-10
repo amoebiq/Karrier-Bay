@@ -37,9 +37,20 @@ public class SenderOrder extends BaseObservable implements Serializable{
     private String senderItemInfo;
     private int spinWantToSendIdx = 1;
     private String total_amount;
+    @SerializedName("grand_total")
+    private String grandTotal;
     public boolean isSender;
     private String status;
     //For currier list
+
+
+    public String getGrandTotal() {
+        return grandTotal;
+    }
+
+    public void setGrandTotal(String grandTotal) {
+        this.grandTotal = grandTotal;
+    }
 
     @SerializedName("sender_order_item")
     private ArrayList<SenderOrderItemAttributes> order_items;

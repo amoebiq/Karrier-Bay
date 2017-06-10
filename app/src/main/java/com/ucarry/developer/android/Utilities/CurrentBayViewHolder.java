@@ -13,8 +13,8 @@ import com.yourapp.developer.karrierbay.R;
 
 public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView senderImageView , carrierImageView;
-    public TextView fromLoc , toLoc , item;
+    public ImageView senderImageView , carrierImageView , currAmountIco;
+    public TextView fromLoc , toLoc , item , currAmount , currItem;
     public View mView;
     public View createdView , pickedView , transitView;
 
@@ -26,7 +26,7 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
 
         fromLoc = (TextView)view.findViewById(R.id.history_from);
         toLoc = (TextView) view.findViewById(R.id.history_to);
-        item = (TextView) view.findViewById(R.id.item);
+        //item = (TextView) view.findViewById(R.id.item);
         senderImageView = (ImageView) view.findViewById(R.id.carrier_image_ico);
         carrierImageView = (ImageView) view.findViewById(R.id.sender_image_ico);
         createdView = (View) view.findViewById(R.id.created_order_view);
@@ -35,6 +35,11 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
 
         transitView = (View) view.findViewById(R.id.transit_order_view);
 
+        currAmount = (TextView) view.findViewById(R.id.current_amount);
+
+        currItem = (TextView) view.findViewById(R.id.current_item);
+
+        currAmountIco = (ImageView) view.findViewById(R.id.current_amount_ico);
 
     }
 }

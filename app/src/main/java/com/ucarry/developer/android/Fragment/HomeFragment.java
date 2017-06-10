@@ -41,7 +41,7 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         beaCarrier = (Button) view.findViewById(R.id.be_a_carrier);
         beaSender = (Button) view.findViewById(R.id.be_a_sender);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Karrier Bay</font>"));
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CrowdCarry</font>"));
         beaCarrier.setTypeface(mTfSemiBold);
         beaSender.setTypeface(mTfSemiBold);
         //   selectImageFromGallery();

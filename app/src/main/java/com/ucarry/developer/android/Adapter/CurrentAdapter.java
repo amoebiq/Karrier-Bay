@@ -64,14 +64,16 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 SenderOrderItemAttributes so = historyList.get(position).getOrder_items().get(0);
 
 
-                cVH.item.setText(so.getItem_type());
+                //cVH.item.setText(so.getItem_type());
+                cVH.currItem.setText(so.getItem_type());
 
             }
 
 
         } else if(historyList.get(position).getCarrier_schedule_detail()!=null) {
 
-            cVH.item.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
+            //cVH.item.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
+            cVH.currItem.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
         }
         else {
 
@@ -82,12 +84,15 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
 
             cVH.carrierImageView.setVisibility(View.VISIBLE);
             cVH.senderImageView.setVisibility(View.GONE);
+            cVH.currAmount.setText(historyList.get(position).getGrandTotal());
 
         }
         else {
 
             cVH.senderImageView.setVisibility(View.VISIBLE);
             cVH.carrierImageView.setVisibility(View.GONE);
+            cVH.currAmountIco.setVisibility(View.GONE);
+            cVH.currAmount.setVisibility(View.GONE);
 
         }
 

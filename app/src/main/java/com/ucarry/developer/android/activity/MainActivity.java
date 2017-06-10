@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Karrier Bay</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CrowdCarry</font>"));
 
         View hView = navigationView.getHeaderView(0);
         emailHeader = (TextView) hView.findViewById(R.id.email_header);

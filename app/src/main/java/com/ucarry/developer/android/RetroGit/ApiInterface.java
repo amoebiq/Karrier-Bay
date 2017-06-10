@@ -33,7 +33,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by narasinga_m on 8/26/2016.
+ * Created by skadavath on 8/26/2016.
  */
 public interface ApiInterface {
     // @FormUrlEncoded

@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_margin="7dp"
             android:orientation="horizontal">
 
@@ -58,7 +58,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="35dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -84,7 +84,34 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="7dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="20dp"
+                        android:text="@string/deb_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/history_start_time"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="250"
+
+                        android:text="06-08-29"
+                        android:textColor="@color/textColorDark"
+
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -106,25 +133,51 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="20dp"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="20dp"
-                        android:text="@string/item"
+                        android:text="@string/arr_date"
                         android:textColor="@color/textHintColor"
                         android:textSize="11sp" />
 
                     <TextView
-                        android:id="@+id/item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:id="@+id/history_to_loc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="250"
                         android:layout_marginLeft="10dp"
+                        android:text="06-08-09"
                         android:textColor="@color/textColorDark"
-                        android:textSize="13sp" />
+
+                        android:textSize="13dp" />
+
                 </LinearLayout>
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:layout_margin="7dp"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="50dp"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:text="@string/item"-->
+                        <!--android:textColor="@color/textHintColor"-->
+                        <!--android:textSize="11sp" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/item"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:textColor="@color/textColorDark"-->
+                        <!--android:textSize="13sp" />-->
+                <!--</LinearLayout>-->
             </LinearLayout>
 
             <TextView
@@ -135,6 +188,46 @@
                 android:textColor="@color/textColorDark"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/current_amount_ico"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/card_rate" />
+
+            <TextView
+                android:id="@+id/current_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="600"
+                android:textColor="@color/textColorDark"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/card_item" />
+
+            <TextView
+                android:id="@+id/current_item"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:text="Documents"
+                android:textColor="@color/textColorDark"
+                android:textSize="13sp" />
+
         </LinearLayout>
 
         <View
@@ -189,6 +282,10 @@
                 android:textColor="@color/textHintColor"
                 android:textSize="11sp" />
         </LinearLayout>
+
+
+
+
 <FrameLayout
     android:layout_marginBottom="7dp"
     android:layout_width="match_parent"

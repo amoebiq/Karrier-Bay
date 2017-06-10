@@ -105,6 +105,17 @@ public class CurrentFragment extends Fragment {
                     pd.dismiss();
                     historyLists1 = response.body();
 
+                    if(historyLists==null) {
+
+                        historyLists = new ArrayList<SenderOrder>();
+                    }
+
+                    if(historyLists1==null) {
+
+                        historyLists1 = new ArrayList<SenderOrder>();
+                    }
+
+
                     Log.d("SIZE:::",""+historyLists.size());
                     List<SenderOrder> newList = new ArrayList<SenderOrder>(historyLists.size()+historyLists1.size());
                     newList.addAll(historyLists);
