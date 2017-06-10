@@ -31,6 +31,16 @@ public class Quote {
 
     private String insurance_percent;
 
+    private String grand_total;
+
+    public String getGrand_total() {
+        return grand_total;
+    }
+
+    public void setGrand_total(String grand_total) {
+        this.grand_total = grand_total;
+    }
+
     public String getBreadth ()
     {
         return breadth;

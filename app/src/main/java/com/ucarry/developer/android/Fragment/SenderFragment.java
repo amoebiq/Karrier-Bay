@@ -1,6 +1,7 @@
 package com.ucarry.developer.android.Fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -152,13 +153,18 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                         senderitem.setEnd_time(getDate(sender.getToDate(), sender.getToTime()));
                         Call call = ((MainActivity) getActivity()).apiService.getQuote(quoteRequest);
 
+                        final ProgressDialog pd = new ProgressDialog(getContext());
+                        pd.setIndeterminate(true);
+                        pd.setMessage(Constants.LOADING_MESSAGE);
+                        pd.show();
 
                         call.enqueue(new Callback<QuoteResponse>() {
                             @Override
                             public void onResponse(Call<QuoteResponse> call, Response<QuoteResponse> response) {
 
+                                pd.dismiss();
                                 if (response.code() == 200) {
-                                    QuoteResponse quoteResponse = ((QuoteResponse) response.body());
+                                    final QuoteResponse quoteResponse = ((QuoteResponse) response.body());
                                     final Dialog dialog = new Dialog(getActivity());
                                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                                     dialog.setContentView(R.layout.quote_popup);
@@ -168,7 +174,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                                    // sender.getSender_order_item_attributes()[0].getItem_attributes().setTotal_distance_charge(quoteResponse.quote.getTotal_distance_charge());
                                     // set the custom dialog components - text, image and button
                                     TextView text = (TextView) dialog.findViewById(R.id.textView2);
-                                    text.setText("The appropriate charge for your courier is RS." + quoteResponse.quote.getTotal_distance_charge() + " The prices may be vary according to the exact " +
+                                    text.setText("The appropriate charge for your courier is RS." + quoteResponse.quote.getGrand_total() + " The prices may be vary according to the exact " +
                                             "pick up and delivery points");
 
                                     Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
@@ -179,6 +185,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                                         @Override
                                         public void onClick(View v) {
                                             ((MainActivity) getActivity()).fragment(new SenderTripScheduleFragment(), "SenderFragment");
+                                            sender.setGrandTotal(quoteResponse.quote.getGrand_total());
                                             dialog.dismiss();
                                         }
                                     });
@@ -205,6 +212,8 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
 
                             @Override
                             public void onFailure(Call<QuoteResponse> call, Throwable t) {
+                                if(pd.isShowing())
+                                    pd.dismiss();
                                 Toast.makeText(getActivity(), "Incorrect Request", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -418,10 +427,12 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                     return false;
                 }
             } else {
-                String validateCarrierStrings[] = {senderitem.getQuantity()};
-                if (Utility.isNull(validateCarrierStrings)) {
-                    return false;
-                }
+                int validateCarrierStrings[] = {senderitem.getQuantity()};
+//                if (Utility.isNull(validateCarrierStrings)) {
+//                    return false;
+//                }
+
+                return true;
             }
         } else {
             if (carrierAttribute.getMode().equals(Constants.ARTICLE)) {

@@ -137,7 +137,7 @@ public class SenderOrderItemAttributes extends BaseObservable {
     private String unit_price;
 
 
-    private String quantity;
+    private int quantity;
 
     public int getItem_subtype_index() {
         return item_subtype_index;
@@ -175,12 +175,12 @@ public class SenderOrderItemAttributes extends BaseObservable {
         this.item_attributes = item_attributes;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
 
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

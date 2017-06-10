@@ -50,6 +50,7 @@ public class TripSummaryFragment extends Fragment {
         sender = ((MainActivity) getActivity()).sender;
         SenderOrderItemAttributes[] sender_order_item_attributes = sender.getSender_order_item_attributes();
         ItemAttributes item = sender_order_item_attributes[0].getItem_attributes();
+
         binding.setSender(sender);
         binding.setItem(item);
         PickupOrderMapping pickup = sender.getPickupOrderMapping();
@@ -60,6 +61,7 @@ public class TripSummaryFragment extends Fragment {
         binding.setCarrierattribute(carrierattribute);
 
         SenderOrderItemAttributes senderorderitem = sender_order_item_attributes[0];
+        senderorderitem.setQuantity(1);
         binding.setSenderorderitem(senderorderitem);
         Utility.hideKeyboard(getActivity());
         return view;
