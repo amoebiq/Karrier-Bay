@@ -24,8 +24,9 @@ public final class SenderOrderResponse {
     public final Receiverordermapping receiver_order_mapping;
     public final SenderOrderItem sender_order_item[];
     public final Pickupordermapping pickup_order_mapping;
+    public final String grand_total;
 
-    public SenderOrderResponse(long id, String order_id, String sender_id, String from_loc, String to_loc, String total_amount, String from_geo_lat, String from_geo_long, String to_geo_long, String to_geo_lat, String status, String comments, String created_at, String updated_at, Coupon coupon, boolean isInsured, Receiverordermapping receiver_order_mapping, SenderOrderItem[] sender_order_item, Pickupordermapping pickup_order_mapping){
+    public SenderOrderResponse(long id, String order_id, String sender_id, String from_loc, String to_loc, String total_amount, String from_geo_lat, String from_geo_long, String to_geo_long, String to_geo_lat, String status, String comments, String created_at, String updated_at, Coupon coupon, boolean isInsured, Receiverordermapping receiver_order_mapping, SenderOrderItem[] sender_order_item, Pickupordermapping pickup_order_mapping , String grand_total){
         this.id = id;
         this.order_id = order_id;
         this.sender_id = sender_id;
@@ -45,6 +46,7 @@ public final class SenderOrderResponse {
         this.receiver_order_mapping = receiver_order_mapping;
         this.sender_order_item = sender_order_item;
         this.pickup_order_mapping = pickup_order_mapping;
+        this.grand_total = grand_total;
     }
 
     public static final class Coupon {
@@ -108,8 +110,9 @@ public final class SenderOrderResponse {
         public final String item_subtype;
         public final String created_at;
         public final String updated_at;
+        public final String grand_total;
 
-        public SenderOrderItem(long id, String order_id, Item_attributes item_attributes, String unit_price, long quantity, String total_amount, String item_type, String item_subtype, String created_at, String updated_at){
+        public SenderOrderItem(long id, String order_id, Item_attributes item_attributes, String unit_price, long quantity, String total_amount, String item_type, String item_subtype, String created_at, String updated_at , String grand_total){
             this.id = id;
             this.order_id = order_id;
             this.item_attributes = item_attributes;
@@ -120,6 +123,7 @@ public final class SenderOrderResponse {
             this.item_subtype = item_subtype;
             this.created_at = created_at;
             this.updated_at = updated_at;
+            this.grand_total = grand_total;
         }
 
         public static final class Item_attributes {

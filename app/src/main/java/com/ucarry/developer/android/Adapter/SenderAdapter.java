@@ -89,6 +89,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
                 sVH.sender_from_val.setText(senderOrderList.get(position).getFrom_loc());
                 sVH.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
                 sVH.sender_address.setText(senderOrderList.get(position).getUser().getAddress());
+                sVH.tvAmount.setText(senderOrderList.get(position).getTotal_amount());
 
                 Log.d("SENDER_LIST",senderOrderList.get(position).getFrom_loc()+" ::: "+senderOrderList.get(position).getId());
 

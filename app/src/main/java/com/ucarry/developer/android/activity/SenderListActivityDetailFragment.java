@@ -2,9 +2,11 @@ package com.ucarry.developer.android.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,9 +136,22 @@ public class SenderListActivityDetailFragment extends Fragment {
                         if(response.code()==200)
                             Log.d("ACCEPT_RESPONSE",""+response.code()+" accepted");
                         Toast.makeText(rootView.getContext(),"Accepted",Toast.LENGTH_LONG);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage(Constants.ACCEPT_MESSAGE)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
+
+                                    }
+                                });
+
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
 
                     }
 

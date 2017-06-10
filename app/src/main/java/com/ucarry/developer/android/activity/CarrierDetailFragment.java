@@ -1,21 +1,36 @@
 package com.ucarry.developer.android.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.Model.AcceptOrderResponse;
+import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Model.GenericResponse;
+import com.ucarry.developer.android.RetroGit.ApiClient;
+import com.ucarry.developer.android.RetroGit.ApiInterface;
 import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.dummy.DummyContent;
 
 import com.ucarry.developer.android.Utilities.CircleTransform;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a single Carrier detail screen.
@@ -41,6 +56,7 @@ public class CarrierDetailFragment extends Fragment {
     public static final String READY_TO_CARRY = "ready_to_carry";
     public static final String CAPACITY = "capacity";
     public static final String STOP_OVERS = "stop_overs";
+    public static final String SCHEDULE_ID = "schedule_id";
 
     /**
      * The dummy content this fragment is presenting.
@@ -105,6 +121,64 @@ public class CarrierDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.carrier_detail_ready_to_carry)).setText(getArguments().getString(READY_TO_CARRY));
         ((TextView) rootView.findViewById(R.id.carrier_detail_capacity)).setText(getArguments().getString(CAPACITY));
 
+        Button notifyButton = (Button) rootView.findViewById(R.id.btn_carrier_next);
+        notifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("DETAIL","CLICKED:::"+getArguments().getString(SCHEDULE_ID));
+                //Toast.makeText(view.getContext(),"Clicked",Toast.LENGTH_SHORT);
+
+                ApiInterface apiInterface = ApiClient.getClientWithHeader(view.getContext()).create(ApiInterface.class);
+
+
+                Call<GenericResponse> call = apiInterface.notifyCarrier(getArguments().getString(SCHEDULE_ID));
+
+                final ProgressDialog pd = new ProgressDialog(getContext());
+                pd.setMessage(Constants.LOADING_MESSAGE);
+                pd.setIndeterminate(true);
+                pd.show();
+
+                call.enqueue(new Callback<GenericResponse>() {
+                    @Override
+                    public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
+
+                        pd.dismiss();
+                        if(response.code()==200) {
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setMessage(Constants.NOTIFY_MESSAGE)
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+
+                                        }
+                                    });
+
+                            AlertDialog alert = builder.create();
+                            alert.show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GenericResponse> call, Throwable t) {
+
+                        if(pd.isShowing())
+                            pd.dismiss();
+
+
+
+                    }
+                });
+
+
+            }
+        });
         return rootView;
     }
 }

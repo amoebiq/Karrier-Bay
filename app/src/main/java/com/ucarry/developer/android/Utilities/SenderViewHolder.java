@@ -15,7 +15,7 @@ import com.yourapp.developer.karrierbay.R;
 public class SenderViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView sender_id , sender_from_loc , sender_name ,sender_from_val , sender_to_val , sender_address , custom_header;
+    public TextView sender_id , sender_from_loc , sender_name ,sender_from_val , sender_to_val , sender_address , custom_header , tvAmount;
     public View mView;
     public ImageView sender_image;
 
@@ -29,6 +29,7 @@ public class SenderViewHolder extends RecyclerView.ViewHolder {
         sender_from_val = (TextView) view.findViewById(R.id.sender_from_list_id);
         sender_to_val = (TextView) view.findViewById(R.id.sender_to_value_list_id);
         sender_address = (TextView) view.findViewById(R.id.sender_address_list_id);
+        tvAmount = (TextView) view.findViewById(R.id.tvRate);
 
 
     }

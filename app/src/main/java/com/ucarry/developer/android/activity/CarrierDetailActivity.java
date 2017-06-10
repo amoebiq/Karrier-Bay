@@ -58,6 +58,7 @@ public class CarrierDetailActivity extends AppCompatActivity {
             arguments.putString(CarrierDetailFragment.CAPACITY,getIntent().getStringExtra(CarrierDetailFragment.CAPACITY));
             arguments.putString(CarrierDetailFragment.DATE_FROM,getIntent().getStringExtra(CarrierDetailFragment.DATE_FROM));
             arguments.putString(CarrierDetailFragment.DATE_TO,getIntent().getStringExtra(CarrierDetailFragment.DATE_TO));
+            arguments.putString(CarrierDetailFragment.SCHEDULE_ID,getIntent().getStringExtra(CarrierDetailFragment.SCHEDULE_ID));
 
             CarrierDetailFragment fragment = new CarrierDetailFragment();
             fragment.setArguments(arguments);

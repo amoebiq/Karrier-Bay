@@ -52,7 +52,7 @@ public class HistoryFragment extends BaseFragment {
 
 
     private void preparenotificationData() {
-        Call<List<SenderOrder>> call = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders");
+        Call<List<SenderOrder>> call = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders",null,"true");
         call.enqueue(new Callback<List<SenderOrder>>() {
             @Override
             public void onResponse(Call<List<SenderOrder>> call, Response<List<SenderOrder>> response) {

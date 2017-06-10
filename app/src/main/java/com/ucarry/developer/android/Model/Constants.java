@@ -14,4 +14,6 @@ public class Constants {
     public static String LOADING_MESSAGE = "Loading...";
     public static String LOGIN_MESSAGE = "Logging in...";
     public static String WAIT_MESSAGE = "Please Wait...";
+    public static String ACCEPT_MESSAGE = "You have succesfully accepted the order . Sit back and relax while we reach out to you";
+    public static String NOTIFY_MESSAGE = "Notified the carrier . Please sit back and relax while he responds";
 }

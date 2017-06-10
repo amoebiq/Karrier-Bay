@@ -62,7 +62,7 @@ public class CurrentFragment extends Fragment {
         pd.setMessage("Loading...");
         pd.show();
 
-        Call<List<SenderOrder>> call = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("carrier", "schedules");
+        Call<List<SenderOrder>> call = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("carrier", "schedules","true",null);
         call.enqueue(new Callback<List<SenderOrder>>() {
             @Override
             public void onResponse(Call<List<SenderOrder>> call, Response<List<SenderOrder>> response) {
@@ -96,7 +96,7 @@ public class CurrentFragment extends Fragment {
 
 
         final List<SenderOrder> previousList = historyLists;
-        Call<List<SenderOrder>> call1 = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders");
+        Call<List<SenderOrder>> call1 = ((MainActivity)getActivity()).apiService.getSenderOrCarrierOrder("sender", "orders","true",null);
         call1.enqueue(new Callback<List<SenderOrder>>() {
             @Override
             public void onResponse(Call<List<SenderOrder>> call1, Response<List<SenderOrder>> response) {

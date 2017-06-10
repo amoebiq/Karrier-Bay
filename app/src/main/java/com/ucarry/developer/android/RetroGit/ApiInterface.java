@@ -7,6 +7,7 @@ import com.ucarry.developer.android.Model.AcceptResponse;
 import com.ucarry.developer.android.Model.CarrierScheduleRequest;
 import com.ucarry.developer.android.Model.CarrierSchedules;
 import com.ucarry.developer.android.Model.FCMRequest;
+import com.ucarry.developer.android.Model.GenericResponse;
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.LoginRequest;
 import com.ucarry.developer.android.Model.LoginResponse;
@@ -63,7 +64,7 @@ public interface ApiInterface {
 
 
     @GET("{flowtype}/{flowtypeParam}")
-    Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam );
+    Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam , @Query("my_bay") String myBay , @Query("my_bay_completed") String myBayCompleted);
 
 
     @GET("{flowtype}/{flowtypeParam}")
@@ -92,6 +93,9 @@ public interface ApiInterface {
 
     @PUT("orchestrator/order/{orderId}/accept")
     Call<AcceptOrderResponse> acceptOrder(@Path("orderId") String orderId);
+
+    @POST("orchestrator/notify_carrier/{scheduleId}")
+    Call<GenericResponse> notifyCarrier(@Path("scheduleId") String scheduleId);
 
     @POST("auth/update_fcm")
     Call<User> updateFCM(@Body FCMRequest fcmRequest);
