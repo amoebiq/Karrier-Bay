@@ -145,7 +145,7 @@
                         android:textSize="11sp" />
 
                     <TextView
-                        android:id="@+id/history_to_loc"
+                        android:id="@+id/history_end_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="250"

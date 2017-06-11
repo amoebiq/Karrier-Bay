@@ -2,6 +2,7 @@ package com.ucarry.developer.android.Utilities;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ import com.yourapp.developer.karrierbay.R;
 public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView senderImageView , carrierImageView , currAmountIco;
-    public TextView fromLoc , toLoc , item , currAmount , currItem;
+    public TextView fromLoc , toLoc , item , currAmount , currItem , startTime , endTime;
     public View mView;
     public View createdView , pickedView , transitView;
 
@@ -40,6 +41,11 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
         currItem = (TextView) view.findViewById(R.id.current_item);
 
         currAmountIco = (ImageView) view.findViewById(R.id.current_amount_ico);
+
+        startTime = (TextView) view.findViewById(R.id.history_start_time);
+
+        endTime = (TextView) view.findViewById(R.id.history_end_time);
+
 
     }
 }

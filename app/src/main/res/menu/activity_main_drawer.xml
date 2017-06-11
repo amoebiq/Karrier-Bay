@@ -47,6 +47,17 @@
     </group>
 
     <group
+        android:id="@+id/legal"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_legal"
+            android:icon="@drawable/legal"
+            android:title="Legal" />
+
+        </group>
+
+    <group
         android:id="@+id/nav_bottom_view"
         android:checkableBehavior="single">
 

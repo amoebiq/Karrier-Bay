@@ -23,9 +23,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -86,6 +88,8 @@ public class ProfileFragment extends BaseFragment implements
         binding.locationEdittext.setEnabled(false);
         binding.phoneNumberEdittext.setEnabled(false);
         binding.locationEdittext.setBackgroundColor(getResources().getColor(R.color.colorPrimaryTransparent));
+        binding.bankAccountNumberEt.setEnabled(false);
+        binding.bankIfscEt.setEnabled(false);
         binding.profilepic.setEnabled(false);
         binding.aadharAttachment.setVisibility(currView.INVISIBLE);
         binding.aadharAttachmentVerified.setVisibility(currView.INVISIBLE);
@@ -96,8 +100,7 @@ public class ProfileFragment extends BaseFragment implements
 
 
 
-
-        return binding.getRoot();
+            return binding.getRoot();
 
     }
 
@@ -108,8 +111,20 @@ public class ProfileFragment extends BaseFragment implements
         //MenuItem item = (MenuItem) view.findViewById(R.id.action_home);
         //item.setVisible(false);
        // getAndUpdateUserDetails();
+
         sessionManager = new SessionManager(getActivity());
         HashMap<String,String> u = sessionManager.getUserDetails();
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.bank_list_spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.bank_list, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
         Log.d("Verify","Verify Start User");
         if(u.get(SessionManager.KEY_IMAGE)!=null)
         Log.d("image",u.get(SessionManager.KEY_IMAGE));

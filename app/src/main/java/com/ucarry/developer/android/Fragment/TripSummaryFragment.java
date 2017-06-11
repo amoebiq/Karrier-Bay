@@ -75,7 +75,7 @@ public class TripSummaryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (sender.isSender) {
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDER WALL</font>"));
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Order Summary</font>"));
         } else {
             ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIER WALL</font>"));
 
@@ -85,7 +85,7 @@ public class TripSummaryFragment extends Fragment {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setIndeterminate(true);
         pd.setMessage(Constants.WAIT_MESSAGE);
-        pd.show();
+        //pd.show();
 
         view.findViewById(R.id.btn_sender_next).setOnClickListener(new View.OnClickListener() {
             @Override

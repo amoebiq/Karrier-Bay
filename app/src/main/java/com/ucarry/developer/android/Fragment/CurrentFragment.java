@@ -72,7 +72,7 @@ public class CurrentFragment extends Fragment {
                     historyLists = response.body();
                     Gson gson = new Gson();
 
-                    Log.d("currentresult",  gson.toJson(historyLists).toString());
+                    Log.d("forcarrierschedules",  gson.toJson(historyLists).toString());
 //                    mAdapter = new CurrentAdapter(historyLists);
 //                    mRecyclerView.setHasFixedSize(true);
 //                    // use a linear layout manager
@@ -123,7 +123,7 @@ public class CurrentFragment extends Fragment {
 
                     Gson gson = new Gson();
 
-                    Log.d("currentressenderoder",  gson.toJson(newList).toString());
+                    Log.d("finalhistory",  gson.toJson(newList).toString());
                     mAdapter = new CurrentAdapter(newList);
                     //mRecyclerView.setHasFixedSize(true);
                     // use a linear layout manager

@@ -15,7 +15,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="top">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -25,14 +26,15 @@
                 <RelativeLayout
                     android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="400dp"
                     android:background="@color/colorPrimary"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="-110dp">
 
                     <ImageView
                         android:id="@+id/profilepic"
-                        android:layout_width="40dp"
-                        android:layout_height="60dp"
+                        android:layout_width="120dp"
+                        android:layout_height="140dp"
                         android:layout_weight="0.5"
                         android:layout_centerInParent="true"
                         android:src="@drawable/carrier" />
@@ -52,11 +54,12 @@
                         android:id="@+id/location_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="address"
+                        android:text="Kalyani Vista, 192A, 3rd Main Rd, Doresanipalya, Anthappa Layout, Phase 4, JP Nagar, Bengaluru, Karnataka 560076"
                         android:layout_below="@+id/name_header"
                         android:layout_margin="@dimen/edit_text_gap"
                         android:gravity="center"
                         android:inputType="none"
+                        android:maxLength="75"
                         android:textColor="@color/textColorWhite"
                         android:textSize="@dimen/font_size"
                         android:textStyle="bold" />
@@ -204,11 +207,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/attachment"
-                        android:id="@+id/aadhar_attachment"/>
+                        android:id="@+id/aadhar_attachment"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="-20dp"/>
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="10dp"
                         android:src="@drawable/verified"
                         android:id="@+id/aadhar_attachment_verified"/>
 
@@ -223,12 +228,102 @@
 
                 </RelativeLayout>
 
+
+                <RelativeLayout
+                    android:id="@+id/seperator12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/aadhar_upload_rl">
+
+                    <TextView
+                        android:id="@+id/bank_account_number"
+                        style="?android:attr/listSeparatorTextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Bank Account" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/bank_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/seperator12"
+                    android:layout_margin="@dimen/edit_text_gap">
+
+                    <TextView
+                        android:id="@+id/bank_account_number_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:text="Account Number"
+                        android:textColor="@color/greyColor"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/bank_account_number_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:layout_toRightOf="@id/bank_account_number_label"
+                        android:text="55502010202013"
+                        android:inputType="none"
+                        android:gravity="right"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bank_details"
+                    android:id="@+id/bank_ifsc_rl"
+                    android:layout_margin="@dimen/edit_text_gap">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IFSC"
+                        android:id="@+id/ifsc_label"
+                        android:textColor="@color/greyColor"
+                        android:textSize="13sp"
+                        android:layout_margin="@dimen/edit_text_gap"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:gravity="right"
+                        android:text="ICICI0551"
+                        android:inputType="none"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold"
+                        android:id="@+id/bank_ifsc_et"
+                        android:layout_toRightOf="@+id/ifsc_label" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bank_ifsc_rl"
+                    android:id="@+id/bank_name">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bank_list_spinner"
+                        android:prompt="@string/prompt_select_bank">
+                    </Spinner>
+                </RelativeLayout>
+
+
                 <Button
                     android:id="@+id/profile_save_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/aadhar_upload_rl"
+                    android:layout_below="@id/bank_name"
 
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/button_gap"

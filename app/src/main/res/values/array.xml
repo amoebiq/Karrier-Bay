@@ -38,4 +38,23 @@
         <item>15 L</item>
         <item>20 L</item>
     </string-array>
+
+    <string-array name="bank_list">
+        <item>Axis Bank</item>
+        <item>Catholic Syrian Bank</item>
+        <item>Dhanlaxmi Bank</item>
+        <item>Federal Bank</item>
+        <item>HDFC Bank</item>
+        <item>ICICI Bank</item>
+        <item>IndusInd Bank</item>
+        <item>Kotak Mahindra Bank</item>
+        <item>Karnataka Bank</item>
+        <item>Yes Bank</item>
+        <item>ING Vysya Bank</item>
+        <item>State Bank of India</item>
+        <item>State Bank of Mysore</item>
+        <item>State Bank of Travancore</item>
+        <item>Union Bank of India</item>
+        <item>Vijaya Bank</item>
+    </string-array>
 </resources>

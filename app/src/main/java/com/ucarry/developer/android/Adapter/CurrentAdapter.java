@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.ucarry.developer.android.Model.SenderOrderItemAttributes;
 import com.ucarry.developer.android.Model.SenderOrderResponse;
 import com.ucarry.developer.android.Utilities.CurrentBayViewHolder;
+import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.BR;
 import com.yourapp.developer.karrierbay.R;
 
@@ -66,6 +67,8 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
 
                 //cVH.item.setText(so.getItem_type());
                 cVH.currItem.setText(so.getItem_type());
+                cVH.startTime.setText(so.getStart_time());
+                cVH.endTime.setText(so.getEnd_time());
 
             }
 
@@ -73,7 +76,11 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
         } else if(historyList.get(position).getCarrier_schedule_detail()!=null) {
 
             //cVH.item.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
+
+
             cVH.currItem.setText(historyList.get(position).getCarrier_schedule_detail().getReady_to_carry());
+            cVH.startTime.setText(Utility.convertToProperDateFromServer(historyList.get(position).getCarrier_schedule_detail().getStart_time()));
+            cVH.endTime.setText(Utility.convertToProperDateFromServer(historyList.get(position).getCarrier_schedule_detail().getEnd_time()));
         }
         else {
 
@@ -85,6 +92,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
             cVH.carrierImageView.setVisibility(View.VISIBLE);
             cVH.senderImageView.setVisibility(View.GONE);
             cVH.currAmount.setText(historyList.get(position).getGrandTotal());
+
 
         }
         else {

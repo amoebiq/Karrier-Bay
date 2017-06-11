@@ -1,14 +1,18 @@
 package com.ucarry.developer.android.activity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -83,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
         startService(intent);
+
+        boolean isPermission = isStoragePermissionGranted();
+
+        Log.d(TAG,isPermission+" Permission Available");
 
         //createNotification();
         //String refreshToken = FirebaseInstanceId.getInstance().getToken();
@@ -206,6 +214,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
     public void createNotification() {
 
 
@@ -246,6 +273,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
                     if(user.getAadhar_link()!=null)
                         sessionManager.put(SessionManager.KEY_AADHAR,user.getAadhar_link());
+
+                    if(user.getAddress()!=null) {
+                        sessionManager.put(SessionManager.KEY_ADDRESS,user.getAddress());
+                    }
 
                     sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
 
@@ -367,6 +398,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             fragment(new MyBayFragment(), "MyBayFragment");
 
+        }
+
+        if(id==R.id.nav_legal) {
+
+            Intent intent = new Intent(this,LegalListActivity.class);
+            startActivity(intent);
         }
         if(id==R.id.carrier_list) {
 
