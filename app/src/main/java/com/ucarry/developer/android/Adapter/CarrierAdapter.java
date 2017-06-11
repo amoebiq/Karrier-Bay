@@ -105,6 +105,21 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 sVH.carrier_address.setText(carrierSchedules.get(position).getUser().getAddress());
                 sVH.items.setText(carrierSchedules.get(position).getCarrierScheduleDetail().getReady_to_carry());
 
+                try {
+                    if (carrierSchedules.get(position).getUser().getVerified().equalsIgnoreCase("verified")) {
+
+                        sVH.verified.setVisibility(View.VISIBLE);
+
+                    }
+                    else
+                        sVH.verified.setVisibility(View.INVISIBLE);
+
+                }
+                catch(Exception e) {
+
+
+                }
+
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
                 Date date = new Date();
                 System.out.println(dateFormat.format(date));

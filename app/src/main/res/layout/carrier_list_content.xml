@@ -64,12 +64,12 @@
                     <TextView
                         android:id="@+id/carrier_address_list_id"
                         android:layout_width="match_parent"
-                        android:layout_height="26dp"
-
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
 
                         android:text="My Address"
                         android:textColor="@color/textHintColor"
-                        android:textSize="13dp" />
+                        android:textSize="11dp" />
                     <!--"-->
                 </LinearLayout>
 

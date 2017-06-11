@@ -3,6 +3,7 @@ package com.ucarry.developer.android.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -43,6 +44,8 @@ import com.yourapp.developer.karrierbay.databinding.FragmentProfileBinding;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.User;
@@ -420,33 +423,71 @@ public class ProfileFragment extends BaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        try {
         Log.d("IMAGE","Got the Image::::"+requestCode+" "+resultCode);
         File file = null;
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             // process the result
 
-            Log.d("IMAGE","Got the Image");
+            Log.d("IMAGE", "Got the Image");
             Uri selectedImage = data.getData();
-            String wholeID = DocumentsContract.getDocumentId(selectedImage);
-            String id = wholeID.split(":")[1];
-            String[] column = {MediaStore.Images.Media.DATA};
-            String sel = MediaStore.Images.Media._ID + "=?";
-            Cursor cursor = currView.getContext().getContentResolver().
-                    query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            column, sel, new String[]{id}, null);
-            String filePath = "";
-            int columnIndex = cursor.getColumnIndex(column[0]);
-            if (cursor.moveToFirst()) {
-                filePath = cursor.getString(columnIndex);
-            }
-            cursor.close();
+//            String wholeID = getRealPathFromURI(selectedImage);//DocumentsContract.getDocumentId(selectedImage);
+//            String id = wholeID.split(":")[1];
+//            String[] column = {MediaStore.Images.Media.DATA};
+//            String sel = MediaStore.Images.Media._ID + "=?";
+//            Cursor cursor = currView.getContext().getContentResolver().
+//                    query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                            column, sel, new String[]{id}, null);
+//            String filePath = "";
+//            int columnIndex = cursor.getColumnIndex(column[0]);
+//            if (cursor.moveToFirst()) {
+//                filePath = cursor.getString(columnIndex);
+//            }
+//            cursor.close();
 
-            file = new File(filePath);
+            file = new File(getRealPathFromDocumentUri(getContext(),selectedImage));
 
-           uploadImage(file);
+            uploadImage(file);
+        }
+
+
+        }
+        catch(Exception e) {
+
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Oops.. Something went wrong",Toast.LENGTH_LONG).show();
 
         }
 
+
+    }
+
+
+    public static String getRealPathFromDocumentUri(Context context, Uri uri){
+        String filePath = "";
+
+        Pattern p = Pattern.compile("(\\d+)$");
+        Matcher m = p.matcher(uri.toString());
+        if (!m.find()) {
+
+            return filePath;
+        }
+        String imgId = m.group();
+
+        String[] column = { MediaStore.Images.Media.DATA };
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ imgId }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+
+        return filePath;
     }
 
     public void uploadImage(File file) {

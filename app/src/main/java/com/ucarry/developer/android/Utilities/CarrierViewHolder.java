@@ -14,7 +14,7 @@ import com.yourapp.developer.karrierbay.R;
 public class CarrierViewHolder extends RecyclerView.ViewHolder {
 
 
-    public TextView carrier_id , carrier_from_loc , carrier_name ,carrier_from_val , carrier_to_val , carrier_address , custom_header,noOfHours,items;
+    public TextView carrier_id , carrier_from_loc , carrier_name ,carrier_from_val , carrier_to_val , carrier_address , custom_header,noOfHours,items , verified;
     public View mView;
     public ImageView carrier_image;
 
@@ -30,7 +30,7 @@ public class CarrierViewHolder extends RecyclerView.ViewHolder {
         carrier_address = (TextView) view.findViewById(R.id.carrier_address_list_id);
         noOfHours = (TextView) view.findViewById(R.id.tvHrs);
         items = (TextView) view.findViewById(R.id.tvItem);
-
+        verified = (TextView) view.findViewById(R.id.carrier_verified_list_id);
 
     }
 }
