@@ -91,11 +91,13 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         senderitem = sender_order_item_attributes[0];
 
         item = sender_order_item_attributes[0].getItem_attributes();
+
         binding.setSender(sender);
         binding.setItem(item);
 //        android:text="@{carrierattribute.displayStartTime ?? senderorderitem.displayStartTime }"
         carrierAttribute = sender.getCarrierScheduleDetailAttributes();
         binding.setCarrierAttribute(carrierAttribute);
+
 //        user.getText().set("Lugggage");
 
         return view;
@@ -127,10 +129,10 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         user = sessionManager.getUserDetails();
 
         if (sender.isSender) {
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDER TRIP SCHEDULE</font>"));
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trip Schedule</font>"));
         } else {
             Log.d("SENDER_FRAGMENT","SENDER FRAGMENT");
-            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIER TRIP SCHEDULE</font>"));
+            ((MainActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trip Schedule</font>"));
 
         }
 
@@ -150,6 +152,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         ((EditText) view.findViewById(R.id.etDEPTime)).setOnClickListener(this);
 
         ((EditText) view.findViewById(R.id.et_from_loc)).setOnClickListener(this);
+
 
         ((EditText) view.findViewById(R.id.et_To_loc)).setOnClickListener(this);
         view.findViewById(R.id.btn_sender_next).setOnClickListener(new View.OnClickListener() {
@@ -197,7 +200,7 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
                                    // sender.getSender_order_item_attributes()[0].getItem_attributes().setTotal_distance_charge(quoteResponse.quote.getTotal_distance_charge());
                                     // set the custom dialog components - text, image and button
                                     TextView text = (TextView) dialog.findViewById(R.id.textView2);
-                                    text.setText("The appropriate charge for your courier is RS." + quoteResponse.quote.getGrand_total() + " The prices may be vary according to the exact " +
+                                    text.setText("The appropriate charge for your courier is RS." + Math.ceil(Double.parseDouble(quoteResponse.quote.getGrand_total())) + " The prices may be vary according to the exact " +
                                             "pick up and delivery points");
 
                                     Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
@@ -286,11 +289,12 @@ public class SenderFragment extends Fragment implements Spinner.OnItemSelectedLi
         //assign default address to from edittext box:
 
         if (user.get(SessionManager.KEY_ADDRESS) != null) {
-            sender.setFrom_loc(user.get(sessionManager.KEY_ADDRESS));
-            sender.setFrom_geo_lat(user.get(sessionManager.KEY_LATITUDE));
-            sender.setFrom_geo_long(user.get(sessionManager.KEY_LONGITUDE));
-            quoteRequest.setLat1(user.get(sessionManager.KEY_LATITUDE));
-            quoteRequest.setLong1(user.get(sessionManager.KEY_LONGITUDE));
+            Log.d(TAG,"Setting defailt address");
+//            sender.setFrom_loc(user.get(sessionManager.KEY_ADDRESS));
+//            sender.setFrom_geo_lat(user.get(sessionManager.KEY_LATITUDE));
+//            sender.setFrom_geo_long(user.get(sessionManager.KEY_LONGITUDE));
+//            quoteRequest.setLat1(user.get(sessionManager.KEY_LATITUDE));
+//            quoteRequest.setLong1(user.get(sessionManager.KEY_LONGITUDE));
         }
     }
 

@@ -56,7 +56,7 @@ public class CarrierListActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarcarrier);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CARRIERS</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Carriers</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

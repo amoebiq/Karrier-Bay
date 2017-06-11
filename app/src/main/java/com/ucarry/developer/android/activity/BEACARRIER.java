@@ -66,7 +66,7 @@ public class BEACARRIER extends AppCompatActivity {
         setContentView(R.layout.activity_beacarrier);
         Toolbar toolbar = (Toolbar) findViewById(R.id.beacarrier_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Carrier Trip Schedule</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trip Schedule</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         carrierSchedules.setCarrierScheduleDetailAttributes(carrierScheduleDetailAttributes);
