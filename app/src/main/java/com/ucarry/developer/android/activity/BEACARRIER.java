@@ -347,6 +347,7 @@ public class BEACARRIER extends AppCompatActivity {
     public void dateClick(View view) {
         final TextView et = (TextView) view;
 
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
 
@@ -360,6 +361,17 @@ public class BEACARRIER extends AppCompatActivity {
                                                   int arg1, int arg2, int arg3) {
 
                                 et.setText(arg3 + "-" + (arg2 + 1) + "-" + arg1);
+
+                                if(et==arrDateInput) {
+
+                                    Log.d(TAG,"Arrival Date Clicked");
+                                    timeClick(false);
+                                }
+                                else {
+                                    Log.d(TAG,"Departure Date Clicked");
+                                    timeClick(true);
+                                }
+
 
                                 if(isFromDate) {
 
@@ -380,6 +392,31 @@ public class BEACARRIER extends AppCompatActivity {
         isFromDate = false;
     }
 
+
+    public void timeClick(boolean isTo) {
+
+        Log.d(TAG,"time Clicked");
+        final EditText et;
+        if(isTo)
+         et = depTimeInput;
+        else
+            et = arrTimeInput;
+
+
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
+                et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+    }
 
     public void timeClick(View view) {
 
