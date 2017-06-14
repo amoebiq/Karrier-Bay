@@ -1,5 +1,13 @@
 <resources>
 
+
+    <style name="Theme.Transparent.splash" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/crowdcarrysplash</item>
+    </style>
+
+
+
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->

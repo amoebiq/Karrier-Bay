@@ -54,7 +54,7 @@ public class SenderListActivityListActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarsender);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>SENDERS</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Senders</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Log.d("SENDER_LIST","Setting title....");
