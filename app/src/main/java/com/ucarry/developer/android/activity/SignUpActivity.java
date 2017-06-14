@@ -49,6 +49,10 @@ public class SignUpActivity extends BaseActivity {
 
     private AppCompatDelegate delegate;
 
+    private final String TAG = "SGINUP";
+
+    boolean passwordsMatches = false;
+
 
 
     @Override
@@ -85,6 +89,40 @@ public class SignUpActivity extends BaseActivity {
         email = (EditText) findViewById(R.id.email);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
 
+        confirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                //Log.d(TAG,charSequence.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String pass = password.getText().toString();
+                String confirmPass = confirmPassword.getText().toString();
+                if(pass.equals(confirmPass)) {
+                    passwordsMatches = true;
+                    Toast.makeText(getApplicationContext(),"Password Matches",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    passwordsMatches = false;
+                    Toast.makeText(getApplicationContext(),"Password doesn't match",Toast.LENGTH_LONG).show();
+                }
+                Log.d(TAG,confirmPass);
+
+
+            }
+        });
+
+
+
         signUp.setTypeface(mTfBold);
         story1.setTypeface(mTfRegular);
         terms.setTypeface(mTfSemiBold);
@@ -98,6 +136,8 @@ public class SignUpActivity extends BaseActivity {
         confirmPassword.setTypeface(mTfSemiBold);
 
         sessionManager = new SessionManager(getApplicationContext());
+
+        signUp.setEnabled(false);
 
         phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,6 +193,9 @@ public class SignUpActivity extends BaseActivity {
                                 Log.d("LoginResponse", response.body().toString());
                                 Toast.makeText(getApplicationContext(), response.body().getMessage().toString(), Toast.LENGTH_LONG).show();
                                 phoneNumber.setEnabled(false);
+
+                                signUp.setEnabled(true);
+
                             }
                             if (response.code() == 400) {
 
@@ -226,19 +269,22 @@ public class SignUpActivity extends BaseActivity {
         super.onResume();
     }
     public boolean Validation() {
-        if (email.getText().length() == 0 || password.getText().length() == 0 || confirmPassword.getText().length() == 0 || phoneNumber.getText().length() == 0 || fullName.getText().length() == 0 || otp.getText().length() == 0) {
+        if (email.getText().length() == 0 || password.getText().length() == 0 || confirmPassword.getText().length() == 0 || phoneNumber.getText().length() == 0 || fullName.getText().length() == 0 || otp.getText().length() == 0 || !passwordsMatches) {
             if (fullName.getText().length() == 0) {
                 fullName.setError("Enter your name");
-            } else if (email.getText().length() == 0) {
+            } if (email.getText().length() == 0) {
                 email.setError("Enter valid email");
-            } else if (password.getText().length() == 0) {
+            } if (password.getText().length() == 0) {
                 password.setError("Enter your password");
-            } else if (confirmPassword.getText().length() == 0) {
+            } if (confirmPassword.getText().length() == 0) {
                 confirmPassword.setError("Enter your password");
-            } else if (phoneNumber.getText().length() == 0) {
+            } if (phoneNumber.getText().length() == 0) {
                 phoneNumber.setError("Enter your phone number");
-            } else if (otp.getText().length() == 0) {
+            } if (otp.getText().length() == 0) {
                 otp.setError("Enter valid OTP");
+            }
+            if(!passwordsMatches) {
+                confirmPassword.setError("Password Doesn't match");
             }
             return false;
         } else {
