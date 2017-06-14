@@ -109,11 +109,11 @@ public class SignUpActivity extends BaseActivity {
                 String confirmPass = confirmPassword.getText().toString();
                 if(pass.equals(confirmPass)) {
                     passwordsMatches = true;
-                    Toast.makeText(getApplicationContext(),"Password Matches",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),"Password Matches",Toast.LENGTH_LONG).show();
                 }
                 else {
                     passwordsMatches = false;
-                    Toast.makeText(getApplicationContext(),"Password doesn't match",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),"Password doesn't match",Toast.LENGTH_LONG).show();
                 }
                 Log.d(TAG,confirmPass);
 
