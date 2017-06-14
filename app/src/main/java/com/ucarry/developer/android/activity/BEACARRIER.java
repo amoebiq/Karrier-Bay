@@ -52,8 +52,8 @@ public class BEACARRIER extends AppCompatActivity {
     private TextView toLocView;
     private EditText fromLocInput;
     private EditText toLocInput;
-    private TextView depDateInput;
-    private TextView arrDateInput;
+    private EditText depDateInput;
+    private EditText arrDateInput;
     private EditText depTimeInput;
     private EditText arrTimeInput;
 
@@ -82,9 +82,9 @@ public class BEACARRIER extends AppCompatActivity {
         EditText et = (EditText) findViewById(R.id.carrier_passenger_capacityET);
         fromLocInput = (EditText) findViewById(R.id.carrier_schedule_from_edittext);
         toLocInput = (EditText) findViewById(R.id.becarrier_to_loc);
-        depDateInput = (TextView) findViewById(R.id.depCarrierDate);
+        depDateInput = (EditText) findViewById(R.id.etDEPDate);
         depTimeInput = (EditText) findViewById(R.id.depCarrierTime);
-        arrDateInput = (TextView) findViewById(R.id.arrCarrierDAte);
+        arrDateInput = (EditText) findViewById(R.id.etToDate);
         arrTimeInput = (EditText) findViewById(R.id.arrCarrierTIme);
 
         et.setVisibility(View.GONE);
@@ -384,25 +384,47 @@ public class BEACARRIER extends AppCompatActivity {
 
     private boolean validate() {
 
+        toLocInput.setError(null);
+        fromLocInput.setError(null);
+        arrDateInput.setError(null);
+        arrTimeInput.setError(null);
+        depDateInput.setError(null);
+        depTimeInput.setError(null);
+
+
         if(fromLocInput.getText().length()==0 || toLocInput.getText().length()==0 || depDateInput.getText().length()==0 || depTimeInput.getText().length()==0 || arrDateInput.getText().length()==0 || arrTimeInput.getText().length()==0) {
+
+
 
 
             if(fromLocInput.getText().length()==0)
                 fromLocInput.setError("Provide Start Location");
+
+
             if(toLocInput.getText().length()==0)
                 toLocInput.setError("Provide Destination Location");
 
+
+
             if(arrDateInput.getText().length()==0)
-                arrDateInput.setError("Provide Destination Location");
+                arrDateInput.setError("Provide Arrival Date");
+
+
 
             if(arrTimeInput.getText().length()==0)
-                arrTimeInput.setError("Provide Destination Location");
+                arrTimeInput.setError("Provide Arrival Time");
+
+
 
             if(depDateInput.getText().length()==0)
-                depDateInput.setError("Provide Destination Location");
+                depDateInput.setError("Provide Departure Date");
+
+
 
             if(depTimeInput.getText().length()==0)
-                depTimeInput.setError("Provide Destination Location");
+                depTimeInput.setError("Provide Departure Time");
+
+
 
 
 
