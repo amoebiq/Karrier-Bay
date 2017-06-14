@@ -2,6 +2,7 @@ package com.ucarry.developer.android.activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -35,6 +37,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
 import com.ucarry.developer.android.Model.CarrierSchedules;
+import com.ucarry.developer.android.Model.Constants;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.Calendar;
@@ -254,7 +257,28 @@ public class BEACARRIER extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-               navigateUpTo(new Intent(this, MainActivity.class));
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(Constants.CONFIRM_BACK_NAVIGATION)
+                    .setCancelable(false)
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            navigateUpTo(new Intent(BEACARRIER.this, MainActivity.class));
+                        }
+                    });
+
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
