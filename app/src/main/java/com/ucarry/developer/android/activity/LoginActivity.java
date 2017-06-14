@@ -49,6 +49,7 @@ public class LoginActivity extends BaseActivity {
         haveAccount = (TextView) findViewById(R.id.account);
         forgotPassword = (TextView) findViewById(R.id.forgot_password);
         signIn = (Button) findViewById(R.id.email_sign_in_button);
+        signIn.setEnabled(true);
         email = (EditText) findViewById(R.id.phone_number);
         password = (EditText) findViewById(R.id.password);
 
@@ -71,14 +72,17 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
-                pd.setIndeterminate(true);
-                pd.setMessage(Constants.LOGIN_MESSAGE);
-                pd.show();
+
 
 
                 Boolean validate = Validation();
                 if (validate) {
+
+                    final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+                    pd.setIndeterminate(true);
+                    pd.setMessage(Constants.LOGIN_MESSAGE);
+                    pd.show();
+
                     Call<LoginResponse> call = apiService.getLogin(new LoginRequest(email.getText().toString(), password.getText().toString()));
                     call.enqueue(new Callback<LoginResponse>() {
                         @Override
@@ -143,16 +147,12 @@ public class LoginActivity extends BaseActivity {
             if (email.getText().length() == 0) {
                 email.setError("Enter valid email");
             } else {
-                password.setError("Enter your password");
+                password.setError("Enter valid password");
             }
             return false;
-        } /*else if (email.getText().length() == 0) {
-            email.setError("Enter valid email");
-            return false;
-        } else if (password.getText().length() == 0) {
-            password.setError("Enter your password");
-            return false;
-        }*/ else {
+        }
+
+        else {
             return true;
         }
     }
