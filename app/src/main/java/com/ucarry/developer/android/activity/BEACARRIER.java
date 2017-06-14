@@ -50,6 +50,14 @@ public class BEACARRIER extends AppCompatActivity {
     private boolean isFromTime = false;
     private TextView fromLocTextView;
     private TextView toLocView;
+    private EditText fromLocInput;
+    private EditText toLocInput;
+    private TextView depDateInput;
+    private TextView arrDateInput;
+    private EditText depTimeInput;
+    private EditText arrTimeInput;
+
+
     private String tag;
     private static String ARTICLE = "ARTICLE";
     private static String PASSENGER = "PASSENGER";
@@ -72,6 +80,13 @@ public class BEACARRIER extends AppCompatActivity {
         carrierSchedules.setCarrierScheduleDetailAttributes(carrierScheduleDetailAttributes);
 
         EditText et = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+        fromLocInput = (EditText) findViewById(R.id.carrier_schedule_from_edittext);
+        toLocInput = (EditText) findViewById(R.id.becarrier_to_loc);
+        depDateInput = (TextView) findViewById(R.id.depCarrierDate);
+        depTimeInput = (EditText) findViewById(R.id.depCarrierTime);
+        arrDateInput = (TextView) findViewById(R.id.arrCarrierDAte);
+        arrTimeInput = (EditText) findViewById(R.id.arrCarrierTIme);
+
         et.setVisibility(View.GONE);
 
 //        final Spinner litreSpinner = (Spinner) findViewById(R.id.carrier_litre_capacity);
@@ -189,38 +204,41 @@ public class BEACARRIER extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG,"Next button Clicked");
 
-                Intent intent = new Intent(BEACARRIER.this, CarrierSummaryView.class);
-                fromDateData = ((EditText) findViewById(R.id.etDEPDate)).getText().toString();
-                fromDataTime = ((TextView) findViewById(R.id.depCarrierTime)).getText().toString();
-                toDateData = ((EditText) findViewById(R.id.etToDate)).getText().toString();
-                toDataTime = ((TextView) findViewById(R.id.arrCarrierTIme)).getText().toString();
 
-                carrierSchedules.getCarrierScheduleDetailAttributes().setStart_time(fromDateData+" "+fromDataTime);
-                carrierSchedules.getCarrierScheduleDetailAttributes().setEnd_time(toDateData+" "+toDataTime);
+                Log.d(TAG, "Next button Clicked");
 
-                Log.d(TAG,fromDataTime+":::"+fromDateData+":::"+toDateData+":::"+toDataTime);
-                EditText capacityET = (EditText) findViewById(R.id.carrier_passenger_capacityET);
-                String capacity = capacityET.getText().toString();
-                if(!isPassenger) {
-                    capacity = capacity+"L";
+                if (validate()) {
+
+                    Intent intent = new Intent(BEACARRIER.this, CarrierSummaryView.class);
+                    fromDateData = ((EditText) findViewById(R.id.etDEPDate)).getText().toString();
+                    fromDataTime = ((TextView) findViewById(R.id.depCarrierTime)).getText().toString();
+                    toDateData = ((EditText) findViewById(R.id.etToDate)).getText().toString();
+                    toDataTime = ((TextView) findViewById(R.id.arrCarrierTIme)).getText().toString();
+
+                    carrierSchedules.getCarrierScheduleDetailAttributes().setStart_time(fromDateData + " " + fromDataTime);
+                    carrierSchedules.getCarrierScheduleDetailAttributes().setEnd_time(toDateData + " " + toDataTime);
+
+                    Log.d(TAG, fromDataTime + ":::" + fromDateData + ":::" + toDateData + ":::" + toDataTime);
+                    EditText capacityET = (EditText) findViewById(R.id.carrier_passenger_capacityET);
+                    String capacity = capacityET.getText().toString();
+                    if (!isPassenger) {
+                        capacity = capacity + "L";
+                    }
+
+                    carrierSchedules.getCarrierScheduleDetailAttributes().setCapacity(capacity);
+                    intent.putExtra("CarrierSchedules", carrierSchedules);
+                    startActivity(intent);
+
+
                 }
-
-                carrierSchedules.getCarrierScheduleDetailAttributes().setCapacity(capacity);
-                intent.putExtra("CarrierSchedules",carrierSchedules);
-                startActivity(intent);
-
 
             }
         });
+
+
     }
 
-
-    private boolean validate() {
-
-        return true;
-    }
 
     private boolean checkAndReturn(String s) {
 
@@ -361,6 +379,38 @@ public class BEACARRIER extends AppCompatActivity {
         fragmentTransaction.addToBackStack(transaction);
         fragmentTransaction.commit();
         Log.d("backFragment", tag);
+    }
+
+
+    private boolean validate() {
+
+        if(fromLocInput.getText().length()==0 || toLocInput.getText().length()==0 || depDateInput.getText().length()==0 || depTimeInput.getText().length()==0 || arrDateInput.getText().length()==0 || arrTimeInput.getText().length()==0) {
+
+
+            if(fromLocInput.getText().length()==0)
+                fromLocInput.setError("Provide Start Location");
+            if(toLocInput.getText().length()==0)
+                toLocInput.setError("Provide Destination Location");
+
+            if(arrDateInput.getText().length()==0)
+                arrDateInput.setError("Provide Destination Location");
+
+            if(arrTimeInput.getText().length()==0)
+                arrTimeInput.setError("Provide Destination Location");
+
+            if(depDateInput.getText().length()==0)
+                depDateInput.setError("Provide Destination Location");
+
+            if(depTimeInput.getText().length()==0)
+                depTimeInput.setError("Provide Destination Location");
+
+
+
+            return false;
+
+        }
+
+        return true;
     }
 
 }
