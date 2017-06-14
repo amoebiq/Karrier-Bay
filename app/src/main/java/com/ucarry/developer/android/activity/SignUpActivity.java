@@ -137,7 +137,7 @@ public class SignUpActivity extends BaseActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
 
-        signUp.setEnabled(false);
+        signUp.setEnabled(true);
 
         phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
