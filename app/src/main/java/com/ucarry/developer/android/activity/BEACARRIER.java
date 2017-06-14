@@ -38,9 +38,11 @@ import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
 import com.ucarry.developer.android.Model.CarrierSchedules;
 import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class BEACARRIER extends AppCompatActivity {
 
@@ -364,6 +366,7 @@ public class BEACARRIER extends AppCompatActivity {
                                     Log.d(TAG,"ITS FROM DATE SO SETTING TO fromDAteDATA");
 
                                     fromDateData = arg3 + "-" + (arg2 + 1) + "-" + arg1;
+
                                 }
                                 else {
                                     Log.d(TAG,"ITS TO DATE SO SETTING TO fromDAteDATA");
@@ -389,7 +392,8 @@ public class BEACARRIER extends AppCompatActivity {
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                et.setText(selectedHour + ":" + selectedMinute);
+
+                et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
             }
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
@@ -414,6 +418,8 @@ public class BEACARRIER extends AppCompatActivity {
         arrTimeInput.setError(null);
         depDateInput.setError(null);
         depTimeInput.setError(null);
+
+
 
 
         if(fromLocInput.getText().length()==0 || toLocInput.getText().length()==0 || depDateInput.getText().length()==0 || depTimeInput.getText().length()==0 || arrDateInput.getText().length()==0 || arrTimeInput.getText().length()==0) {
@@ -455,6 +461,29 @@ public class BEACARRIER extends AppCompatActivity {
             return false;
 
         }
+
+        String fromDateStr = depDateInput.getText().toString()+" "+depTimeInput.getText().toString();
+        String toDateStr = arrDateInput.getText().toString()+" "+arrTimeInput.getText().toString();
+        try {
+            Date start = Utility.getDateFromString(fromDateStr);
+            Date end = Utility.getDateFromString(toDateStr);
+            if (start.compareTo(end) > 0) {
+
+                Toast.makeText(getApplicationContext(),Constants.FROM_TO_DATE_VALIDATION,Toast.LENGTH_LONG).show();
+                return false;
+
+            }
+
+        }
+        catch(Exception e) {
+
+        }
+        Log.d(TAG,fromDateStr);
+        Log.d(TAG,toDateStr);
+
+
+
+
 
         return true;
     }

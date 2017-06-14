@@ -96,6 +96,24 @@ public class Utility {
             return df.format(d);
     }
 
+    public static Date getDateFromString(String dateTime) {
+
+        if(dateTime==null)
+            return null;
+
+        Log.d(TAG , dateTime);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date d = null;
+        try {
+            d = df.parse(dateTime);
+            return d;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static String convertToProperDateFromServer(String dateTime) {
 
         if(dateTime==null)
