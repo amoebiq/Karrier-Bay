@@ -353,7 +353,7 @@ public class BEACARRIER extends AppCompatActivity {
 
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        new DatePickerDialog(this,
+        DatePickerDialog dpd = new DatePickerDialog(this,
                 new
                         DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -385,9 +385,10 @@ public class BEACARRIER extends AppCompatActivity {
                                     toDateData = arg3 + "-" + (arg2 + 1) + "-" + arg1;
                                 }
                             }
-                        }, year, month, day).show();
+                        }, year, month, day);
 
-
+        dpd.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dpd.show();
 
         isFromDate = false;
     }
