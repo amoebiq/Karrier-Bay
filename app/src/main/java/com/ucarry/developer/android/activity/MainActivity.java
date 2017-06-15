@@ -76,8 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public SenderOrder sender = new SenderOrder();
     public QuoteRequest quoteRequest = new QuoteRequest();
     private static int NOTIFICATION_ID = 1;
-
-
+    private boolean exit = false;
 
 
     @Override
@@ -336,8 +335,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             String tag = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
             //Toast.makeText(this,tag,Toast.LENGTH_LONG).show();
+
             if (tag.equals("MainFragment")) {
+
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+                startActivity(intent);
                 finish();
+                System.exit(0);
+
             } else if (tag.equals(Constants.DETAILSFRAGMENT)) {
                 FragmentManager fm = getSupportFragmentManager();
                 for (int i = 1; i < fm.getBackStackEntryCount(); ++i) {
