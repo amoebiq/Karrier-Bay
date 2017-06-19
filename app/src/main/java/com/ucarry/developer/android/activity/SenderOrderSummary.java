@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Model.PickupOrderMapping;
 import com.ucarry.developer.android.Model.Quote;
+import com.ucarry.developer.android.Model.ReceiverOrderMapping;
 import com.ucarry.developer.android.Model.SenderOrder;
 import com.ucarry.developer.android.Model.SenderOrderItemAttributes;
 import com.ucarry.developer.android.Model.SenderOrderRequest;
@@ -38,6 +39,7 @@ public class SenderOrderSummary extends AppCompatActivity {
     private SenderOrderItemAttributes orderItems;
     private Quote quote;
     private PickupOrderMapping pickupOrderMapping;
+    private ReceiverOrderMapping receiverOrderMapping;
 
     private TextView fromTv;
     private TextView fromDateTV;
@@ -51,6 +53,10 @@ public class SenderOrderSummary extends AppCompatActivity {
     private TextView pickAddr1;
     private TextView pickAddr2;
     private TextView pickAddr3;
+
+    private TextView delAddr1;
+    private TextView delAddr2;
+    private TextView delAddr3;
 
     private ApiInterface apiService;
 
@@ -72,6 +78,7 @@ public class SenderOrderSummary extends AppCompatActivity {
         orderItems = order.getOrder_items().get(0);
         quote = (Quote) getIntent().getSerializableExtra("Quote");
         pickupOrderMapping = order.getPickupOrderMapping();
+        receiverOrderMapping = order.getReceiverOrderMapping();
         getBindings();
 
         Button proceedButton = (Button) findViewById(R.id.btn_sender_next);
@@ -88,11 +95,15 @@ public class SenderOrderSummary extends AppCompatActivity {
                 pd.setIndeterminate(true);
                 pd.show();
 
-                senderOrderRequest.setSenderOrder(order);
                 SenderOrderItemAttributes[]  attr = new SenderOrderItemAttributes[1];
                 attr[0] = orderItems;
 
                 order.setSender_order_item_attributes(attr);
+                order.setPickupOrderMapping(pickupOrderMapping);
+
+                senderOrderRequest.setSenderOrder(order);
+
+
 
                 Call<SenderOrderResponse> call = apiService.createSenderOrder(senderOrderRequest);
 
@@ -148,6 +159,10 @@ public class SenderOrderSummary extends AppCompatActivity {
         pickAddr2 = (TextView) findViewById(R.id.address_line_2);
         pickAddr3 = (TextView) findViewById(R.id.address_line_3);
 
+        delAddr1 = (TextView) findViewById(R.id.del_address_line_1);
+        delAddr2 = (TextView) findViewById(R.id.del_address_line_2);
+        delAddr3 = (TextView) findViewById(R.id.del_address_line_3);
+
         initialize();
 
     }
@@ -166,6 +181,10 @@ public class SenderOrderSummary extends AppCompatActivity {
         pickAddr1.setText(pickupOrderMapping.getName()+","+pickupOrderMapping.getPhone_1());
         pickAddr2.setText(pickupOrderMapping.getAddress_line_1());
         pickAddr3.setText(pickupOrderMapping.getAddress_line_2());
+
+        delAddr1.setText(receiverOrderMapping.getName()+","+receiverOrderMapping.getPhone_1());
+        delAddr2.setText(receiverOrderMapping.getAddress_line_1());
+        delAddr3.setText(receiverOrderMapping.getAddress_line_2());
 
 
     }

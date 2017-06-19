@@ -62,6 +62,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
                 if(validate()) {
 
                     order.setPickupOrderMapping(pickupOrderMapping);
+                    order.setReceiverOrderMapping(receiverOrderMapping);
 
                     Intent intent = new Intent(SenderOrderSecondPage.this,SenderOrderSummary.class);
                     intent.putExtra("SenderOrder",order);
@@ -108,12 +109,38 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
     private boolean validate() {
 
-        if(pickupName.getText().length()==0 || etPickMobile.getText().length()==0 || etPickMobile.getText().length()!=10 || etDeliveyMobile.getText().length()==0 || etDeliveyMobile.getText().length()!=10) {
+        if(pickupName.getText().length()==0 || etPickMobile.getText().length()==0 || etPickMobile.getText().length()!=10 || etDeliveyMobile.getText().length()==0 || etDeliveyMobile.getText().length()!=10 || etDeliveryFlatName.getText().length()==0 || etDeliveryName.getText().length()==0 || etFlatNo.getText().length()==0 || etFlatName.getText().length()==0 || etDeliveryName.getText().length()==0) {
 
             if(pickupName.getText().length()==0) {
 
                 pickupName.setError("Please enter valid Name");
             }
+
+            if(etDeliveryName.getText().length()==0) {
+
+                etDeliveryName.setError("Please enter valid Name");
+            }
+
+            if(etFlatName.getText().length()==0) {
+
+                etFlatName.setError("Please enter valid address");
+            }
+
+            if(etFlatNo.getText().length()==0) {
+
+                etFlatNo.setError("Please enter valid address");
+            }
+
+            if(etDeliveryFlatName.getText().length()==0) {
+
+                etDeliveryFlatName.setError("Please enter valid Address");
+            }
+
+            if(etDeliveyFlatNo.getText().length()==0) {
+
+                etDeliveyFlatNo.setError("Please enter valid Address");
+            }
+
 
 
             if(etPickMobile.getText().length()==0 || etPickMobile.getText().length()!=10) {
@@ -136,6 +163,11 @@ public class SenderOrderSecondPage extends AppCompatActivity {
         pickupOrderMapping.setPhone_1(etPickMobile.getText().toString());
         pickupOrderMapping.setAddress_line_1(etFlatName.getText().toString()+","+etFlatNo.getText().toString());
         pickupOrderMapping.setAddress_line_2(etPckAddress.getText().toString());
+
+        receiverOrderMapping.setName(etDeliveryName.getText().toString());
+        receiverOrderMapping.setPhone_1(etDeliveyMobile.getText().toString());
+        receiverOrderMapping.setAddress_line_1(etDeliveyFlatNo.getText().toString()+","+etDeliveryFlatName.getText().toString());
+        receiverOrderMapping.setAddress_line_2(etDeliAddress.getText().toString());
 
         return true;
 

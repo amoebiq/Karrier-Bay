@@ -33,6 +33,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.vision.text.Line;
 import com.ucarry.developer.android.Fragment.SenderTripScheduleFragment;
 import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Model.ItemAttributes;
 import com.ucarry.developer.android.Model.QuoteRequest;
 import com.ucarry.developer.android.Model.QuoteResponse;
 import com.ucarry.developer.android.Model.SenderOrder;
@@ -91,6 +92,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
     private SenderOrder order = new SenderOrder();
     private SenderOrderItemAttributes orderItems = new SenderOrderItemAttributes();
+    private ItemAttributes itemAttributes = new ItemAttributes();
 
     private Button nextButton;
 
@@ -168,9 +170,9 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
 
 
-                if(true) {
+                if(validate()) {
 
-                    dummyFeed();
+                    //dummyFeed();
                     Log.d(TAG,"Next clicked");
 
                     apiService = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
@@ -559,8 +561,16 @@ public class SenderOrderFirstPage extends AppCompatActivity {
     private boolean validate() {
 
 
+        boolean invalid=false;
+        if(!isPassenger && orderWeightEt.getText().length()==0) {
 
-        if(fromLoc.getText().length()==0 || toLoc.getText().length()==0 || depDate.getText().length()==0 || arrDate.getText().length()==0 || depTime.getText().length()==0 || arrTime.getText().length()==0) {
+            orderWeightEt.setError("Please Enter Weight");
+            invalid = true;
+
+
+        }
+
+        if(fromLoc.getText().length()==0 || toLoc.getText().length()==0 || depDate.getText().length()==0 || arrDate.getText().length()==0 || depTime.getText().length()==0 || arrTime.getText().length()==0 || lengthET.getText().length()==0 || breadthET.getText().length()==0 || heightET.getText().length()==0 || invalid) {
 
             if(fromLoc.getText().length()==0) {
                 fromLoc.setError("Please fill from location");
@@ -570,6 +580,31 @@ public class SenderOrderFirstPage extends AppCompatActivity {
                 toLoc.setError("Please fill to location");
 
             }
+
+
+            if(depDate.getText().length()==0) {
+                depDate.setError("Please fill from Date");
+            }
+            if(arrDate.getText().length()==0) {
+
+                arrDate.setError("Please fill arrival date");
+
+
+            }
+
+            if(lengthET.getText().length()==0) {
+                lengthET.setError("Please Enter length in cm");
+            }
+
+            if(breadthET.getText().length()==0) {
+                breadthET.setError("Please Enter breadth in cm");
+            }
+
+            if(heightET.getText().length()==0) {
+                heightET.setError("Please Enter height in cm");
+            }
+
+            return false;
 
 
         }
@@ -585,6 +620,17 @@ public class SenderOrderFirstPage extends AppCompatActivity {
         qr.setLong2(order.getTo_geo_long());
 
         order.setRef_1(orderWeightEt.getText().toString());
+
+        itemAttributes.setBreadth(qr.getBreadth());
+        itemAttributes.setLength(qr.getLength());
+        itemAttributes.setHeight(qr.getLength());
+        itemAttributes.setWeight(order.getRef_1());
+
+        orderItems.setItem_attributes(itemAttributes);
+
+        orderItems.setQuantity(1);
+
+
 
 
 

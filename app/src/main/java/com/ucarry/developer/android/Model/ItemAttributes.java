@@ -6,12 +6,14 @@ import android.databinding.Bindable;
 import com.google.gson.annotations.SerializedName;
 import com.yourapp.developer.karrierbay.BR;
 
+import java.io.Serializable;
+
 /**
  * Created by vel on 11/2/17.
  */
 
 
-public class ItemAttributes extends BaseObservable {
+public class ItemAttributes extends BaseObservable implements Serializable {
 
     private int breadthIndex;
     private String breadth;
