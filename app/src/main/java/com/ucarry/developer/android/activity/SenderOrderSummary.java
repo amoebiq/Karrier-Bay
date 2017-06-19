@@ -214,7 +214,7 @@ public class SenderOrderSummary extends AppCompatActivity {
         toTv.setText(order.getTo_loc());
         toDateTV.setText(Utility.convertToProperDate(orderItems.getEnd_time()));
         wantToSend.setText(orderItems.getItem_type());
-        rate.setText(quote.getGrand_total());
+        rate.setText(Math.ceil(Double.parseDouble(quote.getGrand_total()))+"");
         itemWeight.setText(order.getRef_1());
         itemSubType.setText(orderItems.getItem_subtype());
 

@@ -250,7 +250,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public Intent getDetails(Intent intent, CarrierSchedules schedules) {
 
 
-        Log.d("CARRIERS_EXTRA_INENT", schedules.getUser().getImage());
+        //Log.d("CARRIERS_EXTRA_INENT", schedules.getUser().getImage());
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.SSSZ'");
 
