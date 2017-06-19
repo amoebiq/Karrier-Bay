@@ -215,7 +215,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
 
                                 TextView text = (TextView) dialog.findViewById(R.id.textView2);
-                                text.setText("The appropriate charge for your courier is RS." + Math.ceil(Double.parseDouble(quoteResponse.quote.getGrand_total())) + " The prices may be vary according to the exact " +
+                                text.setText("The approximate charge for your courier is RS." + Math.ceil(Double.parseDouble(quoteResponse.quote.getGrand_total())) + " The prices may be vary according to the exact " +
                                         "pick up and delivery points");
 
                                 Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
