@@ -8,7 +8,10 @@ import android.databinding.Bindable;
  * Created by vel on 11/2/17.
  */
 import com.yourapp.developer.karrierbay.BR;
-public class PickupOrderMapping extends BaseObservable
+
+import java.io.Serializable;
+
+public class PickupOrderMapping extends BaseObservable implements Serializable
 {
     private String landmark;
 

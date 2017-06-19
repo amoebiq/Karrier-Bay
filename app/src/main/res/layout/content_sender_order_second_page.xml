@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ucarry.developer.android.activity.SenderOrderSecondPage"
+    tools:showIn="@layout/activity_sender_order_second_page">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scheduleform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/labelPickDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="50"
+                    android:text="@string/pick_details"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="17dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/deplabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelPickName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/name"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelPickNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/prompt_mobile_phonenumber"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/depform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etPickName"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+                        
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etPickMobile"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelpickFlatFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelPickFlatName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/flat_no"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelPickFlat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/flatename"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pickform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etFlatNo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etFlatName"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+
+                        android:inputType="text"
+                        android:maxLines="1"
+                        
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelpickaddressFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelPickAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/address"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pickaddressform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etPckAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/labelDeliveyDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="50"
+                    android:text="@string/delivery_details"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/deliverylabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDeliveyName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/name"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelDeliveyNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/prompt_mobile_phonenumber"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/delform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDeliveryName"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etDeliveyMobile"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labeldeliveryFlatFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDelveryFlatName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/flat_no"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelDeliFlat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/flatename"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/deliform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDeliveyFlatNo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etDeliveryFlatName"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labeldeliveryaddressFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDeliveyAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/address"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/deliaddressform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDeliAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="text"
+                        android:maxLines="1"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_sender_next"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="@string/next"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

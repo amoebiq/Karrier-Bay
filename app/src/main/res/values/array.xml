@@ -6,9 +6,15 @@
         <item>Madurai</item>
     </string-array>
     <string-array name="wanttosend">
-        <item>Article</item>
+        <item>Articles</item>
         <item>Passenger</item>
     </string-array>
+
+    <string-array name="article_subcategory">
+        <item>Electronic Item</item>
+        <item>Luggage</item>
+    </string-array>
+
     <string-array name="width">
         <item>W: 40cm</item>
         <item>W: 50cm</item>

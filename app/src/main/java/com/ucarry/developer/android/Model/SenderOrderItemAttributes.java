@@ -2,13 +2,16 @@ package com.ucarry.developer.android.Model;
 
 import android.databinding.BaseObservable;
 
+import com.google.gson.annotations.SerializedName;
 import com.ucarry.developer.android.Utilities.Utility;
+
+import java.io.Serializable;
 
 /**
  * Created by vel on 11/2/17.
  */
 
-public class SenderOrderItemAttributes extends BaseObservable {
+public class SenderOrderItemAttributes extends BaseObservable  implements Serializable{
     private ItemAttributes item_attributes;
 
   private String displayStartTime;

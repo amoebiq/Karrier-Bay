@@ -55,6 +55,10 @@ public interface ApiInterface {
     @POST("carrier/schedule")
     Call<CarrierScheduleRequest > createSchedule(@Body CarrierScheduleRequest carrierScheduleRequest);
 
+
+    @POST("sender/order")
+    Call<SenderOrderResponse > createSenderOrder(@Body SenderOrderRequest senderOrderRequesteduleRequest);
+
     @GET("{flowtype}/{flowtypeParam1}/{flowtypeParam2}")
     Call<List<SenderOrder>> getAllSenderCarrierList(@Path("flowtype") String flowtype, @Path("flowtypeParam1") String flowtypeParam1 , @Path("flowtypeParam2") String flowtypeParam2 , @Query("from_loc") String from_loc , @Query(("to_loc")) String to_loc);
 

@@ -1,10 +1,12 @@
 package com.ucarry.developer.android.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by vel on 26/2/17.
  */
 
-public class Quote {
+public class Quote implements Serializable {
     private String breadth;
 
     private String total_distance;
@@ -32,6 +34,26 @@ public class Quote {
     private String insurance_percent;
 
     private String grand_total;
+
+    private String weight;
+
+    private String volumetric_weight;
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getVolumetric_weight() {
+        return volumetric_weight;
+    }
+
+    public void setVolumetric_weight(String volumetric_weight) {
+        this.volumetric_weight = volumetric_weight;
+    }
 
     public String getGrand_total() {
         return grand_total;

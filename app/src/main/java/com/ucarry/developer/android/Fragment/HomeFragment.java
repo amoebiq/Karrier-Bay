@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ucarry.developer.android.activity.BEACARRIER;
+import com.ucarry.developer.android.activity.SenderOrderFirstPage;
 import com.yourapp.developer.karrierbay.R;
 
 import java.io.File;
@@ -64,13 +65,16 @@ public class HomeFragment extends BaseFragment {
         beaSender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).sender = new SenderOrder();
-                ((MainActivity) getActivity()).quoteRequest = new QuoteRequest();
+//                ((MainActivity) getActivity()).sender = new SenderOrder();
+//                ((MainActivity) getActivity()).quoteRequest = new QuoteRequest();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putBoolean("isSenderFlow", true);
+//                senderFragment.setArguments(bundle);
+//                ((MainActivity) getActivity()).fragment(senderFragment, "SenderFragment");
 
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isSenderFlow", true);
-                senderFragment.setArguments(bundle);
-                ((MainActivity) getActivity()).fragment(senderFragment, "SenderFragment");
+                Intent intent = new Intent(getActivity(), SenderOrderFirstPage.class);
+                startActivity(intent);
 
             }
         });

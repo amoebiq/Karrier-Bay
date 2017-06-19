@@ -3,12 +3,14 @@ package com.ucarry.developer.android.Model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.io.Serializable;
+
 
 /**
  * Created by vel on 11/2/17.
  */
 
-public class ReceiverOrderMapping extends BaseObservable
+public class ReceiverOrderMapping extends BaseObservable implements Serializable
 {
     public String getLandmark() {
         return landmark;

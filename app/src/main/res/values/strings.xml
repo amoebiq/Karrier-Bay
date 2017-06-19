@@ -93,6 +93,8 @@
     <string name="title_legal_list">Legals</string>
     <string name="title_legal_detail">Legal Detail</string>
     <string name="prompt_select_bank">Select Bank Name</string>
+    <string name="title_activity_sender_order_second_page">SenderOrderSecondPage</string>
+    <string name="title_activity_sender_order_summary">SenderOrderSummary</string>
 
 
 </resources>

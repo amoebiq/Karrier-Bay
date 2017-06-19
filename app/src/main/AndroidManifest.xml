@@ -113,7 +113,7 @@
         <activity
             android:name="com.ucarry.developer.android.activity.LegalListActivity"
             android:label="@string/title_legal_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.LegalDetailActivity"
             android:label="@string/title_legal_detail"
@@ -123,6 +123,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ucarry.developer.android.activity.LegalListActivity" />
         </activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.SenderOrderFirstPage"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.SenderOrderSecondPage"
+            android:label="@string/title_activity_sender_order_second_page"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.ucarry.developer.android.activity.SenderOrderSummary"
+            android:label="@string/title_activity_sender_order_summary"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

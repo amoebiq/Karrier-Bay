@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ucarry.developer.android.activity.SenderOrderFirstPage"
+    tools:showIn="@layout/activity_sender_order_first_page">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scheduleform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <requestFocus/>
+                <TextView
+
+                    android:id="@+id/carrier_schedule_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/from"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size"
+
+                    />
+
+                <!--android:text="@{user.firstName}"-->
+                <EditText
+                    android:id="@+id/sender_order_from_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="text"
+                    android:spinnerMode="dialog"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/deplabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelDEBDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/deb_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/depCarrierDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:onClick="dateClick"
+                        android:text="@string/deb_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/depform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/sender_order_et_dep_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/sender_order_et_dep_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/labelTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/to"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size" />
+
+
+                <EditText
+                    android:id="@+id/sender_order_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:spinnerMode="dialog"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/tolabelform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelToDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_date"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/arrCarrierDAte"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="@string/arr_time"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/toform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/sender_order_et_arr_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/calendarcolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="dateClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/sender_order_et_arr_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:drawableRight="@drawable/timecolor"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="timeClick"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Want To Send"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ready_to_carry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sender_order_itemlist"
+                    android:backgroundTint="@color/buttonBackground">
+                </Spinner>
+
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orderspassengerlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/labelorderpassengerseatslabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:onClick="dateClick"
+                        android:text="No. of seats"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <EditText
+                        android:id="@+id/labelorderpassengerseatset"
+                        android:layout_width="130dp"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ordersubcategorylayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/labelordersubcategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+
+                        android:text="Category"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:id="@+id/labelorderweight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:onClick="dateClick"
+                        android:text="Weight"
+                        android:textColor="@color/textHintColor"
+                        android:textSize="@dimen/font_size" />
+                </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ordersubcategoryetlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sender_order_itemsublist_article"
+                    android:backgroundTint="@color/buttonBackground">
+                </Spinner>
+
+                <EditText
+                    android:id="@+id/orderweightet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_weight="50"
+                    android:backgroundTint="@color/editTextSelected"
+                    android:inputType="number"
+                    android:maxLines="1"
+
+                    android:focusableInTouchMode="true"
+                    android:cursorVisible="false"
+
+
+                    android:singleLine="true"
+
+                    android:textColor="@color/textColorDark"
+                    android:textColorHint="@color/textHintColor"
+                    android:textSize="@dimen/font_size"
+                    android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ordervolumetricheader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/labelordervolumetrictv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+
+                    android:text="Volumetric Weight"
+                    android:textColor="@color/textHintColor"
+                    android:textSize="@dimen/font_size" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ordervolumetricetslayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/orderlengthtet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+
+                        android:hint="length(cm)"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/orderbreadthtet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+
+                        android:hint="breadth(cm)"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/orderheighttet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:layout_weight="50"
+                        android:backgroundTint="@color/editTextSelected"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:hint="height(cm)"
+
+                        android:singleLine="true"
+
+                        android:textColor="@color/textColorDark"
+                        android:textColorHint="@color/textHintColor"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+
+
+                <Button
+                    android:id="@+id/beasender_next"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="@string/next"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

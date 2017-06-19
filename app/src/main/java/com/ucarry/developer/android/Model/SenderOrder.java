@@ -79,6 +79,34 @@ public class SenderOrder extends BaseObservable implements Serializable{
     private String isInsured;
     private String coupon;
 
+    private String ref_1;
+    private String ref_2;
+    private String ref_3;
+
+    public String getRef_1() {
+        return ref_1;
+    }
+
+    public void setRef_1(String ref_1) {
+        this.ref_1 = ref_1;
+    }
+
+    public String getRef_2() {
+        return ref_2;
+    }
+
+    public void setRef_2(String ref_2) {
+        this.ref_2 = ref_2;
+    }
+
+    public String getRef_3() {
+        return ref_3;
+    }
+
+    public void setRef_3(String ref_3) {
+        this.ref_3 = ref_3;
+    }
+
     @Bindable
     public String getToDate() {
         return toDate;
