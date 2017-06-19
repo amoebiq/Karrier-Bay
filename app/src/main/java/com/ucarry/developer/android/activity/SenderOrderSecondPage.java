@@ -11,12 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ucarry.developer.android.Model.PickupOrderMapping;
 import com.ucarry.developer.android.Model.Quote;
 import com.ucarry.developer.android.Model.ReceiverOrderMapping;
 import com.ucarry.developer.android.Model.SenderOrder;
+import com.ucarry.developer.android.Utilities.SessionManager;
 import com.yourapp.developer.karrierbay.R;
+
+import java.util.HashMap;
 
 public class SenderOrderSecondPage extends AppCompatActivity {
 
@@ -35,6 +39,8 @@ public class SenderOrderSecondPage extends AppCompatActivity {
     private Quote quote;
     private PickupOrderMapping pickupOrderMapping = new PickupOrderMapping();
     private ReceiverOrderMapping receiverOrderMapping = new ReceiverOrderMapping();
+    private SessionManager sessionManager;
+    private HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +58,20 @@ public class SenderOrderSecondPage extends AppCompatActivity {
         getBindings();
         order = (SenderOrder) getIntent().getSerializableExtra("SenderOrder");
         quote = (Quote) getIntent().getSerializableExtra("Quote");
-        initialize();
-        dummyData();
+
+        try {
+            sessionManager = new SessionManager(getApplicationContext());
+            user = sessionManager.getUserDetails();
+            initialize();
+        }
+        catch (Exception e) {
+
+            Toast.makeText(getApplicationContext(),"Oops! Something went wrong . Please restart the app !"+e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+        }
+
+
+
+        //dummyData();
 
         btn_sender_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +195,9 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
         etPckAddress.setText(order.getFrom_loc());
         etDeliAddress.setText(order.getTo_loc());
+
+        pickupName.setText(user.get(SessionManager.KEY_NAME));
+        etPickMobile.setText(user.get(SessionManager.KEY_PHONE));
 
 
 

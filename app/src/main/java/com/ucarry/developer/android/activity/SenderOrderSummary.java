@@ -1,5 +1,6 @@
 package com.ucarry.developer.android.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ucarry.developer.android.Model.Constants;
@@ -114,6 +117,43 @@ public class SenderOrderSummary extends AppCompatActivity {
                         Log.d(TAG,"Success");
 
                         pd.dismiss();
+
+                        if(response.code()==201 || response.code()==200) {
+
+                            final Dialog dialog = new Dialog(SenderOrderSummary.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.order_popuo);
+
+
+                            TextView text = (TextView) dialog.findViewById(R.id.textView2);
+                            text.setText(Constants.ORDER_CREATION_MESSAGE);
+
+                            Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
+                            ImageView ivPop = (ImageView) dialog.findViewById(R.id.ivPop);
+
+                            // if button is clicked, close the custom dialog
+                            dialogButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    Intent intent = new Intent(SenderOrderSummary.this,CarrierListActivity.class);
+
+
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            dialog.show();
+
+                            // if button is clicked, close the custom dialog
+                            ivPop.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
                     }
 
                     @Override
