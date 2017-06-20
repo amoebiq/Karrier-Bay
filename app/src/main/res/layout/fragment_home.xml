@@ -13,8 +13,9 @@
 
         <Button
             android:id="@+id/be_a_carrier"
-            android:layout_width="260dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginRight="15dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="7dp"
             android:background="@drawable/rounded_button"
@@ -23,8 +24,9 @@
 
         <Button
             android:id="@+id/be_a_sender"
-            android:layout_width="260dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginRight="15dp"
             android:layout_below="@+id/be_a_carrier"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="7dp"

@@ -48,7 +48,7 @@
                         android:id="@+id/terms_of_use_button"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="25dp"
                         android:background="@color/colorPrimaryTransparent"
                         android:text="Terms of Use"
                         android:textColor="@color/colorPrimary"
@@ -68,13 +68,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
 
                     <Button
                         android:id="@+id/privacy_policy_button"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="25dp"
                         android:background="@color/colorPrimaryTransparent"
                         android:text="Privacy Policy"
                         android:textColor="@color/colorPrimary"
@@ -84,6 +85,7 @@
                         android:drawableRight="@drawable/plus_icon"/>
 
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/privacy_policy"

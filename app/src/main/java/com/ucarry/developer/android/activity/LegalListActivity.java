@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,12 +43,31 @@ public class LegalListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+    boolean authenticated = false;
+    private static final String TAG = "LEGAL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legal_list);
 
+
+
+
+        try {
+
+            Log.d(TAG,authenticated+"");
+
+            authenticated = getIntent().getExtras().getBoolean("authenticated");
+
+            Log.d(TAG,authenticated+"  After");
+
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+            authenticated = true;
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,7 +140,42 @@ public class LegalListActivity extends AppCompatActivity {
 
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if(!authenticated) {
+
+                Intent intent = new Intent(this,SignUpActivity.class);
+                startActivity(intent);
+
+            }
+            else {
+
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+
+            }
+
+            return true;
+
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.d(TAG,"Back");
+        Log.d(TAG,authenticated+"");
+        if(!authenticated) {
+
+            Intent intent = new Intent(this,SignUpActivity.class);
+            startActivity(intent);
+
+        }
         int id = item.getItemId();
         if (id == android.R.id.home) {
             navigateUpTo(new Intent(this, MainActivity.class));
