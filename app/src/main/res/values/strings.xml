@@ -18,7 +18,7 @@
     <string name="action_signup"> Sign up</string>
     <string name="prompt_signup_story">By clicking Sign Up, you are agreeing to our</string>
     <string name="prompt_terms">Terms of services</string>
-    <string name="prompt_signup_story1">and</string>
+    <string name="prompt_signup_story1"> and</string>
     <string name="prompt_privacy">Privacy Policy</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

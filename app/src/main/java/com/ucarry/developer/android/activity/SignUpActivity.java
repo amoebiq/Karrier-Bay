@@ -42,7 +42,7 @@ import retrofit2.Response;
 public class SignUpActivity extends BaseActivity {
 
 
-    private Button signUp;
+    private Button signUp , termsButton , policyButton;
     private TextView story1, terms, story2, privacy;
     private EditText fullName, phoneNumber, otp, password, email, confirmPassword;
     private SessionManager sessionManager;
@@ -85,15 +85,36 @@ public class SignUpActivity extends BaseActivity {
         getWindow().setTitle("Sign up to CrowdCarry");
         signUp = (Button) findViewById(R.id.sign_up_button);
         story1 = (TextView) findViewById(R.id.story1);
-        terms = (TextView) findViewById(R.id.terms);
+        //terms = (TextView) findViewById(R.id.terms);
         story2 = (TextView) findViewById(R.id.story2);
-        privacy = (TextView) findViewById(R.id.privacy);
+        //privacy = (TextView) findViewById(R.id.privacy);
         fullName = (EditText) findViewById(R.id.full_name);
         phoneNumber = (EditText) findViewById(R.id.mobile_phone_number);
         otp = (EditText) findViewById(R.id.otp);
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
+        termsButton = (Button) findViewById(R.id.terms_of_use_signup);
+        policyButton = (Button) findViewById(R.id.privacy_signup);
+
+
+        termsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                callPrivacy();
+
+            }
+        });
+
+        policyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                callPrivacy();
+
+            }
+        });
 
         Button signUpBack = (Button) findViewById(R.id.signup_back);
         signUpBack.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +161,11 @@ public class SignUpActivity extends BaseActivity {
 
         signUp.setTypeface(mTfBold);
         story1.setTypeface(mTfRegular);
-        terms.setTypeface(mTfSemiBold);
+        //terms.setTypeface(mTfSemiBold);
+        termsButton.setTypeface(mTfSemiBold);
+        policyButton.setTypeface(mTfSemiBold);
         story2.setTypeface(mTfRegular);
-        privacy.setTypeface(mTfSemiBold);
+        //privacy.setTypeface(mTfSemiBold);
         fullName.setTypeface(mTfSemiBold);
         phoneNumber.setTypeface(mTfSemiBold);
         otp.setTypeface(mTfSemiBold);
@@ -153,6 +176,8 @@ public class SignUpActivity extends BaseActivity {
         sessionManager = new SessionManager(getApplicationContext());
 
         signUp.setEnabled(true);
+
+
 
         phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -305,6 +330,15 @@ public class SignUpActivity extends BaseActivity {
         } else {
             return true;
         }
+    }
+
+
+    private void callPrivacy() {
+
+        Intent intent = new Intent(SignUpActivity.this,LegalListActivity.class);
+        intent.putExtra("authenticated",false);
+        startActivity(intent);
+
     }
 
 

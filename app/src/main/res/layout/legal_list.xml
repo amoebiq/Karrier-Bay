@@ -54,7 +54,7 @@
                         android:textColor="@color/colorPrimary"
                         android:gravity="left"
                         android:textSize="15dp"
-
+                        android:textAllCaps="false"
                         android:drawableRight="@drawable/plus_icon"/>
 
                 <TextView
@@ -80,6 +80,7 @@
                         android:textColor="@color/colorPrimary"
                         android:gravity="left"
                         android:textSize="15dp"
+                        android:textAllCaps="false"
                         android:drawableRight="@drawable/plus_icon"/>
 
                     <TextView
