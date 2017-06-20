@@ -14,12 +14,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.yourapp.developer.karrierbay.R;
 
 import com.ucarry.developer.android.activity.dummy.DummyContent;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -46,11 +50,73 @@ public class LegalListActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>LEGAL</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Policies</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Button termsOfUseButton = (Button) findViewById(R.id.terms_of_use_button);
+        final TextView termsView = (TextView) findViewById(R.id.terms_of_use);
+        termsOfUseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final StringBuilder sb = getFromFile("terms_of_use.txt");
+
+                termsView.setVisibility(View.VISIBLE);
+                termsView.setText(sb);
+            }
+        });
+
+        Button privacyPolicy = (Button) findViewById(R.id.privacy_policy_button);
+        final TextView privacyView = (TextView) findViewById(R.id.privacy_policy);
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final StringBuilder sb = getFromFile("privacy_policy.txt");
+                privacyView.setVisibility(View.VISIBLE);
+                privacyView.setText(sb);
+            }
+        });
 
 
     }
+
+    private StringBuilder getFromFile(String file) {
+
+        BufferedReader reader = null;
+        StringBuilder text = new StringBuilder();
+
+        try {
+            try {
+                reader = new BufferedReader(
+                        new InputStreamReader(getApplicationContext().getAssets().open(file)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // do reading, usually loop until end of file reading
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                text.append(mLine);
+                text.append('\n');
+            }
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    //log the exception
+                }
+            }
+
+        }
+
+            return text;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

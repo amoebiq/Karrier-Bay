@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG,"Checking for FCM");
+
+
+
+
         Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
         startService(intent);
 

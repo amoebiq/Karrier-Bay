@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.ucarry.developer.android.activity.CarrierListActivity;
 import com.ucarry.developer.android.activity.MainActivity;
 import com.yourapp.developer.karrierbay.R;
 
@@ -28,14 +29,24 @@ public class FBMessagingService extends FirebaseMessagingService {
         Log.d(TAG,remoteMessage.getFrom());
         Log.d(TAG,"Notification Body: "+remoteMessage.getNotification().getBody());
         Log.d(TAG , "Body : "+remoteMessage.getNotification().getTitle());
-        Log.d(TAG , "Body : "+remoteMessage.getData().get("body"));
-        sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+        Log.d(TAG , "Action : "+remoteMessage.getData().get("action"));
+
+
+
+        String action = remoteMessage.getData().get("action");
+
+        sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),action);
+
+
+
+
 
     }
 
-    private void sendNotification(String title , String messageBody) {
+    private void sendNotification(String title , String messageBody,String action) {
         Log.d(TAG,"Title ::: "+title);
         Intent intent = new Intent(this, MainActivity.class);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -61,6 +72,13 @@ public class FBMessagingService extends FirebaseMessagingService {
     @Override
     public void handleIntent(Intent intent) {
         super.handleIntent(intent);
-        Log.d(TAG,"Message Recieved");
+
+        Log.d(TAG,"Message Recieved::"+intent.getStringExtra("action"));
+
+        //String action = intent.getDataString();
+
+//        Intent intt = new Intent(this, CarrierListActivity.class);
+//        intt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intt);
     }
 }
