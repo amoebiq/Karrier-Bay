@@ -49,7 +49,7 @@ public class SignUpActivity extends BaseActivity {
 
     private AppCompatDelegate delegate;
 
-    private final String TAG = "SGINUP";
+    private final String TAG = "SIGNUP";
 
     boolean passwordsMatches = false;
 
@@ -74,9 +74,15 @@ public class SignUpActivity extends BaseActivity {
 
 
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
+
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signup);
+
+        getWindow().setTitle("Sign up to CrowdCarry");
         signUp = (Button) findViewById(R.id.sign_up_button);
         story1 = (TextView) findViewById(R.id.story1);
         terms = (TextView) findViewById(R.id.terms);
@@ -88,6 +94,15 @@ public class SignUpActivity extends BaseActivity {
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
         confirmPassword = (EditText) findViewById(R.id.confirm_password);
+
+        Button signUpBack = (Button) findViewById(R.id.signup_back);
+        signUpBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         confirmPassword.addTextChangedListener(new TextWatcher() {
             @Override

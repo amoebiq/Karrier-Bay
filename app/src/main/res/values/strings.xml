@@ -16,7 +16,7 @@
     <string name="action_forgot_password">Forgot Password</string>
     <string name="prompt_account">Do not have an account? </string>
     <string name="action_signup"> Sign up</string>
-    <string name="prompt_signup_story">By clicking Sign Up, you are agree to our</string>
+    <string name="prompt_signup_story">By clicking Sign Up, you are agreeing to our</string>
     <string name="prompt_terms">Terms of services</string>
     <string name="prompt_signup_story1">and</string>
     <string name="prompt_privacy">Privacy Policy</string>
