@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +48,7 @@ import com.ucarry.developer.android.Model.SenderOrderItemAttributes;
 import com.ucarry.developer.android.Model.SenderOrderResponse;
 import com.ucarry.developer.android.RetroGit.ApiClient;
 import com.ucarry.developer.android.RetroGit.ApiInterface;
+import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.ArrayList;
@@ -128,6 +131,8 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
         getBinding();
 
+        //Utility.hideKeyboard(SenderOrderFirstPage.this);
+
         orderItems.setItem_type(ARTICLE);
         orderItems.setItem_subtype(ITEM_SUB_TYPE);
 
@@ -165,6 +170,14 @@ public class SenderOrderFirstPage extends AppCompatActivity {
             }
         });
 
+
+        orderWeightEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG,"Clicked");
+
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
 
@@ -300,6 +313,8 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -534,6 +549,9 @@ public class SenderOrderFirstPage extends AppCompatActivity {
     }
 
     private void openAutocompleteActivity() {
+
+        orderWeightEt.setFocusable(true);
+        orderWeightEt.setFocusableInTouchMode(true);
         try {
             // The autocomplete com.ucarry.developer.android.activity requires Google Play Services to be available. The intent
             // builder checks this and throws an exception if it is not the case.

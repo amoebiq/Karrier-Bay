@@ -331,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
                         android:onClick="dateClick"
-                        android:text="Weight"
+                        android:text="Weight(in grams)"
                         android:textColor="@color/textHintColor"
                         android:textSize="@dimen/font_size" />
                 </LinearLayout>
@@ -359,7 +359,7 @@
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_weight="50"
                     android:backgroundTint="@color/editTextSelected"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
 
                     android:focusableInTouchMode="true"
@@ -367,6 +367,7 @@
 
 
                     android:singleLine="true"
+                    android:focusable="false"
 
                     android:textColor="@color/textColorDark"
                     android:textColorHint="@color/textHintColor"
@@ -390,7 +391,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-
+                    android:inputType="numberDecimal"
                     android:text="Volumetric Weight"
                     android:textColor="@color/textHintColor"
                     android:textSize="@dimen/font_size" />
