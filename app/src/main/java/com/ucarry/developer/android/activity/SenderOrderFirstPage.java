@@ -233,11 +233,11 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
 
 
-//                                        Intent intent = new Intent(SenderOrderFirstPage.this,SenderOrderSecondPage.class);
-//                                        intent.putExtra("SenderOrder",order);
-//                                        intent.putExtra("Quote",quoteResponse.quote);
-//                                        startActivity(intent);
-//                                        dialog.dismiss();
+                                        Intent intent = new Intent(SenderOrderFirstPage.this,SenderOrderSecondPage.class);
+                                        intent.putExtra("SenderOrder",order);
+                                        intent.putExtra("Quote",quoteResponse.quote);
+                                        startActivity(intent);
+                                        dialog.dismiss();
 
 //                                        GoogleDirection.withServerKey("AIzaSyBw3tDakHnjfI2RjQnN_AQShOS63IDW4rE")
 //                                                .from(new LatLng(Double.parseDouble(qr.getLat1()),Double.parseDouble(qr.getLong1())))

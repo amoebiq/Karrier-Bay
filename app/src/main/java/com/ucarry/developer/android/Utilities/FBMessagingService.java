@@ -27,13 +27,14 @@ public class FBMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG,remoteMessage.getFrom());
         Log.d(TAG,"Notification Body: "+remoteMessage.getNotification().getBody());
-        Log.d(TAG , "Body : "+remoteMessage.getData().get("title"));
+        Log.d(TAG , "Body : "+remoteMessage.getNotification().getTitle());
         Log.d(TAG , "Body : "+remoteMessage.getData().get("body"));
-        sendNotification(remoteMessage.getNotification().getBody());
+        sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
 
     }
 
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String title , String messageBody) {
+        Log.d(TAG,"Title ::: "+title);
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
@@ -43,7 +44,7 @@ public class FBMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_kb_notify)
-                //.setContentTitle("Firebase Push Notification")
+                .setContentTitle(title)
                 //.setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -55,5 +56,11 @@ public class FBMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    @Override
+    public void handleIntent(Intent intent) {
+        super.handleIntent(intent);
+        Log.d(TAG,"Message Recieved");
     }
 }
