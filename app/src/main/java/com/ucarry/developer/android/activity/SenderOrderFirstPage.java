@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,12 +26,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.text.Line;
 import com.ucarry.developer.android.Fragment.SenderTripScheduleFragment;
 import com.ucarry.developer.android.Model.Constants;
@@ -227,11 +231,38 @@ public class SenderOrderFirstPage extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
 
-                                        Intent intent = new Intent(SenderOrderFirstPage.this,SenderOrderSecondPage.class);
-                                        intent.putExtra("SenderOrder",order);
-                                        intent.putExtra("Quote",quoteResponse.quote);
-                                        startActivity(intent);
-                                        dialog.dismiss();
+
+
+//                                        Intent intent = new Intent(SenderOrderFirstPage.this,SenderOrderSecondPage.class);
+//                                        intent.putExtra("SenderOrder",order);
+//                                        intent.putExtra("Quote",quoteResponse.quote);
+//                                        startActivity(intent);
+//                                        dialog.dismiss();
+
+//                                        GoogleDirection.withServerKey("AIzaSyBw3tDakHnjfI2RjQnN_AQShOS63IDW4rE")
+//                                                .from(new LatLng(Double.parseDouble(qr.getLat1()),Double.parseDouble(qr.getLong1())))
+//                                                .to(new LatLng(Double.parseDouble(qr.getLat2()),Double.parseDouble(qr.getLong2())))
+//                                                .avoid(AvoidType.FERRIES)
+//                                                .avoid(AvoidType.HIGHWAYS)
+//                                                .execute(new DirectionCallback() {
+//                                                    @Override
+//                                                    public void onDirectionSuccess(Direction direction, String rawBody) {
+//
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onDirectionFailure(Throwable t) {
+//
+//                                                    }
+//                                                });
+
+
+//                                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                                                Uri.parse("http://maps.google.com/maps?saddr="+qr.getLat1()+","+qr.getLong1()+"&daddr="+qr.getLat2()+","+qr.getLong2()));
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+//                                        intent.addCategory(Intent.CATEGORY_LAUNCHER );
+//                                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+//                                        startActivity(intent);
                                     }
                                 });
 
@@ -506,10 +537,17 @@ public class SenderOrderFirstPage extends AppCompatActivity {
         try {
             // The autocomplete com.ucarry.developer.android.activity requires Google Play Services to be available. The intent
             // builder checks this and throws an exception if it is not the case.
-            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+
+            AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()
+                    .setTypeFilter(Place.TYPE_COUNTRY)
+                    .setCountry("IN")
+                    .build();
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(autocompleteFilter)
                     .build(this);
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
         } catch (GooglePlayServicesRepairableException e) {
+            Log.d(TAG,"In Exception....");
+            Log.d(TAG,e.getLocalizedMessage());
             // Indicates that Google Play Services is either not installed or not up to date. Prompt
             // the user to correct the issue.
             GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),

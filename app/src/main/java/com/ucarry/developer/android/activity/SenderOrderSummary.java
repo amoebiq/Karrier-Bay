@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Model.PickupOrderMapping;
@@ -154,6 +155,18 @@ public class SenderOrderSummary extends AppCompatActivity {
                                 }
                             });
                         }
+
+                        else {
+
+                            try {
+                                Toast.makeText(SenderOrderSummary.this, "Ooops ! " + response.body(), Toast.LENGTH_LONG).show();
+
+                            }
+                            catch (Exception e) {
+                                Log.d(TAG,e.getLocalizedMessage());
+                            }
+
+                        }
                     }
 
                     @Override
@@ -161,6 +174,14 @@ public class SenderOrderSummary extends AppCompatActivity {
 
                         if(pd.isShowing())
                             pd.dismiss();
+
+                        try {
+                            Toast.makeText(SenderOrderSummary.this, "Creation Failed ! " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                        catch (Exception e) {
+                            Log.d(TAG,e.getLocalizedMessage());
+                        }
 
                         Log.d(TAG,t.getLocalizedMessage()+"");
 

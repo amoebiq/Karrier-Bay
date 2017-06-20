@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAoO982LyvlPW4VQevHR-voXPRpoztlqlc" />
+            android:value="AIzaSyBw3tDakHnjfI2RjQnN_AQShOS63IDW4rE" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_kb_notify" />
