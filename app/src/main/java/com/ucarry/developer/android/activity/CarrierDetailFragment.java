@@ -119,6 +119,7 @@ public class CarrierDetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),ProfileVIewActivity.class);
                 User user = (User) getArguments().getSerializable(USER_OBJ);
                 intent.putExtra(USER_OBJ,user);
+                intent.putExtra("IS_SENDER",false);
                 startActivity(intent);
             }
         });

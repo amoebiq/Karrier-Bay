@@ -64,6 +64,7 @@ public class SenderListActivityDetailActivity extends AppCompatActivity {
             arguments.putString(SenderListActivityDetailFragment.RATE,getIntent().getStringExtra(SenderListActivityDetailFragment.RATE));
             arguments.putString(SenderListActivityDetailFragment.CATEGORY,getIntent().getStringExtra(SenderListActivityDetailFragment.CATEGORY));
             arguments.putString(SenderListActivityDetailFragment.SUB_CATEGORY,getIntent().getStringExtra(SenderListActivityDetailFragment.SUB_CATEGORY));
+            arguments.putSerializable(SenderListActivityDetailFragment.USER_OBJ,getIntent().getSerializableExtra(SenderListActivityDetailFragment.USER_OBJ));
             SenderListActivityDetailFragment fragment = new SenderListActivityDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

@@ -162,6 +162,8 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
         intent.putExtra(SenderListActivityDetailFragment.RATE,order.getTotal_amount());
         intent.putExtra(SenderListActivityDetailFragment.SUB_CATEGORY,item.getItem_subtype());
         intent.putExtra(SenderListActivityDetailFragment.CATEGORY,item.getItem_type());
+        intent.putExtra(SenderListActivityDetailFragment.USER_OBJ,order.getUser());
+
 
         return intent;
     }

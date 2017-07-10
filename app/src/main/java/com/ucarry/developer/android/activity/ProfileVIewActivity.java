@@ -24,6 +24,7 @@ import com.yourapp.developer.karrierbay.R;
 public class ProfileVIewActivity extends AppCompatActivity {
 
     public static final String TAG = "ProfileView";
+    boolean isSender = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class ProfileVIewActivity extends AppCompatActivity {
         }
 
         User user = (User)getIntent().getSerializableExtra(CarrierDetailFragment.USER_OBJ);
+        isSender = getIntent().getBooleanExtra("IS_SENDER",false);
 
         ImageView iv = (ImageView) findViewById(R.id.profilepic);
         Log.d(TAG,user.getName());
@@ -85,7 +87,11 @@ public class ProfileVIewActivity extends AppCompatActivity {
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
 
-            Intent intent = new Intent(this, CarrierDetailActivity.class);
+            Intent intent = null;//new Intent(this, CarrierDetailActivity.class);
+            if(isSender)
+                intent = new Intent(this,SenderListActivityDetailActivity.class);
+            else
+                intent = new Intent(this,CarrierListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             return true;

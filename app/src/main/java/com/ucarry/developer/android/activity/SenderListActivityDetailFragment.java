@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Model.User;
 import com.yourapp.developer.karrierbay.R;
 
 
@@ -54,6 +56,7 @@ public class SenderListActivityDetailFragment extends Fragment {
     public static final String ITEM_WEIGHT = "item_weight";
     public static final String ITEM_VALUE = "item_value";
     public static final String RATE = "rate";
+    public static final String USER_OBJ = "user_obj";
     //public static final String IMAGE = "image_url";
     /**
      * The dummy content this fragment is presenting.
@@ -93,13 +96,27 @@ public class SenderListActivityDetailFragment extends Fragment {
 
         String image_url = getArguments().getString(IMAGE);
         ImageView iv = (ImageView) rootView.findViewById(R.id.sender_detail_image);
-        Picasso.with(rootView.getContext())
 
-                .load(Utility.getAwsUrl(image_url))
-                .placeholder(R.drawable.carrier)
-                .error(R.drawable.myimage).transform(new CircleTransform())
-                .into(iv);
 
+        Picasso.Builder picBuilder = new Picasso.Builder(rootView.getContext());
+        picBuilder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        picBuilder.build().load(Utility.getAwsUrl(image_url)).placeholder(R.drawable.carrier).transform(new CircleTransform()).error(R.drawable.carrier).into(iv);
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileVIewActivity.class);
+                User user = (User) getArguments().getSerializable(USER_OBJ);
+                intent.putExtra(USER_OBJ,user);
+                intent.putExtra("IS_SENDER",true);
+                startActivity(intent);
+            }
+        });
 
         ((TextView) rootView.findViewById(R.id.sender_detail_name)).setText(getArguments().getString(USER_NAME));
         ((TextView) rootView.findViewById(R.id.sender_detail_address)).setText(getArguments().getString(ADDRESS));
