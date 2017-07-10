@@ -266,6 +266,7 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         intent.putExtra(CarrierDetailFragment.READY_TO_CARRY, schedules.getCarrierScheduleDetail().getReady_to_carry());
         intent.putExtra(CarrierDetailFragment.CAPACITY, schedules.getCarrierScheduleDetail().getCapacity());
         intent.putExtra(CarrierDetailFragment.SCHEDULE_ID,schedules.getSchedule_id());
+        intent.putExtra(CarrierDetailFragment.USER_OBJ,schedules.getUser());
 
         return intent;
     }

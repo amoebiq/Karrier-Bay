@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
+import com.ucarry.developer.android.Model.BankDetail;
 import com.ucarry.developer.android.activity.LoginActivity;
 import okhttp3.Headers;
 
@@ -47,6 +48,11 @@ public class SessionManager {
 
     public static final String FCM_REG_ID = "reg_id";
 
+    public static final String BANK_DETAIL_ACC_NO = "bank_detail_account_no";
+
+    public static final String BANK_DETAIL_IFSC = "bank_detail_ifsc";
+
+    public static final String BANK_DETAIL_BANK_NAME = "bank_detail_bank_name";
 
 
     public static final String ACCESS_TOKEN = "Access-Token";

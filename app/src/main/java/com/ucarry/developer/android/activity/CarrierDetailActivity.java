@@ -59,7 +59,7 @@ public class CarrierDetailActivity extends AppCompatActivity {
             arguments.putString(CarrierDetailFragment.DATE_FROM,getIntent().getStringExtra(CarrierDetailFragment.DATE_FROM));
             arguments.putString(CarrierDetailFragment.DATE_TO,getIntent().getStringExtra(CarrierDetailFragment.DATE_TO));
             arguments.putString(CarrierDetailFragment.SCHEDULE_ID,getIntent().getStringExtra(CarrierDetailFragment.SCHEDULE_ID));
-
+            arguments.putSerializable(CarrierDetailFragment.USER_OBJ,getIntent().getSerializableExtra(CarrierDetailFragment.USER_OBJ));
             CarrierDetailFragment fragment = new CarrierDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

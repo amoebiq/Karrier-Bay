@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,8 +27,8 @@
         <activity
             android:name="com.ucarry.developer.android.activity.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Transparent.splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent.splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,33 +38,31 @@
         <activity
             android:name="com.ucarry.developer.android.activity.SignUpActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.ucarry.developer.android.activity.LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.ucarry.developer.android.activity.SenderListActivityListActivity"
             android:label="@string/title_senderlistactivity_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.ucarry.developer.android.activity.SenderListActivityDetailActivity"
             android:label="@string/title_senderlistactivity_detail"
             android:parentActivityName="com.ucarry.developer.android.activity.SenderListActivityListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ucarry.developer.android.activity.SenderListActivityListActivity" />
@@ -71,14 +70,14 @@
         <activity
             android:name="com.ucarry.developer.android.activity.CarrierListActivity"
             android:label="@string/title_carrier_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.CarrierDetailActivity"
             android:label="@string/title_carrier_detail"
             android:parentActivityName="com.ucarry.developer.android.activity.CarrierListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ucarry.developer.android.activity.CarrierListActivity" />
@@ -98,29 +97,29 @@
         <activity
             android:name="com.ucarry.developer.android.activity.BEACARRIER"
             android:label="@string/title_activity_beacarrier"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.CarrierSummaryView"
             android:label="@string/title_activity_carrier_summary_view"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.Settings"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.LegalListActivity"
             android:label="@string/title_legal_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.LegalDetailActivity"
             android:label="@string/title_legal_detail"
             android:parentActivityName="com.ucarry.developer.android.activity.LegalListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ucarry.developer.android.activity.LegalListActivity" />
@@ -128,19 +127,41 @@
         <activity
             android:name="com.ucarry.developer.android.activity.SenderOrderFirstPage"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.SenderOrderSecondPage"
             android:label="@string/title_activity_sender_order_second_page"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.ucarry.developer.android.activity.SenderOrderSummary"
             android:label="@string/title_activity_sender_order_summary"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.ucarry.developer.android.activity.ProfileVIewActivity"></activity>
     </application>
 
 </manifest>

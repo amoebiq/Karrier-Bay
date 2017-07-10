@@ -3,15 +3,27 @@ package com.ucarry.developer.android.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.LoggingBehavior;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Model.Otp;
+import com.ucarry.developer.android.Model.User;
+import com.ucarry.developer.android.Model.UserUpdateRequest;
 import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 
@@ -24,6 +36,12 @@ import com.ucarry.developer.android.Utilities.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import java.util.Arrays;
+
 
 /**
  * A login screen that offers login via email/password.
@@ -38,12 +56,19 @@ public class LoginActivity extends BaseActivity {
     private static String TAG = "LOGINACTIVITY";
     private static String LOGIN_RESPONSE_TAG = "LOGIN_RESPONSE";
 
+    private CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
+
         setContentView(R.layout.activity_login);
+
+        faceBookSDKInitialize();
+
+
 
         SignUp = (TextView) findViewById(R.id.sign_up);
         haveAccount = (TextView) findViewById(R.id.account);
@@ -65,6 +90,9 @@ public class LoginActivity extends BaseActivity {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
+
+
+
 
         signIn.setOnClickListener(new View.OnClickListener() {
 
@@ -136,6 +164,74 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    public void faceBookSDKInitialize() {
+
+
+        Log.d(TAG,"FB Init...");
+
+
+        FacebookSdk.setIsDebugEnabled(true);
+        FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+
+
+        callbackManager = CallbackManager.Factory.create();
+
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+
+        // If using in a fragment
+
+        // Other app specific specialization
+
+        // Callback registration
+
+
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+
+                Log.d("Success","_SUCCESS");
+                Log.d(TAG,loginResult.getAccessToken()+"_SUCCESS");
+
+                doLogin(loginResult.getAccessToken().getToken()+"");
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+
+                Log.d("Fail","_SUCCESS");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+
+                exception.printStackTrace();
+            }
+
+
+
+
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("here","Here in ActivityResult");
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG,data.toString());
+    }
+
     @Override
     protected void onResume() {
         apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -155,6 +251,231 @@ public class LoginActivity extends BaseActivity {
         else {
             return true;
         }
+    }
+
+
+    private void doLogin(String token) {
+
+        Log.d(TAG,"In login");
+        Log.d(TAG,token);
+        final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+       pd.setMessage("Loading...");
+              pd.setIndeterminate(true);
+            pd.show();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<User> call = apiInterface.doFbLogin(token);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                pd.dismiss();
+                if(response.code()==200 || response.code()==201) {
+
+                    Log.d(TAG,"Successful");
+
+                    User user = response.body();
+                    sessionManager.createLoginSession(user.getEmail(),
+                            user.getName(), response.headers(), user.getPhone());
+                    sessionManager.put("image",user.getImage());
+
+                    if(user.getPhone()==null || user.getPhone().isEmpty()) {
+
+                        getExtraDetails();
+                    }
+                    else {
+
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+
+                t.printStackTrace();
+
+            }
+        });
+
+
+    }
+
+    private void getExtraDetails() {
+
+        LayoutInflater li = LayoutInflater.from(LoginActivity.this);
+        View prompt = li.inflate(R.layout.user_login_extra_details, null);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+        alertBuilder.setView(prompt);
+        alertBuilder.setCancelable(false);
+
+        AlertDialog dialog = alertBuilder.create();
+
+        final Button otpButton = (Button)prompt.findViewById(R.id.otpButton);
+        final Button verifyButton = (Button)prompt.findViewById(R.id.verifyButton);
+        final EditText editText = (EditText) prompt.findViewById(R.id.verifyOtp);
+        final EditText phone = (EditText) prompt.findViewById(R.id.phone_extra);
+
+        otpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                String phoneNo = phone.getText().toString();
+                if(phoneNo.length()<10 || phoneNo.length()>10) {
+
+                    Toast.makeText(LoginActivity.this,"Enter valid phone number",Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    editText.setVisibility(View.VISIBLE);
+                    phoneNo= "+91"+phoneNo;
+                    sendOtp(phoneNo);
+                    verifyButton.setVisibility(View.VISIBLE);
+                }
+
+
+
+            }
+        });
+
+        dialog.show();
+
+
+        verifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                verifyOtp(editText.getText().toString(),"+91"+phone.getText().toString());
+
+            }
+        });
+
+
+
+
+    }
+
+    private void sendOtp(String phoneNumber) {
+
+
+        Log.d(TAG,"In send otp");
+
+        final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+        pd.setMessage("Sending OTP");
+        pd.setIndeterminate(true);
+        pd.show();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<Otp> call = apiInterface.getOtp(phoneNumber);
+        call.enqueue(new Callback<Otp>() {
+            @Override
+            public void onResponse(Call<Otp> call, Response<Otp> response) {
+                pd.dismiss();
+                Toast.makeText(LoginActivity.this,"Sent the otp",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Otp> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+
+            }
+        });
+
+    }
+
+    private void verifyOtp(String otp , final String phone) {
+
+        Log.d(TAG,"In send otp");
+
+        final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+        pd.setMessage("Verifying...");
+        pd.setIndeterminate(true);
+        pd.show();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<Otp> call = apiInterface.verifyOtp(otp,phone);
+        call.enqueue(new Callback<Otp>() {
+            @Override
+            public void onResponse(Call<Otp> call, Response<Otp> response) {
+                if(response.code()==200) {
+
+                    pd.dismiss();
+                    Toast.makeText(LoginActivity.this,"Verified Successfully",Toast.LENGTH_LONG).show();
+
+                    UserUpdateRequest req = new UserUpdateRequest();
+                    req.setPhone(phone);
+                    updateAndLogin(req);
+
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Otp> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+
+                Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
+    }
+
+    private void updateAndLogin(UserUpdateRequest request) {
+
+
+        Log.d(TAG,"Updating Details...");
+
+        final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
+        pd.setMessage("Updating Details");
+        pd.setIndeterminate(true);
+        pd.show();
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
+        Call<User> call = apiInterface.editUserDetails(request);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                pd.dismiss();
+                if(response.code()==200 || response.code()==201) {
+
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+
+                Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
+
+    private void showToast() {
+
+
     }
 
 }

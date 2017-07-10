@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import com.ucarry.developer.android.Model.AcceptOrderResponse;
 import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Model.GenericResponse;
+import com.ucarry.developer.android.Model.User;
 import com.ucarry.developer.android.RetroGit.ApiClient;
 import com.ucarry.developer.android.RetroGit.ApiInterface;
 import com.ucarry.developer.android.Utilities.Utility;
@@ -57,6 +58,7 @@ public class CarrierDetailFragment extends Fragment {
     public static final String CAPACITY = "capacity";
     public static final String STOP_OVERS = "stop_overs";
     public static final String SCHEDULE_ID = "schedule_id";
+    public static final String USER_OBJ = "user_obj";
 
     /**
      * The dummy content this fragment is presenting.
@@ -111,7 +113,15 @@ public class CarrierDetailFragment extends Fragment {
         });
         picBuilder.build().load(Utility.getAwsUrl(image_url)).placeholder(R.drawable.carrier).transform(new CircleTransform()).error(R.drawable.carrier).into(iv);
 
-
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileVIewActivity.class);
+                User user = (User) getArguments().getSerializable(USER_OBJ);
+                intent.putExtra(USER_OBJ,user);
+                startActivity(intent);
+            }
+        });
         ((TextView) rootView.findViewById(R.id.carrier_detail_name)).setText(getArguments().getString(USER_NAME));
         ((TextView) rootView.findViewById(R.id.carrier_detail_address)).setText(getArguments().getString(ADDRESS));
         ((TextView) rootView.findViewById(R.id.carrier_detail_from)).setText(getArguments().getString(FROM_ADDRESS));

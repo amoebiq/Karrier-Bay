@@ -16,6 +16,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +42,8 @@ import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.squareup.picasso.Picasso;
+import com.ucarry.developer.android.Model.BankDetail;
+import com.ucarry.developer.android.Model.BankDetailRequest;
 import com.yourapp.developer.karrierbay.R;
 import com.yourapp.developer.karrierbay.databinding.FragmentProfileBinding;
 
@@ -79,6 +84,10 @@ public class ProfileFragment extends BaseFragment implements
     private String attachmentType = "image";
     private static final String attachmentTypeImage = "image";
     private static final String attachmentTypeAadhar = "aadhar";
+    private static final String TAG = "ProfileFragment";
+    public ArrayAdapter<CharSequence>  bankSpinnerAdapter;
+    public ArrayAdapter<CharSequence> adapter;
+    public Spinner spinner;
 
     @Nullable
     @Override
@@ -115,17 +124,16 @@ public class ProfileFragment extends BaseFragment implements
         //item.setVisible(false);
        // getAndUpdateUserDetails();
 
+
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        loadDetails();
+
         sessionManager = new SessionManager(getActivity());
         HashMap<String,String> u = sessionManager.getUserDetails();
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.bank_list_spinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.bank_list, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+
 
 
         Log.d("Verify","Verify Start User");
@@ -139,7 +147,7 @@ public class ProfileFragment extends BaseFragment implements
         user = sessionManager.getUserDetails();
         if(user.get("image")!=null)
         displayImage(user.get("image"));
-        Log.d("PROFILE_FRAGMENT","Phone set is ::: "+user.get(SessionManager.KEY_PHONE).toString());
+
         if(user.get(SessionManager.KEY_VERIFIED)!=null) {
             Log.d("AADHAR_VERIFY",user.get(SessionManager.KEY_VERIFIED));
         }
@@ -189,6 +197,8 @@ public class ProfileFragment extends BaseFragment implements
                 binding.profileSaveButton.setVisibility(currView.VISIBLE);
                 binding.profilepic.setEnabled(true);
                 binding.aadharAttachment.setEnabled(true);
+                binding.bankAccountNumberEt.setEnabled(true);
+                binding.bankIfscEt.setEnabled(true);
 
             }
         });
@@ -206,7 +216,15 @@ public class ProfileFragment extends BaseFragment implements
 
                 ApiInterface apiInterface = ApiClient.getClientWithHeader(getContext()).create(ApiInterface.class);
                 user = sessionManager.getUserDetails();
-                Call<User> call = apiInterface.editUserDetails(new UserUpdateRequest(binding.locationEdittext.getText().toString(),user.get(SessionManager.KEY_IMAGE),user.get(SessionManager.KEY_AADHAR)));
+                BankDetail bankDetail = new BankDetail();
+                bankDetail.setAccountNo(binding.bankAccountNumberEt.getText().toString());
+                bankDetail.setIfsc(binding.bankIfscEt.getText().toString());
+                bankDetail.setBank_name(binding.bankListSpinner.getSelectedItem().toString());
+                BankDetailRequest  bankDetailRequest= new BankDetailRequest();
+                bankDetailRequest.setBankDetail(bankDetail);
+
+
+                Call<User> call = apiInterface.editUserDetails(new UserUpdateRequest(binding.locationEdittext.getText().toString(),user.get(SessionManager.KEY_IMAGE),user.get(SessionManager.KEY_AADHAR),bankDetail));
                 call.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -534,6 +552,86 @@ public class ProfileFragment extends BaseFragment implements
             }
         });
 
+
+    }
+
+    private void loadDetails() {
+
+        Log.d(TAG,"Loading user...");
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setIndeterminate(true);
+        pd.setMessage("Loading your details...");
+        pd.show();
+
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(getContext()).create(ApiInterface.class);
+        Call<User> call = apiInterface.getUserDetails();
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                pd.dismiss();
+                if(response.code()==200 || response.code()==201) {
+
+                    User user = response.body();
+                    if(user!=null) {
+
+                        sessionManager = new SessionManager(getContext());
+                        sessionManager.put(SessionManager.KEY_PHONE,user.getPhone());
+                        BankDetail bankDetail = user.getBankDetail();
+                        Log.d(TAG,bankDetail.getBank_name());
+                        if(bankDetail!=null) {
+
+                            sessionManager.put(SessionManager.BANK_DETAIL_ACC_NO,bankDetail.getAccountNo());
+                            sessionManager.put(SessionManager.BANK_DETAIL_BANK_NAME,bankDetail.getBank_name());
+                            sessionManager.put(SessionManager.BANK_DETAIL_IFSC,bankDetail.getIfsc());
+                            binding.bankAccountNumberEt.setText(bankDetail.getAccountNo());
+                            binding.bankIfscEt.setText(bankDetail.getIfsc());
+
+
+
+
+
+
+
+                        }
+
+                    }
+
+                    //spinner = (Spinner) view.findViewById(R.id.bank_list_spinner);
+                    spinner = (Spinner) binding.bankListSpinner;
+// Create an ArrayAdapter using the string array and a default spinner layout
+                    adapter = ArrayAdapter.createFromResource(getContext(),
+                            R.array.bank_list, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    if(sessionManager.getvalStr(SessionManager.BANK_DETAIL_BANK_NAME)!=null) {
+
+                        Log.d(TAG,"PositionXXX:::"+sessionManager.getvalStr(SessionManager.BANK_DETAIL_BANK_NAME));
+                        int pos = adapter.getPosition(sessionManager.getvalStr(SessionManager.BANK_DETAIL_BANK_NAME));
+                        spinner.setSelection(pos);
+
+                    }
+                    bankSpinnerAdapter = adapter;
+
+// Apply the adapter to the spinner
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
 
     }
 }

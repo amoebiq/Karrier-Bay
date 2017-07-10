@@ -545,6 +545,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
             }
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
+
         mTimePicker.show();
     }
 

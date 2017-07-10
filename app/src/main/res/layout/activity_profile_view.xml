@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ucarry.developer.android.activity.ProfileVIewActivity">
+
+
+
+        <LinearLayout
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical"
+                    android:layout_marginTop="-110dp">
+
+                    <ImageView
+                        android:id="@+id/profilepic"
+                        android:layout_width="120dp"
+                        android:layout_height="140dp"
+                        android:layout_weight="0.5"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/carrier" />
+
+                    <TextView
+                        android:id="@+id/name_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_below="@id/profilepic"
+                        android:text="Shuhail"
+                        android:textColor="@color/textColorWhite"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/location_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kalyani Vista, 192A, 3rd Main Rd, Doresanipalya, Anthappa Layout, Phase 4, JP Nagar, Bengaluru, Karnataka 560076"
+                        android:layout_below="@+id/name_header"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:maxLength="75"
+                        android:textColor="@color/textColorWhite"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/seperator1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header"
+                    android:layout_margin="@dimen/edit_text_gap">
+
+                    <TextView
+                        android:id="@+id/seperator_1_1"
+                        style="?android:attr/listSeparatorTextViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Contact Details" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/contact_details_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/seperator1"
+                    android:layout_margin="@dimen/edit_text_gap">
+
+
+                </RelativeLayout>
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/phone_number_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contact_details_section"
+                    android:layout_margin="@dimen/edit_text_gap">
+
+                    <TextView
+                        android:id="@+id/phone_number_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:text="@string/tv_phone_number"
+                        android:textColor="@color/greyColor"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/phone_number_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:layout_toRightOf="@id/phone_number_tv"
+                        android:inputType="none"
+                        android:text="123"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/email_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/phone_number_details"
+                    android:layout_margin="@dimen/edit_text_gap">
+
+                    <TextView
+                        android:id="@+id/email_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:text="@string/prompt_email"
+                        android:textColor="@color/greyColor"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/email_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/edit_text_gap"
+                        android:layout_toRightOf="@id/email_tv"
+
+                        android:inputType="none"
+                        android:textColor="@color/textColorDark"
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

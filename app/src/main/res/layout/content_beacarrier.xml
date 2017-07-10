@@ -41,6 +41,9 @@
                 android:orientation="vertical">
 
                 <requestFocus/>
+
+
+
                 <TextView
 
                     android:id="@+id/carrier_schedule_from"

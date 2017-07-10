@@ -104,4 +104,7 @@ public interface ApiInterface {
     @POST("auth/update_fcm")
     Call<User> updateFCM(@Body FCMRequest fcmRequest);
 
+    @GET("auth/mobile/login")
+    Call<User> doFbLogin(@Query("token") String token);
+
 }

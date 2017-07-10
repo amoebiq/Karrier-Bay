@@ -47,4 +47,10 @@
         <item name="color">@android:color/black</item>
     </style>
 
+
+    <style name="DialogTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowBackground">@drawable/dialogue_border</item>
+    </style>
+
+
 </resources>

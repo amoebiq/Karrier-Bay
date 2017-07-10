@@ -35,6 +35,7 @@ import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
+import com.google.android.gms.maps.MapView;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
 import com.ucarry.developer.android.Model.CarrierSchedules;
@@ -82,6 +83,10 @@ public class BEACARRIER extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trip Schedule</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        
+
 
         carrierSchedules.setCarrierScheduleDetailAttributes(carrierScheduleDetailAttributes);
 

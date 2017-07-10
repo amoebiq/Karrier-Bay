@@ -4,7 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableField;
 
+import com.google.gson.annotations.SerializedName;
 import com.yourapp.developer.karrierbay.BR;
+
+import java.io.Serializable;
 
 /**
  * Created by vel on 24/1/17.
@@ -14,7 +17,7 @@ import com.yourapp.developer.karrierbay.BR;
 
 
 
-public class User  extends BaseObservable{
+public class User  extends BaseObservable implements Serializable {
 
         private String uid;
 
@@ -45,6 +48,17 @@ public class User  extends BaseObservable{
         private String dl_link;
 
         private String verified;
+
+        @SerializedName("bank_detail")
+        private BankDetail bankDetail;
+
+    public BankDetail getBankDetail() {
+        return bankDetail;
+    }
+
+    public void setBankDetail(BankDetail bankDetail) {
+        this.bankDetail = bankDetail;
+    }
 
     public String getAadhar_link() {
         return aadhar_link;
