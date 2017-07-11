@@ -113,7 +113,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 isCarrier = true;
                 cVH.carrierImageView.setVisibility(View.VISIBLE);
                 cVH.senderImageView.setVisibility(View.GONE);
-                cVH.currAmount.setText(seO.getGrandTotal());
+                cVH.currAmount.setText(seO.getTotal_amount());
             }
                 else {
                 isCarrier = false;

@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Line;
 import com.ucarry.developer.android.Fragment.MyBayFragment;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
@@ -62,6 +63,8 @@ public class MyBayActivity extends AppCompatActivity {
     private TextView pickupAdd2;
 
     private LinearLayout llRecieverParent;
+    private LinearLayout subItemLL;
+    private LinearLayout amountLL;
 
     private LinearLayout llSecondParentReciever;
     private TextView recieverName;
@@ -77,6 +80,12 @@ public class MyBayActivity extends AppCompatActivity {
 
     private TextView requestedTv;
     private  TextView requestedEt;
+
+    private TextView requestedSubItemTv;
+    private TextView requestedSubImteEt;
+
+    private TextView displayAmountTv;
+    private TextView displayAmountEt;
 
     SenderOrder senderOrder = null;
 
@@ -111,6 +120,11 @@ public class MyBayActivity extends AppCompatActivity {
 
         requestedEt = (TextView) findViewById(R.id.requestedEt);
         requestedTv = (TextView) findViewById(R.id.requestedTv);
+
+        displayAmountEt = (TextView) findViewById(R.id.amountToDisplayEt);
+        displayAmountTv = (TextView) findViewById(R.id.amountToDisplayTv);
+
+
 
 
         String uid = new SessionManager(MyBayActivity.this).getvalStr(SessionManager.KEY_EMAIL);
@@ -148,6 +162,20 @@ public class MyBayActivity extends AppCompatActivity {
                     requestedTv.setText("Item to Carry");
                     requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
 
+                    subItemLL.setVisibility(View.VISIBLE);
+                    requestedSubImteEt = (TextView) findViewById(R.id.requestedSubItemTv);
+                    requestedSubItemTv = (TextView) findViewById(R.id.requestedSubItemEt);
+
+                    requestedSubItemTv.setText(senderOrder.getOrder_items().get(0).getItem_subtype());
+                    requestedSubImteEt.setText("Sub Item");
+
+                    amountLL.setVisibility(View.VISIBLE);
+
+
+                    displayAmountTv.setText("You Get");
+                    displayAmountEt.setText(senderOrder.getTotal_amount());
+
+
 
                     senderOrder = (SenderOrder) getIntent().getSerializableExtra(CARRIER_OBJ);
                     changeStatusButton.setOnClickListener(new View.OnClickListener() {
@@ -182,11 +210,15 @@ public class MyBayActivity extends AppCompatActivity {
                 }
             } else {
 
+                amountLL.setVisibility(View.VISIBLE);
+
                 myBaySenderNameEt.setText("SELF");
                 myBayDetailHeaderText.setText("Self Sending Request");
                 senderOrder = (SenderOrder) getIntent().getSerializableExtra(SENDER_OBJ);
                 fromTime.setText(senderOrder.getOrder_items().get(0).getStart_time());
                 toTime.setText(senderOrder.getOrder_items().get(0).getEnd_time());
+                displayAmountTv.setText("You Pay");
+                displayAmountEt.setText(senderOrder.getGrandTotal());
 
             }
 
@@ -236,6 +268,12 @@ public class MyBayActivity extends AppCompatActivity {
 
         llRecieverParent = (LinearLayout) findViewById(R.id.reciever_parent_ll);
         llRecieverParent.setVisibility(View.GONE);
+
+        subItemLL = (LinearLayout) findViewById(R.id.sub_item_ll);
+        subItemLL.setVisibility(View.GONE);
+
+        amountLL = (LinearLayout) findViewById(R.id.amount_ll);
+        amountLL.setVisibility(View.GONE);
 
 
     }

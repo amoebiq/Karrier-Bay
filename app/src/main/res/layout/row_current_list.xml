@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_margin="7dp"
             android:orientation="horizontal">
 
@@ -57,8 +57,8 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -77,21 +77,21 @@
 
                         android:text="06-08 01:38:59.539 30250-30250/com.ucarry.developer.android D/RECYCLE VIEW: GET ITEM COUNT18"
                         android:textColor="@color/textColorDark"
-
+                        android:gravity="right"
                         android:textSize="13dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="20dp"
-                        android:text="@string/deb_date"
+                        android:text="Date"
                         android:textColor="@color/textHintColor"
                         android:textSize="11sp" />
 
@@ -101,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="250"
-
+                        android:gravity="right"
                         android:text="06-08-29"
                         android:textColor="@color/textColorDark"
 
@@ -110,8 +110,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
@@ -128,19 +128,20 @@
                         android:layout_height="wrap_content"
                         android:text="06-08 01:38:59.539 30250-30250/com.ucarry.developer.android D/RECYCLE VIEW: GET ITEM COUNT18"
                         android:textColor="@color/textColorDark"
+                        android:gravity="right"
                         android:textSize="13dp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="20dp"
-                        android:text="@string/arr_date"
+                        android:text="Date"
                         android:textColor="@color/textHintColor"
                         android:textSize="11sp" />
 
@@ -152,7 +153,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="06-08-09"
                         android:textColor="@color/textColorDark"
-
+                        android:gravity="right"
                         android:textSize="13dp" />
 
                 </LinearLayout>
@@ -196,6 +197,7 @@
             android:layout_margin="3dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <ImageView
