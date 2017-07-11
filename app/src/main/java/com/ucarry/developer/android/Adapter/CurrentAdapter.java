@@ -148,7 +148,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
 
             }
 
-            else  if(historyList.get(position).getStatus().equalsIgnoreCase("picked")) {
+            else  if(historyList.get(position).getStatus().equalsIgnoreCase("pickedup")) {
 
                 cVH.createdView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);

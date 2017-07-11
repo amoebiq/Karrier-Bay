@@ -242,7 +242,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginBottom="7dp"
-            android:layout_marginLeft="17dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="7dp"
             android:orientation="horizontal">
 
@@ -251,9 +251,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:text="@string/order_created"
+                android:text="Created"
                 android:textColor="@color/textHintColor"
                 android:textSize="11sp" />
+
+
+            <TextView
+                android:id="@+id/scheduled"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:text="scheduled"
+                android:textColor="@color/textHintColor"
+                android:textSize="11sp" />
+
 
             <TextView
                 android:id="@+id/picked"
@@ -295,8 +306,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="37dp"
-        android:layout_marginRight="57dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_gravity="center"
         android:alpha="0.3"
         android:background="@color/textHintColor" />
@@ -311,6 +322,16 @@
         android:layout_marginLeft="27dp"
         android:layout_weight="1"
         android:background="@drawable/solid_circle" />
+
+    <View
+        android:id="@+id/scheduled_order_view"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="27dp"
+        android:layout_weight="1"
+        android:background="@drawable/solid_circle" />
+
+
     <View
         android:id="@+id/picked_order_view"
         android:layout_width="15dp"

@@ -81,21 +81,35 @@ public class LegalListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 final StringBuilder sb = getFromFile("terms_of_use.txt");
+                if(termsView.getVisibility()==View.VISIBLE) {
 
-                termsView.setVisibility(View.VISIBLE);
-                termsView.setText(sb);
+                    termsView.setVisibility(View.GONE);
+                }
+                else {
+                    termsView.setVisibility(View.VISIBLE);
+                    termsView.setText(sb);
+
+                }
             }
         });
 
-        Button privacyPolicy = (Button) findViewById(R.id.privacy_policy_button);
+        final Button privacyPolicy = (Button) findViewById(R.id.privacy_policy_button);
         final TextView privacyView = (TextView) findViewById(R.id.privacy_policy);
         privacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 final StringBuilder sb = getFromFile("privacy_policy.txt");
-                privacyView.setVisibility(View.VISIBLE);
-                privacyView.setText(sb);
+                if(privacyView.getVisibility()==View.VISIBLE) {
+
+                    privacyView.setVisibility(View.GONE);
+
+                }
+                else {
+                    privacyView.setVisibility(View.VISIBLE);
+                    privacyView.setText(sb);
+
+                }
             }
         });
 
