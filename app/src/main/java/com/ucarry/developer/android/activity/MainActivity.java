@@ -412,6 +412,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment(new MyBayFragment(), "MyBayFragment");
             //fragment(new MapActivity(),"MapActivity");
 
+//            Intent intent = new Intent(this,MyBayActivity.class);
+//            startActivity(intent);
+
         }
 
         if(id==R.id.nav_legal) {

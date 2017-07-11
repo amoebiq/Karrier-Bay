@@ -105,7 +105,17 @@ private String fullAdress;
 
     private String auto_save;
 
-//    @Bindable public String getLandmark ()
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    //    @Bindable public String getLandmark ()
 //    {
 //        return landmark;
 //    }

@@ -578,9 +578,9 @@ public class ProfileFragment extends BaseFragment implements
                         sessionManager = new SessionManager(getContext());
                         sessionManager.put(SessionManager.KEY_PHONE,user.getPhone());
                         BankDetail bankDetail = user.getBankDetail();
-                        Log.d(TAG,bankDetail.getBank_name());
+                        //Log.d(TAG,bankDetail.getBank_name());
                         if(bankDetail!=null) {
-
+                            Log.d(TAG,bankDetail.getBank_name());
                             sessionManager.put(SessionManager.BANK_DETAIL_ACC_NO,bankDetail.getAccountNo());
                             sessionManager.put(SessionManager.BANK_DETAIL_BANK_NAME,bankDetail.getBank_name());
                             sessionManager.put(SessionManager.BANK_DETAIL_IFSC,bankDetail.getIfsc());

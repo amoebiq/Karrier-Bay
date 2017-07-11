@@ -18,8 +18,12 @@ import com.ucarry.developer.android.Model.SenderOrder;
 import com.ucarry.developer.android.Model.SenderOrderRequest;
 import com.ucarry.developer.android.Model.SenderOrderResponse;
 import com.ucarry.developer.android.Model.SignUpResponse;
+import com.ucarry.developer.android.Model.UpdateOrderRequest;
 import com.ucarry.developer.android.Model.User;
 import com.ucarry.developer.android.Model.UserUpdateRequest;
+
+import org.json.JSONObject;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -70,6 +74,8 @@ public interface ApiInterface {
     @GET("{flowtype}/{flowtypeParam}")
     Call<List<SenderOrder>> getSenderOrCarrierOrder(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam , @Query("my_bay") String myBay , @Query("my_bay_completed") String myBayCompleted);
 
+    @GET("/sender/orders/accepted_transactions")
+    Call<List<SenderOrder>> getOrdersInProgress(@Query("my_bay") String myBay, @Query("my_bay_completed") String myBayCompleted);
 
     @GET("{flowtype}/{flowtypeParam}")
     Call<List<SenderOrder>> getSenderOrCarrierOrderForMyBay(@Path("flowtype") String flowtype, @Path("flowtypeParam") String flowtypeParam  , @Query("status") String status);
@@ -88,6 +94,9 @@ public interface ApiInterface {
 
     @PUT("orchestrator/user/update")
     Call<User>  editUserDetails(@Body UserUpdateRequest request);
+
+    @PUT("orchestrator/order/update")
+    Call<JSONObject>  updateOrder(@Body UpdateOrderRequest request);
 
     @GET("sender/orders}")
     Call<List<SenderOrder>> getMyBayHistory();

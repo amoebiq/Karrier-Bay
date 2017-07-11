@@ -28,8 +28,8 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
         fromLoc = (TextView)view.findViewById(R.id.history_from);
         toLoc = (TextView) view.findViewById(R.id.history_to);
         //item = (TextView) view.findViewById(R.id.item);
-        senderImageView = (ImageView) view.findViewById(R.id.carrier_image_ico);
-        carrierImageView = (ImageView) view.findViewById(R.id.sender_image_ico);
+        senderImageView = (ImageView) view.findViewById(R.id.sender_image_ico);
+        carrierImageView = (ImageView) view.findViewById(R.id.carrier_image_ico);
         createdView = (View) view.findViewById(R.id.created_order_view);
 
         pickedView = (View) view.findViewById(R.id.picked_order_view);
