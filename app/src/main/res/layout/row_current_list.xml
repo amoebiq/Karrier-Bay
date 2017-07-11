@@ -352,6 +352,7 @@
 
         android:background="@drawable/solid_circle" />
     <View
+        android:id="@+id/completed_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_weight="1"

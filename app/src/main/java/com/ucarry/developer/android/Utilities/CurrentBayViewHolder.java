@@ -17,7 +17,7 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
     public ImageView senderImageView , carrierImageView , currAmountIco;
     public TextView fromLoc , toLoc , item , currAmount , currItem , startTime , endTime;
     public View mView;
-    public View createdView , pickedView , transitView,scheduledView;
+    public View createdView , pickedView , transitView,scheduledView,completedView;
 
     public CurrentBayViewHolder(View view) {
 
@@ -37,6 +37,8 @@ public class CurrentBayViewHolder extends RecyclerView.ViewHolder {
         scheduledView = (View) view.findViewById(R.id.scheduled_order_view);
 
         transitView = (View) view.findViewById(R.id.transit_order_view);
+
+        completedView = (View) view.findViewById(R.id.completed_order_view);
 
         currAmount = (TextView) view.findViewById(R.id.current_amount);
 

@@ -126,6 +126,9 @@ public class MyBayActivity extends AppCompatActivity {
 
 
 
+        requestedSubImteEt = (TextView) findViewById(R.id.requestedSubItemTv);
+        requestedSubItemTv = (TextView) findViewById(R.id.requestedSubItemEt);
+
 
         String uid = new SessionManager(MyBayActivity.this).getvalStr(SessionManager.KEY_EMAIL);
 
@@ -163,8 +166,6 @@ public class MyBayActivity extends AppCompatActivity {
                     requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
 
                     subItemLL.setVisibility(View.VISIBLE);
-                    requestedSubImteEt = (TextView) findViewById(R.id.requestedSubItemTv);
-                    requestedSubItemTv = (TextView) findViewById(R.id.requestedSubItemEt);
 
                     requestedSubItemTv.setText(senderOrder.getOrder_items().get(0).getItem_subtype());
                     requestedSubImteEt.setText("Sub Item");
@@ -194,7 +195,7 @@ public class MyBayActivity extends AppCompatActivity {
 
                 }
                 else {
-
+                    Log.d(TAG,"its a carrier...");
                     myBayDetailHeaderText.setText("Self Carry Request");
 
                     myBaySenderNameEt.setText("SELF");
@@ -204,8 +205,10 @@ public class MyBayActivity extends AppCompatActivity {
                         Log.d(TAG, "Carrier but null:::" + senderOrder.getId());
                     }
 
-                    fromTime.setText(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getStart_time()));
-                    toTime.setText(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getEnd_time()));
+                    fromTime.setText(Utility.convertToProperDateFromServer(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getStart_time())));
+                    toTime.setText(Utility.convertToProperDateFromServer(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getEnd_time())));
+                    requestedEt.setText(carrierScheduleDetail.getReady_to_carry());
+                    amountLL.setVisibility(View.GONE);
 
                 }
             } else {
@@ -215,10 +218,23 @@ public class MyBayActivity extends AppCompatActivity {
                 myBaySenderNameEt.setText("SELF");
                 myBayDetailHeaderText.setText("Self Sending Request");
                 senderOrder = (SenderOrder) getIntent().getSerializableExtra(SENDER_OBJ);
-                fromTime.setText(senderOrder.getOrder_items().get(0).getStart_time());
-                toTime.setText(senderOrder.getOrder_items().get(0).getEnd_time());
+                fromTime.setText(Utility.convertToProperDateFromServer(senderOrder.getOrder_items().get(0).getStart_time()));
+                toTime.setText(Utility.convertToProperDateFromServer(senderOrder.getOrder_items().get(0).getEnd_time()));
+
+                requestedTv.setText("Want to Send");
+                requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
+                requestedSubItemTv.setText(senderOrder.getOrder_items().get(0).getItem_subtype());
+                requestedSubImteEt.setText("Sub Category");
+
                 displayAmountTv.setText("You Pay");
                 displayAmountEt.setText(senderOrder.getGrandTotal());
+
+                showPickUpAndReciever();
+                ReceiverOrderMapping receiverOrderMapping = senderOrder.getReceiverOrderMapping();
+                PickupOrderMapping pickupOrderMapping = senderOrder.getPickupOrderMapping();
+                setPickupDetails(pickupOrderMapping);
+                setRecieverDetails(receiverOrderMapping);
+
 
             }
 
@@ -291,6 +307,11 @@ public class MyBayActivity extends AppCompatActivity {
         llSecondParentReciever = (LinearLayout) findViewById(R.id.reciever_second_parent_ll);
         llSecondParentReciever.setVisibility(View.GONE);
         registerReciever();
+
+
+        subItemLL = (LinearLayout) findViewById(R.id.sub_item_ll);
+        subItemLL.setVisibility(View.VISIBLE);
+
 
 
     }

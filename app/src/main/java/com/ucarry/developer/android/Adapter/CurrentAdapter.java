@@ -110,6 +110,8 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
            // Log.d(TAG+"XX",seO.getSender_id()+"");
             if(!seO.getSender_id().equals(uid)) {
 
+
+
                 isCarrier = true;
                 cVH.carrierImageView.setVisibility(View.VISIBLE);
                 cVH.senderImageView.setVisibility(View.GONE);
@@ -146,6 +148,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.completedView.setBackgroundResource(R.drawable.solid_circle);
 
             }
 
@@ -155,6 +158,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.scheduledView.setBackgroundResource(R.drawable.solid_red_circle);
+                cVH.completedView.setBackgroundResource(R.drawable.solid_circle);
 
             }
 
@@ -163,6 +167,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 cVH.createdView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_red_circle);
+                cVH.completedView.setBackgroundResource(R.drawable.solid_circle);
 
             }
 
@@ -172,6 +177,18 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.scheduledView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_red_circle);
+                cVH.completedView.setBackgroundResource(R.drawable.solid_circle);
+
+            }
+
+            else if(historyList.get(position).getStatus().equalsIgnoreCase("completed")) {
+
+                cVH.createdView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.scheduledView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.completedView.setBackgroundResource(R.drawable.solid_red_circle);
+
 
             }
 
@@ -183,6 +200,20 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
             @Override
             public void onClick(View view) {
 
+                if(seO.getSender_id()!=null) {
+
+
+                if(!seO.getSender_id().equals(uid)) {
+
+                    isCarrier = true;
+
+                }
+                else
+                    isCarrier = false;
+
+                }
+                else
+                    isCarrier=true;
                 Log.d(TAG,"In OnClick");
                 Log.d(TAG,"ISCarrier ::: "+isCarrier);
                 Context context = view.getContext();
