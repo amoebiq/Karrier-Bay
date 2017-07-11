@@ -145,6 +145,16 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
                 cVH.createdView.setBackgroundResource(R.drawable.solid_red_circle);
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
+
+            }
+
+            else  if(historyList.get(position).getStatus().equalsIgnoreCase("scheduled")) {
+
+                cVH.createdView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.transitView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.scheduledView.setBackgroundResource(R.drawable.solid_red_circle);
 
             }
 
@@ -156,10 +166,11 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
 
             }
 
-            else if(historyList.get(position).getStatus().equalsIgnoreCase("scheduled")) {
+            else if(historyList.get(position).getStatus().equalsIgnoreCase("intransit")) {
 
                 cVH.createdView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.pickedView.setBackgroundResource(R.drawable.solid_circle);
+                cVH.scheduledView.setBackgroundResource(R.drawable.solid_circle);
                 cVH.transitView.setBackgroundResource(R.drawable.solid_red_circle);
 
             }

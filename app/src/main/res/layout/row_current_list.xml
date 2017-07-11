@@ -319,7 +319,7 @@
         android:id="@+id/created_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginLeft="27dp"
+        android:layout_marginLeft="37dp"
         android:layout_weight="1"
         android:background="@drawable/solid_circle" />
 
@@ -327,7 +327,7 @@
         android:id="@+id/scheduled_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginLeft="27dp"
+        android:layout_marginLeft="47dp"
         android:layout_weight="1"
         android:background="@drawable/solid_circle" />
 
@@ -337,7 +337,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_weight="1"
-        android:layout_marginLeft="97dp"
+        android:layout_marginLeft="47dp"
 
         android:background="@drawable/solid_circle" />
     <View
@@ -345,7 +345,7 @@
         android:id="@+id/transit_order_view"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginLeft="67dp"
+        android:layout_marginLeft="47dp"
         android:layout_weight="1"
 
         android:background="@drawable/solid_circle" />
@@ -353,7 +353,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_weight="1"
-        android:layout_marginLeft="67dp"
+        android:layout_marginLeft="47dp"
         android:background="@drawable/solid_circle" />
 </LinearLayout>
 

@@ -46,11 +46,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="20dp"
                     android:text="Request Summary"
                     android:textColor="@color/textColorDark" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/detail_view_margin"
+                android:orientation="horizontal"
+                android:id="@+id/my_bay_sender_name_ll">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView1112"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:text="Sender Name"
+                    android:textColor="@color/greyColor" />
+
+                <TextView
+                    android:id="@+id/my_bay_sender_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Calicut"
+                    android:textColor="@color/textColorDark" />
+
+                </LinearLayout>
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/detail_view_margin"
@@ -165,7 +191,7 @@
 
 
                     <TextView
-                        android:id="@+id/textView111"
+                        android:id="@+id/requestedTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
@@ -174,7 +200,7 @@
                         android:textColor="@color/greyColor" />
 
                     <TextView
-                        android:id="@+id/csummaryreadytocarry"
+                        android:id="@+id/requestedEt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -294,6 +320,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
                                 android:layout_weight="1"
+                                android:autoLink="phone"
                                 android:text="Phone"
                                 android:textColor="@color/greyColor" />
 
@@ -301,6 +328,7 @@
                                 android:id="@+id/pickup_phone_et"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:autoLink="phone"
                                 android:layout_weight="1"
                                 android:gravity="right"
                                 android:text="7259717252"

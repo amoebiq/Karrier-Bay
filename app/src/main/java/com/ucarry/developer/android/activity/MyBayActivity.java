@@ -55,6 +55,7 @@ public class MyBayActivity extends AppCompatActivity {
     private LinearLayout llPickupParent;
 
     private LinearLayout llSecondParentPickup;
+    private LinearLayout myBaySenderNameLL;
     private TextView pickupName;
     private TextView pickupPhone;
     private TextView pickupAdd1;
@@ -67,9 +68,15 @@ public class MyBayActivity extends AppCompatActivity {
     private TextView recieverPhone;
     private TextView recieverAdd1;
     private TextView recieverAdd2;
+    private TextView myBaySenderNameEt;
 
     private Button cancelOrderOrScheduleButton;
     private Button changeStatusButton;
+
+    private TextView myBayDetailHeaderText;
+
+    private TextView requestedTv;
+    private  TextView requestedEt;
 
     SenderOrder senderOrder = null;
 
@@ -85,6 +92,10 @@ public class MyBayActivity extends AppCompatActivity {
         TextView fromTime = (TextView) findViewById(R.id.my_bay_detail_header_ftime);
         TextView toTime = (TextView) findViewById(R.id.my_bay_detail_header_tdate);
 
+        myBayDetailHeaderText = (TextView) findViewById(R.id.my_bay_detail_header);
+        myBaySenderNameLL = (LinearLayout) findViewById(R.id.my_bay_sender_name_ll);
+        myBaySenderNameEt = (TextView) findViewById(R.id.my_bay_sender_name);
+
         pickupName = (TextView) findViewById(R.id.pickup_name_et);
         pickupPhone = (TextView) findViewById(R.id.pickup_phone_et);
         pickupAdd1 = (TextView) findViewById(R.id.pickup_address1_et);
@@ -97,6 +108,9 @@ public class MyBayActivity extends AppCompatActivity {
 
         changeStatusButton = (Button) findViewById(R.id.changestatus);
         changeStatusButton.setVisibility(View.GONE);
+
+        requestedEt = (TextView) findViewById(R.id.requestedEt);
+        requestedTv = (TextView) findViewById(R.id.requestedTv);
 
 
         String uid = new SessionManager(MyBayActivity.this).getvalStr(SessionManager.KEY_EMAIL);
@@ -128,8 +142,11 @@ public class MyBayActivity extends AppCompatActivity {
                 if(senderOrder.getSender_id()!=null) {
 
 
-
+                    myBayDetailHeaderText.setText("Carry Details");
+                    myBaySenderNameEt.setText(user.getName());
                     changeStatusButton.setVisibility(View.VISIBLE);
+                    requestedTv.setText("Item to Carry");
+                    requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
 
 
                     senderOrder = (SenderOrder) getIntent().getSerializableExtra(CARRIER_OBJ);
@@ -150,7 +167,11 @@ public class MyBayActivity extends AppCompatActivity {
                 }
                 else {
 
+                    myBayDetailHeaderText.setText("Self Carry Request");
+
+                    myBaySenderNameEt.setText("SELF");
                     CarrierScheduleDetailAttributes carrierScheduleDetail = senderOrder.getCarrier_schedule_detail();
+                    requestedEt.setText(carrierScheduleDetail.getReady_to_carry());
                     if (carrierScheduleDetail == null) {
                         Log.d(TAG, "Carrier but null:::" + senderOrder.getId());
                     }
@@ -161,6 +182,8 @@ public class MyBayActivity extends AppCompatActivity {
                 }
             } else {
 
+                myBaySenderNameEt.setText("SELF");
+                myBayDetailHeaderText.setText("Self Sending Request");
                 senderOrder = (SenderOrder) getIntent().getSerializableExtra(SENDER_OBJ);
                 fromTime.setText(senderOrder.getOrder_items().get(0).getStart_time());
                 toTime.setText(senderOrder.getOrder_items().get(0).getEnd_time());
@@ -315,7 +338,7 @@ public class MyBayActivity extends AppCompatActivity {
                                 break;
 
                             case R.id.radio1:
-                                s="outfordelivery";
+                                s="intransit";
                                 break;
                             case R.id.radio2:
                                 s="completed";
