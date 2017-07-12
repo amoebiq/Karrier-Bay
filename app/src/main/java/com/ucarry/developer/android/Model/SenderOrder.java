@@ -119,6 +119,19 @@ public class SenderOrder extends BaseObservable implements Serializable{
         return user;
     }
 
+    @SerializedName("schedule_id")
+    private String scheduleId;
+
+    public String getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(String scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+
+
     public void setUser(User user) {
         this.user = user;
     }

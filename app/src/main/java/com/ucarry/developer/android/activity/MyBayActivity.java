@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -79,7 +81,7 @@ public class MyBayActivity extends AppCompatActivity {
     private TextView myBayDetailHeaderText;
 
     private TextView requestedTv;
-    private  TextView requestedEt;
+    private TextView requestedEt;
 
     private TextView requestedSubItemTv;
     private TextView requestedSubImteEt;
@@ -87,7 +89,16 @@ public class MyBayActivity extends AppCompatActivity {
     private TextView displayAmountTv;
     private TextView displayAmountEt;
 
+    private LinearLayout capacityLL;
+
+
     SenderOrder senderOrder = null;
+
+    boolean isCarrier;
+
+    boolean canCancel = false;
+
+    String toCancel = null;
 
 
     @Override
@@ -96,10 +107,15 @@ public class MyBayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_bay);
         hidePickUpAndReciever();
 
+
         TextView fromLoc = (TextView) findViewById(R.id.my_bay_detail_header_floc);
         TextView toLoc = (TextView) findViewById(R.id.my_bay_detail_header_toplace);
         TextView fromTime = (TextView) findViewById(R.id.my_bay_detail_header_ftime);
         TextView toTime = (TextView) findViewById(R.id.my_bay_detail_header_tdate);
+
+        capacityLL = (LinearLayout) findViewById(R.id.capacity_ll);
+        capacityLL.setVisibility(View.GONE);
+
 
         myBayDetailHeaderText = (TextView) findViewById(R.id.my_bay_detail_header);
         myBaySenderNameLL = (LinearLayout) findViewById(R.id.my_bay_sender_name_ll);
@@ -125,7 +141,6 @@ public class MyBayActivity extends AppCompatActivity {
         displayAmountTv = (TextView) findViewById(R.id.amountToDisplayTv);
 
 
-
         requestedSubImteEt = (TextView) findViewById(R.id.requestedSubItemTv);
         requestedSubItemTv = (TextView) findViewById(R.id.requestedSubItemEt);
 
@@ -133,17 +148,16 @@ public class MyBayActivity extends AppCompatActivity {
         String uid = new SessionManager(MyBayActivity.this).getvalStr(SessionManager.KEY_EMAIL);
 
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_bay_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Details</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        boolean isCarrier = getIntent().getBooleanExtra(IS_CARRIER,false);
+        isCarrier = getIntent().getBooleanExtra(IS_CARRIER, false);
 
-        Log.d(TAG,isCarrier+"");
-        User user = (User)getIntent().getSerializableExtra(USER_OBJ);
-        if(user!=null) {
+        Log.d(TAG, isCarrier + "");
+        User user = (User) getIntent().getSerializableExtra(USER_OBJ);
+        if (user != null) {
 
             //Log.d(TAG,user.getName());
 
@@ -156,7 +170,8 @@ public class MyBayActivity extends AppCompatActivity {
 
 
                 senderOrder = (SenderOrder) getIntent().getSerializableExtra(CARRIER_OBJ);
-                if(senderOrder.getSender_id()!=null) {
+
+                if (senderOrder.getSender_id() != null) {
 
 
                     myBayDetailHeaderText.setText("Carry Details");
@@ -177,12 +192,11 @@ public class MyBayActivity extends AppCompatActivity {
                     displayAmountEt.setText(senderOrder.getTotal_amount());
 
 
-
                     senderOrder = (SenderOrder) getIntent().getSerializableExtra(CARRIER_OBJ);
                     changeStatusButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            showStatusChangeDialogue(view,senderOrder.getOrderId().toString());
+                            showStatusChangeDialogue(view, senderOrder.getOrderId().toString());
                         }
                     });
                     fromTime.setText(Utility.convertToProperDateFromServer(senderOrder.getOrder_items().get(0).getStart_time()));
@@ -193,9 +207,10 @@ public class MyBayActivity extends AppCompatActivity {
                     setPickupDetails(pickupOrderMapping);
                     setRecieverDetails(receiverOrderMapping);
 
-                }
-                else {
-                    Log.d(TAG,"its a carrier...");
+
+                } else {
+                    Log.d(TAG, "its a carrier...");
+                    canCancel = true;
                     myBayDetailHeaderText.setText("Self Carry Request");
 
                     myBaySenderNameEt.setText("SELF");
@@ -205,14 +220,20 @@ public class MyBayActivity extends AppCompatActivity {
                         Log.d(TAG, "Carrier but null:::" + senderOrder.getId());
                     }
 
+                    toCancel = senderOrder.getScheduleId();
                     fromTime.setText(Utility.convertToProperDateFromServer(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getStart_time())));
                     toTime.setText(Utility.convertToProperDateFromServer(Utility.convertToProperDateFromServer(senderOrder.getCarrier_schedule_detail().getEnd_time())));
                     requestedEt.setText(carrierScheduleDetail.getReady_to_carry());
                     amountLL.setVisibility(View.GONE);
 
+                    Log.d(TAG,"To Cancel :::");
+                    Log.d(TAG,senderOrder.getScheduleId());
+
+
                 }
             } else {
 
+                canCancel = true;
                 amountLL.setVisibility(View.VISIBLE);
 
                 myBaySenderNameEt.setText("SELF");
@@ -234,6 +255,7 @@ public class MyBayActivity extends AppCompatActivity {
                 PickupOrderMapping pickupOrderMapping = senderOrder.getPickupOrderMapping();
                 setPickupDetails(pickupOrderMapping);
                 setRecieverDetails(receiverOrderMapping);
+                toCancel = senderOrder.getOrder_id();
 
 
             }
@@ -242,13 +264,10 @@ public class MyBayActivity extends AppCompatActivity {
             fromLoc.setText(senderOrder.getFrom_loc());
             toLoc.setText(senderOrder.getTo_loc());
 
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
-
 
 
     }
@@ -313,7 +332,6 @@ public class MyBayActivity extends AppCompatActivity {
         subItemLL.setVisibility(View.VISIBLE);
 
 
-
     }
 
 
@@ -324,10 +342,9 @@ public class MyBayActivity extends AppCompatActivity {
         recieverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(llSecondParentReciever.getVisibility()==View.VISIBLE) {
+                if (llSecondParentReciever.getVisibility() == View.VISIBLE) {
                     llSecondParentReciever.setVisibility(View.GONE);
-                }
-                else
+                } else
                     llSecondParentReciever.setVisibility(View.VISIBLE);
             }
         });
@@ -341,11 +358,10 @@ public class MyBayActivity extends AppCompatActivity {
         pickupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(llSecondParentPickup.getVisibility()==View.VISIBLE) {
+                if (llSecondParentPickup.getVisibility() == View.VISIBLE) {
                     llSecondParentPickup.setVisibility(View.GONE);
-                }
-                else
-                llSecondParentPickup.setVisibility(View.VISIBLE);
+                } else
+                    llSecondParentPickup.setVisibility(View.VISIBLE);
             }
         });
 
@@ -372,7 +388,7 @@ public class MyBayActivity extends AppCompatActivity {
 
     private void showStatusChangeDialogue(View view, final String orderId) {
 
-        Map<Integer,String> optionsMap = new HashMap<>();
+        Map<Integer, String> optionsMap = new HashMap<>();
         LayoutInflater li = LayoutInflater.from(view.getContext());
         View prompt = li.inflate(R.layout.change_status_prompt, null);
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
@@ -390,25 +406,25 @@ public class MyBayActivity extends AppCompatActivity {
                         dialogInterface.dismiss();
 
                         String s = null;
-                        switch(i) {
+                        switch (i) {
 
                             case R.id.radio0:
-                                s="pickedup";
+                                s = "pickedup";
                                 break;
 
                             case R.id.radio1:
-                                s="intransit";
+                                s = "intransit";
                                 break;
                             case R.id.radio2:
-                                s="completed";
+                                s = "completed";
                                 break;
 
                         }
 
-                        fireUpdateEvent(s,orderId);
+                        fireUpdateEvent(s, orderId);
 
                     }
-                } );
+                });
 
         AlertDialog dialog = alertBuilder.create();
         dialog.show();
@@ -424,14 +440,12 @@ public class MyBayActivity extends AppCompatActivity {
 //        });
 
 
-
-
     }
 
 
-    private void fireUpdateEvent(String status,String orderId) {
+    private void fireUpdateEvent(String status, String orderId) {
 
-        Log.d(TAG,status);
+        Log.d(TAG, status);
 
         final ProgressDialog pd = new ProgressDialog(MyBayActivity.this);
         pd.setIndeterminate(true);
@@ -448,7 +462,7 @@ public class MyBayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 pd.dismiss();
-                if(response.code()==200) {
+                if (response.code() == 200) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(MyBayActivity.this);
                     builder.setMessage("Updated Successfully!")
@@ -471,12 +485,119 @@ public class MyBayActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONObject> call, Throwable t) {
 
-                if(pd.isShowing())
+                if (pd.isShowing())
                     pd.dismiss();
             }
         });
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem register = menu.findItem(R.id.edit_item);
+        if (canCancel) {
+
+            register.setEnabled(true);
+        } else {
+            register.setEnabled(false);
+        }
+
+        register.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyBayActivity.this);
+                builder.setMessage("Are you sure to cancel this?")
+                        .setCancelable(false)
+                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
 
+                                cancelOrder();
+
+
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_with_edit, menu);
+        return true;
+    }
+
+
+    private void cancelOrder() {
+
+        final String orderId = toCancel;
+
+        Log.d(TAG,orderId+":: to cancel");
+
+        final ProgressDialog pd = new ProgressDialog(MyBayActivity.this);
+        pd.setIndeterminate(true);
+        pd.setMessage("Cancelling ... ");
+        pd.show();
+
+        ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
+        UpdateOrderRequest updateOrderRequest = new UpdateOrderRequest();
+        updateOrderRequest.setOrderId(orderId);
+        updateOrderRequest.setStatus("cancelled");
+        Call<JSONObject> call = null;
+
+        if(orderId.contains("ord"))
+            call = apiInterface.cancelOrder(orderId);
+            else
+                call = apiInterface.cancelSchedule(orderId);
+
+
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                pd.dismiss();
+                if(200==response.code()) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyBayActivity.this);
+                    builder.setMessage("Cancelled the event successfully!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
+                                    startActivity(intent);
+
+                                }
+                            });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
+            }
+        });
+
+
+    }
 }

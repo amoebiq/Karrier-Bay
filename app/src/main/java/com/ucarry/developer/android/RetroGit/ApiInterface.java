@@ -96,7 +96,14 @@ public interface ApiInterface {
     Call<User>  editUserDetails(@Body UserUpdateRequest request);
 
     @PUT("orchestrator/order/update")
-    Call<JSONObject>  updateOrder(@Body UpdateOrderRequest request);
+    Call<JSONObject> updateOrder(@Body UpdateOrderRequest request);
+
+    @PUT("/carrier/schedule/{schedule_id}/cancel")
+     Call<JSONObject> cancelSchedule(@Path("schedule_id") String scheduleId);
+
+    @PUT("/sender/order/{order_id}/cancel")
+    Call<JSONObject> cancelOrder(@Path("order_id") String orderId);
+
 
     @GET("sender/orders}")
     Call<List<SenderOrder>> getMyBayHistory();
