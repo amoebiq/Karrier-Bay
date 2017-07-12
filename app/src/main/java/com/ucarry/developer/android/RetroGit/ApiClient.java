@@ -20,7 +20,7 @@ public class ApiClient {
    // public static final String BASE_URL = "http://35.162.42.110:3000/";
    // public static final String BASE_URL = "http://52.27.131.145:3000/";
    // public static final String BASE_URL = "http://35.161.197.248:3000/";
-    public static final String BASE_URL = "http://10.0.2.2:3000/";//"http://52.42.79.56:3000/";
+    public static final String BASE_URL = "http://52.42.79.56:3000/";//"http://10.0.2.2:3000/";
 
     private static Retrofit retrofit = null;
     public static Retrofit getClient() {
@@ -62,7 +62,7 @@ public class ApiClient {
                                @Override
                                public Response intercept(Interceptor.Chain chain) throws IOException {
 
-                                       Request request = chain.request().newBuilder().addHeader("Uid", sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL)).build();
+                                       Request request = chain.request().newBuilder().addHeader("Uid", sessionManager.getUserDetails().get(SessionManager.KEY_UID)).build();
                                               // addHeader(SessionManager.CLIENT, sessionManager.sharedPreferences.getString(SessionManager.CLIENT, ""))
                                               // .addHeader(SessionManager.ACCESS_TOKEN, sessionManager.sharedPreferences.getString(SessionManager.ACCESS_TOKEN, "")).build();
 //                                Request original = chain.request();

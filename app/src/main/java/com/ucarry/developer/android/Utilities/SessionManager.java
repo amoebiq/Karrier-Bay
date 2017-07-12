@@ -54,6 +54,8 @@ public class SessionManager {
 
     public static final String BANK_DETAIL_BANK_NAME = "bank_detail_bank_name";
 
+    public static final String KEY_UID = "uid";
+
 
     public static final String ACCESS_TOKEN = "Access-Token";
     public static final String CLIENT = "Client";
@@ -67,7 +69,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String email, String name, Headers headers, String phone){
+    public void createLoginSession(String email, String name, Headers headers, String phone ,String uid){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
         // Storing name in pref
@@ -80,6 +82,8 @@ public class SessionManager {
         editor.putString(CLIENT,headers.get("client"));
 
         editor.putString(KEY_PHONE, phone);
+
+        editor.putString(KEY_UID , uid);
 
 
 
@@ -124,6 +128,8 @@ public class SessionManager {
         user.put(KEY_AADHAR, sharedPreferences.getString(KEY_AADHAR, null));
 
         user.put(KEY_VERIFIED , sharedPreferences.getString(KEY_VERIFIED,null));
+
+        user.put(KEY_UID , sharedPreferences.getString(KEY_UID,null));
 
         return user;
     }

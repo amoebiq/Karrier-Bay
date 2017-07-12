@@ -40,6 +40,8 @@ import retrofit2.Response;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 
@@ -57,6 +59,11 @@ public class LoginActivity extends BaseActivity {
     private static String LOGIN_RESPONSE_TAG = "LOGIN_RESPONSE";
 
     private CallbackManager callbackManager;
+    private String enteredPassword;
+
+
+    private User remoteUser;
+    private UserUpdateRequest remoteUserUpdateRequest = new UserUpdateRequest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +129,7 @@ public class LoginActivity extends BaseActivity {
                                 Log.d(LOGIN_RESPONSE_TAG, response.body().getData().getPhone().toString());
                                 // Log.d("Error",response.body().getErrors().toString());
                                 sessionManager.createLoginSession(response.body().getData().getEmail().toString(),
-                                        response.body().getData().getName().toString(), response.headers(), response.body().getData().getPhone().toString());
+                                        response.body().getData().getName().toString(), response.headers(), response.body().getData().getPhone().toString(),response.body().getData().getUid().toString());
                                 sessionManager.put("image",response.body().getData().getImage());
 
                                 String token = FirebaseInstanceId.getInstance().getToken();
@@ -274,22 +281,58 @@ public class LoginActivity extends BaseActivity {
                     Log.d(TAG,"Successful");
 
                     User user = response.body();
-                    sessionManager.createLoginSession(user.getEmail(),
-                            user.getName(), response.headers(), user.getPhone());
-                    sessionManager.put("image",user.getImage());
+                    remoteUser = user;
+                    remoteUserUpdateRequest.setUid(user.getUid());
 
-                    if(user.getPhone()==null || user.getPhone().isEmpty()) {
+                    sessionManager.createLoginSession("",
+                            "", response.headers(), "",user.getUid());
 
-                        getExtraDetails();
-                    }
-                    else {
+//
+//                    if(user.getPhone()==null || user.getPhone().isEmpty()) {
+//
+//                        getExtraDetails();
+//                    }
+//                    else {
+
+                    if(user.getEmail()!=null && user.getPhone()!=null) {
+
+                        sessionManager.createLoginSession(user.getEmail(),
+                                user.getName(), response.headers(), user.getPhone(),user.getUid());
+                        sessionManager.put("image",user.getImage());
+
+
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
 
                     }
+                    else
+                    getOtherDetails(user);
+
+//                    }
 
 
+                }
+
+                if(response.code()==403) {
+
+                    Log.d(TAG,"403 Message");
+
+
+                }
+                if(response.code()==400) {
+
+                    Log.d(TAG,"400 message");
+
+                    try {
+
+
+
+                    }
+
+                    catch(Exception e) {
+
+                    }
                 }
             }
 
@@ -303,6 +346,95 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
+
+
+    }
+
+    private void getOtherDetails(User user) {
+
+
+        if(user.getEmail()==null || user.getEmail().isEmpty()) {
+
+            getEmail();
+            Log.d(TAG,"EMAIL ::: "+enteredPassword);
+        }
+
+        else if(user.getPhone()==null || user.getPhone().isEmpty()) {
+
+            getExtraDetails();;
+        }
+
+
+
+
+    }
+
+    private  void getOtherDetails1() {
+
+        Log.d(TAG,"EMAIL1 ::: "+enteredPassword);
+
+
+    }
+
+    private void getEmail() {
+
+
+
+        LayoutInflater li = LayoutInflater.from(LoginActivity.this);
+        View prompt = li.inflate(R.layout.user_login_extra_details_1, null);
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+        alertBuilder.setView(prompt);
+        alertBuilder.setCancelable(false);
+
+        final EditText email1 = (EditText) prompt.findViewById(R.id.email_1);
+        final EditText email2 = (EditText) prompt.findViewById(R.id.email_2);
+
+        Button button = (Button) prompt.findViewById(R.id.submitEmail);
+
+        final AlertDialog dialog = alertBuilder.create();
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(TAG,"Clicked");
+
+                if(email1.getText().toString().isEmpty() || email2.getText().toString().isEmpty()) {
+                    email1.setError("Enter Email");
+
+                }
+                else {
+
+                    if(email1.getText().toString().equals(email2.getText().toString())) {
+
+                        enteredPassword = email1.getText().toString();
+
+                        remoteUser.setEmail(enteredPassword);
+                        remoteUserUpdateRequest.setEmail(enteredPassword);
+
+                        dialog.dismiss();
+
+                        getExtraDetails();
+
+
+                    }
+                    else {
+
+                        email2.setError("Passwords don't match");
+                    }
+
+                }
+
+
+
+            }
+        });
+
+
+        dialog.show();
+
+
 
 
     }
@@ -412,6 +544,7 @@ public class LoginActivity extends BaseActivity {
                     Toast.makeText(LoginActivity.this,"Verified Successfully",Toast.LENGTH_LONG).show();
 
                     UserUpdateRequest req = new UserUpdateRequest();
+                    remoteUserUpdateRequest.setPhone(phone);
                     req.setPhone(phone);
                     updateAndLogin(req);
 
@@ -445,18 +578,29 @@ public class LoginActivity extends BaseActivity {
         pd.setIndeterminate(true);
         pd.show();
         ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
-        Call<User> call = apiInterface.editUserDetails(request);
+        Call<User> call = apiInterface.editUserDetails(remoteUserUpdateRequest);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 pd.dismiss();
+                Log.d(TAG,response.code()+" ::CODE::");
                 if(response.code()==200 || response.code()==201) {
 
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    User user = response.body();
+                    sessionManager.createLoginSession(user.getEmail(),
+                            user.getName(), response.headers(), user.getPhone(),user.getUid());
+                    sessionManager.put("image",user.getImage());
                     finish();
 
 
+
+
                 }
+//                else {
+//
+//                    Toast.makeText(LoginActivity.this,response.code(),Toast.LENGTH_LONG).show();
+//                }
             }
 
             @Override

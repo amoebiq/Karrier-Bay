@@ -145,8 +145,8 @@ public class ProfileFragment extends BaseFragment implements
 
         }
         user = sessionManager.getUserDetails();
-        if(user.get("image")!=null)
-        displayImage(user.get("image"));
+        if(sessionManager.getvalStr(SessionManager.KEY_IMAGE)!=null)
+        displayImage(sessionManager.getvalStr(SessionManager.KEY_IMAGE));
 
         if(user.get(SessionManager.KEY_VERIFIED)!=null) {
             Log.d("AADHAR_VERIFY",user.get(SessionManager.KEY_VERIFIED));
@@ -577,6 +577,7 @@ public class ProfileFragment extends BaseFragment implements
 
                         sessionManager = new SessionManager(getContext());
                         sessionManager.put(SessionManager.KEY_PHONE,user.getPhone());
+                        sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
                         BankDetail bankDetail = user.getBankDetail();
                         //Log.d(TAG,bankDetail.getBank_name());
                         if(bankDetail!=null) {
