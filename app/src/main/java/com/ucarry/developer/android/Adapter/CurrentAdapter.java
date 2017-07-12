@@ -68,7 +68,7 @@ import com.ucarry.developer.android.Utilities.CustomViewHolder;
         cVH.toLoc.setText(historyList.get(position).getTo_loc());
 
 
-        final String uid = sessionManager.getvalStr(SessionManager.KEY_EMAIL);
+        final String uid = sessionManager.getvalStr(SessionManager.KEY_UID);
 
         final SenderOrder seO = historyList.get(position);
 
