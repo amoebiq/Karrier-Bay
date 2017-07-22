@@ -54,7 +54,7 @@
                         android:id="@+id/location_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kalyani Vista, 192A, 3rd Main Rd, Doresanipalya, Anthappa Layout, Phase 4, JP Nagar, Bengaluru, Karnataka 560076"
+                        android:hint="Add your address here"
                         android:layout_below="@+id/name_header"
                         android:layout_margin="@dimen/edit_text_gap"
                         android:gravity="center"
@@ -64,14 +64,6 @@
                         android:textSize="@dimen/font_size"
                         android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/edit_profile"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/edit_white"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/location_edittext"
-                        />
 
                 </RelativeLayout>
 

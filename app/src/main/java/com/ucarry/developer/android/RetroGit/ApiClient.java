@@ -1,6 +1,7 @@
 package com.ucarry.developer.android.RetroGit;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -20,7 +21,8 @@ public class ApiClient {
    // public static final String BASE_URL = "http://35.162.42.110:3000/";
    // public static final String BASE_URL = "http://52.27.131.145:3000/";
    // public static final String BASE_URL = "http://35.161.197.248:3000/";
-    public static final String BASE_URL = "http://52.42.79.56:3000/";//"http://10.0.2.2:3000/";
+    public static final String BASE_URL = "http://52.42.79.56:3000/";//"http://10.0.2.2:3000/";//
+    private static final String TAG = ApiClient.class.getName();
 
     private static Retrofit retrofit = null;
     public static Retrofit getClient() {
@@ -73,6 +75,7 @@ public class ApiClient {
 //                                        .method(original.method(), original.body());
 
                                    //    Request request = requestBuilder.build();
+                                   Log.d(TAG,sessionManager.getUserDetails().get(SessionManager.KEY_UID));
                                    return chain.proceed(request);
 
                                }

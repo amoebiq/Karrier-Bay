@@ -84,7 +84,7 @@ public class ProfileFragment extends BaseFragment implements
     private String attachmentType = "image";
     private static final String attachmentTypeImage = "image";
     private static final String attachmentTypeAadhar = "aadhar";
-    private static final String TAG = "ProfileFragment";
+    private static final String TAG = ProfileFragment.class.getName();
     public ArrayAdapter<CharSequence>  bankSpinnerAdapter;
     public ArrayAdapter<CharSequence> adapter;
     public Spinner spinner;
@@ -107,11 +107,12 @@ public class ProfileFragment extends BaseFragment implements
         binding.aadharAttachmentVerified.setVisibility(currView.INVISIBLE);
         binding.pendingNotofication.setVisibility(currView.INVISIBLE);
         binding.profileSaveButton.setVisibility(container.INVISIBLE);
+        binding.bankListSpinner.setEnabled(false);
 
         binding.aadharAttachment.setEnabled(false);
 
 
-
+            setHasOptionsMenu(true);
             return binding.getRoot();
 
     }
@@ -188,20 +189,6 @@ public class ProfileFragment extends BaseFragment implements
         }
 
 
-        ImageButton ib = (ImageButton)getView().findViewById(R.id.edit_profile);
-        ib.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                binding.locationEdittext.setEnabled(true);
-                binding.profileSaveButton.setVisibility(currView.VISIBLE);
-                binding.profilepic.setEnabled(true);
-                binding.aadharAttachment.setEnabled(true);
-                binding.bankAccountNumberEt.setEnabled(true);
-                binding.bankIfscEt.setEnabled(true);
-
-            }
-        });
 
         Button updateButton = (Button) view.findViewById(R.id.profile_save_button);
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -237,6 +224,7 @@ public class ProfileFragment extends BaseFragment implements
                             binding.locationEdittext.setEnabled(false);
                             binding.profilepic.setClickable(false);
                             binding.profilepic.setEnabled(false);
+                            binding.bankListSpinner.setEnabled(false);
                             sessionManager.put(sessionManager.KEY_ADDRESS,binding.locationEdittext.getText().toString());
 
                         }
@@ -373,6 +361,7 @@ public class ProfileFragment extends BaseFragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.edit,menu);
 
     }
@@ -387,6 +376,11 @@ public class ProfileFragment extends BaseFragment implements
             binding.locationEdittext.setEnabled(true);
             binding.profileSaveButton.setVisibility(currView.VISIBLE);
             binding.profilepic.setEnabled(true);
+
+            binding.aadharAttachment.setEnabled(true);
+            binding.bankAccountNumberEt.setEnabled(true);
+            binding.bankIfscEt.setEnabled(true);
+            binding.bankListSpinner.setEnabled(true);
 
 
 

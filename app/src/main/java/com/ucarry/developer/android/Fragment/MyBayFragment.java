@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +35,7 @@ public class MyBayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupViewPager(binding.viewpager);
         binding.tabs.setupWithViewPager(binding.viewpager);
+        setHasOptionsMenu(true);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -39,5 +43,13 @@ public class MyBayFragment extends Fragment {
         adapter.addFragment(new CurrentFragment(), "Current");
         adapter.addFragment(new HistoryFragment(), "History");
         viewPager.setAdapter(adapter);
+    }
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 }

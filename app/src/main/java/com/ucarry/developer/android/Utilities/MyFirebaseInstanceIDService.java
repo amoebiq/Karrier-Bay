@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class MyFirebaseInstanceIDService  extends FirebaseInstanceIdService{
 
 
-    private static final String TAG = "MyFirebaseIIDService";
+    private static final String TAG = MyFirebaseInstanceIDService.class.getName();
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -89,6 +89,16 @@ public class MyFirebaseInstanceIDService  extends FirebaseInstanceIdService{
 
             }
         });
+    }
+
+    public static String getToken() {
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + refreshedToken);
+
+        return refreshedToken;
+
+
     }
 
 }

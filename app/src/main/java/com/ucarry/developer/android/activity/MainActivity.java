@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -62,11 +63,11 @@ import retrofit2.Response;
 import static com.ucarry.developer.android.Utilities.Utility.hideKeyboard;
 
 /**
- * A login screen that offers login via email/password.
+ *
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static String TAG = "MAINACTIVITY";
+    private static String TAG = MainActivity.class.getName();
     private SessionManager sessionManager;
     private NavigationView navigationView;
     private String tag;
@@ -78,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static int NOTIFICATION_ID = 1;
     private boolean exit = false;
 
+
+    @Override
+    protected void onResumeFragments() {
+        getAndUpdateUserDetails();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,16 +265,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getAndUpdateUserDetails() {
 
-        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
-//        pd.setMessage("Loading...");
-  //      pd.setIndeterminate(true);
-    //    pd.show();
+        final ProgressDialog pd = new ProgressDialog(MainActivity.this);
+        Log.d(TAG,MyFirebaseInstanceIDService.getToken());
+        MyFirebaseInstanceIDService.updateFCMRegId(MyFirebaseInstanceIDService.getToken(),MainActivity.this);
+       pd.setMessage("Loading...");
+        pd.setIndeterminate(true);
+        pd.show();
         ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
         Call<User> call = apiInterface.getUserDetails();
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
+                pd.dismiss();
                 if(response.code()==200) {
 
                     Log.d(TAG,"Got 200!");
@@ -299,6 +308,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
+                if(pd.isShowing())
+                    pd.dismiss();
 
 
             }
@@ -469,6 +481,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         if (id == R.id.nav_logout) {
+            LoginManager.getInstance().logOut();
             sessionManager.logoutUser();
             finish();
             //Toast.makeText(getApplicationContext(), "User Login Status: " + sessionManager.checkLogin(), Toast.LENGTH_LONG).show();
