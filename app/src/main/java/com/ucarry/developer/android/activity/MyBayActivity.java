@@ -1,5 +1,6 @@
 package com.ucarry.developer.android.activity;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -16,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -176,7 +179,11 @@ public class MyBayActivity extends AppCompatActivity {
 
                     myBayDetailHeaderText.setText("Carry Details");
                     myBaySenderNameEt.setText(user.getName());
-                    changeStatusButton.setVisibility(View.VISIBLE);
+                    if(!senderOrder.getStatus().equals("completed")) {
+                        changeStatusButton.setVisibility(View.VISIBLE);
+                        prepareStatusChange();
+                        invalidateOptionsMenu();
+                    }
                     requestedTv.setText("Item to Carry");
                     requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
 
@@ -390,44 +397,79 @@ public class MyBayActivity extends AppCompatActivity {
 
         Map<Integer, String> optionsMap = new HashMap<>();
         LayoutInflater li = LayoutInflater.from(view.getContext());
-        View prompt = li.inflate(R.layout.change_status_prompt, null);
+        View prompt = li.inflate(R.layout.change_status, null);
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
         alertBuilder.setView(prompt);
+        String currStatus = null;
+        if(senderOrder!=null) {
 
-        final RadioGroup radioGroup = (RadioGroup) prompt.findViewById(R.id.radioGroupChangeOptions);
+            currStatus = senderOrder.getStatus();
+        }
+
+        final Dialog dialog = new Dialog(MyBayActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.change_status);
 
 
-        alertBuilder.setCancelable(true)
-                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int it) {
+        TextView text = (TextView) dialog.findViewById(R.id.textView2);
+        text.setText("Are you sure to change the status of the order to "+humanReadableStatus(nextOrder(currStatus)));
+        final String currentStatus = currStatus;
+        Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
 
-                        int i = radioGroup.getCheckedRadioButtonId();
-                        dialogInterface.dismiss();
 
-                        String s = null;
-                        switch (i) {
+        ImageView ivPop = (ImageView) dialog.findViewById(R.id.ivPop);
+        ivPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
-                            case R.id.radio0:
-                                s = "pickedup";
-                                break;
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                fireUpdateEvent(nextOrder(currentStatus),senderOrder.getOrderId());
+            }
+        });
 
-                            case R.id.radio1:
-                                s = "intransit";
-                                break;
-                            case R.id.radio2:
-                                s = "completed";
-                                break;
-
-                        }
-
-                        fireUpdateEvent(s, orderId);
-
-                    }
-                });
-
-        AlertDialog dialog = alertBuilder.create();
         dialog.show();
+
+
+//        final RadioGroup radioGroup = (RadioGroup) prompt.findViewById(R.id.radioGroupChangeOptions);
+//
+//
+//        alertBuilder.setCancelable(true)
+//                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int it) {
+//
+//                        int i = radioGroup.getCheckedRadioButtonId();
+//                        dialogInterface.dismiss();
+//
+//                        String s = null;
+//                        switch (i) {
+//
+//                            case R.id.radio0:
+//                                s = "pickedup";
+//                                break;
+//
+//                            case R.id.radio1:
+//                                s = "intransit";
+//                                break;
+//                            case R.id.radio2:
+//                                s = "completed";
+//                                break;
+//
+//                        }
+//
+//                        fireUpdateEvent(s, orderId);
+//
+//                    }
+//                });
+//
+//        AlertDialog dialog = alertBuilder.create();
+//        dialog.show();
 
 
 //        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -493,6 +535,12 @@ public class MyBayActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        if(senderOrder!=null) {
+            if(senderOrder.getStatus().equals("completed")) {
+                menu.clear();
+                return true;
+            }
+        }
         MenuItem register = menu.findItem(R.id.edit_item);
         if (canCancel) {
 
@@ -599,5 +647,81 @@ public class MyBayActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void prepareStatusChange() {
+
+        if(senderOrder!=null) {
+
+            String currentStatus = senderOrder.getStatus();
+            switch (currentStatus) {
+
+                case "scheduled":
+                    changeStatusButton.setText("Pick Up");
+                    break;
+                case "pickedup":
+                    changeStatusButton.setText("In Transit");
+                    break;
+                case "intransit":
+                    changeStatusButton.setText("Complete Order");
+                    break;
+
+
+
+            }
+        }
+
+
+
+    }
+
+
+    private String nextOrder(String currentOrder) {
+
+        Log.d(TAG,"NExt order to return for "+currentOrder);
+        String ret = null;
+        switch (currentOrder) {
+            case "scheduled":
+                ret = "pickedup";
+                break;
+            case "pickedup":
+                ret = "intransit";
+                break;
+
+            case "intransit":
+                ret = "completed";
+                break;
+
+        }
+
+
+        return ret!=null?ret:"Unknown";
+
+    }
+
+    private String humanReadableStatus(String status) {
+
+        Log.d(TAG,"Status is "+status);
+        String ret = null;
+        switch(status) {
+
+            case "scheduled":
+                ret =  "Scheduled";
+                break;
+
+            case "pickedup":
+                ret = "Picked Up";
+                break;
+
+            case "intransit":
+                ret = "In Transit";
+                break;
+
+            case "complete":
+                ret = "Completed";
+                break;
+        }
+
+        return ret!=null?ret:"Unknown";
     }
 }
