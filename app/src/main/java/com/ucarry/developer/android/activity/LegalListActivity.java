@@ -161,7 +161,7 @@ public class LegalListActivity extends AppCompatActivity {
 
             if(!authenticated) {
 
-                Intent intent = new Intent(this,SignUpActivity.class);
+                Intent intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);
 
             }
@@ -186,7 +186,7 @@ public class LegalListActivity extends AppCompatActivity {
         Log.d(TAG,authenticated+"");
         if(!authenticated) {
 
-            Intent intent = new Intent(this,SignUpActivity.class);
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
 
         }

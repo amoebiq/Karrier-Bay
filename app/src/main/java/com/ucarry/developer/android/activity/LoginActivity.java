@@ -57,6 +57,8 @@ public class LoginActivity extends BaseActivity {
     private SessionManager sessionManager;
     private static String TAG = "LOGINACTIVITY";
     private static String LOGIN_RESPONSE_TAG = "LOGIN_RESPONSE";
+    private Button privacy;
+    private Button tos;
 
     private CallbackManager callbackManager;
     private String enteredPassword;
@@ -74,6 +76,22 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         faceBookSDKInitialize();
+        privacy = (Button) findViewById(R.id.privacy_signup);
+        tos = (Button) findViewById(R.id.terms_of_use_signup);
+
+        privacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callPrivacy();
+            }
+        });
+
+        tos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callPrivacy();
+            }
+        });
 
 
 
@@ -619,6 +637,14 @@ public class LoginActivity extends BaseActivity {
 
     private void showToast() {
 
+
+    }
+
+    private void callPrivacy() {
+
+        Intent intent = new Intent(LoginActivity.this,LegalListActivity.class);
+        intent.putExtra("authenticated",false);
+        startActivity(intent);
 
     }
 
