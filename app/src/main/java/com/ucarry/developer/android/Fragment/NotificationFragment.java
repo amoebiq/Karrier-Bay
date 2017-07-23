@@ -35,23 +35,10 @@ public class NotificationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         preparenotificationData();
 
-        mAdapter = new NotificationAdapter(notificationLists);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view_app);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     private void preparenotificationData() {
-        NotificationList movie = new NotificationList("Nirmal wants to send his document from Chennai to Ooty on september 07", "3 minutes ago");
-        notificationLists.add(movie);
-
-        movie = new NotificationList("Nirmal wants to send his document from Chennai to Ooty on september 07", "3 minutes ago");
-        notificationLists.add(movie);
 
     }
 

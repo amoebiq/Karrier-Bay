@@ -11,6 +11,7 @@ import com.ucarry.developer.android.Model.GenericResponse;
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.LoginRequest;
 import com.ucarry.developer.android.Model.LoginResponse;
+import com.ucarry.developer.android.Model.Notifications;
 import com.ucarry.developer.android.Model.Otp;
 import com.ucarry.developer.android.Model.QuoteRequest;
 import com.ucarry.developer.android.Model.QuoteResponse;
@@ -122,5 +123,8 @@ public interface ApiInterface {
 
     @GET("auth/mobile/login")
     Call<User> doFbLogin(@Query("token") String token);
+
+    @GET("orchestrator/notifications")
+    Call<List<Notifications>> getNotifications();
 
 }

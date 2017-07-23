@@ -459,7 +459,17 @@ public class ProfileFragment extends BaseFragment implements
 
             file = new File(getRealPathFromDocumentUri(getContext(),selectedImage));
 
+            try {
+
             uploadImage(file);
+
+            }
+            catch(Exception e ) {
+
+                Toast.makeText(getContext(),"Oops! Couldn't upload image",Toast.LENGTH_LONG).show();
+            }
+
+
         }
 
 

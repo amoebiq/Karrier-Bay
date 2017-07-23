@@ -125,7 +125,7 @@ public class SenderListActivityListActivity extends AppCompatActivity {
                 if (response.code() == 200 && response.body() != null) {
                     pd.dismiss();
                     List<SenderOrder> list = response.body();
-                    System.out.println("here getting response for senders");
+                    //System.out.println("here getting response for senders");
                     Log.d("LoginResponse", response.message());
                    senderAdapter = new SenderAdapter(list);
                     recyclerView.setAdapter(senderAdapter);

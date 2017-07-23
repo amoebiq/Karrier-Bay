@@ -162,8 +162,23 @@
             </intent-filter>
         </activity>
         <activity android:name="com.ucarry.developer.android.activity.ProfileVIewActivity" />
-        <activity android:name="com.ucarry.developer.android.activity.MyBayActivity"
-            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.MyBayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.WallListActivity"
+            android:label="@string/title_wall_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.WallDetailActivity"
+            android:label="@string/title_wall_detail"
+            android:parentActivityName="com.ucarry.developer.android.activity.WallListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ucarry.developer.android.activity.WallListActivity" />
+        </activity>
     </application>
 
 </manifest>

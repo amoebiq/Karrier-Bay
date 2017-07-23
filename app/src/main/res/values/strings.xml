@@ -98,6 +98,8 @@
 
     <string name="facebook_app_id">148420222383931</string>
     <string name="fb_login_protocol_scheme">fb148420222383931</string>
+    <string name="title_wall_list">wall</string>
+    <string name="title_wall_detail">Wall Detail</string>
 
 
 </resources>

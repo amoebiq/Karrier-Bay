@@ -400,9 +400,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //item.setVisible(false);
         }*/
         if (id == R.id.action_home) {
-            sender = new SenderOrder();
-            quoteRequest = new QuoteRequest();
-            fragment(new HomeFragment(), "MainFragment");
+//            sender = new SenderOrder();
+//            quoteRequest = new QuoteRequest();
+//            fragment(new HomeFragment(), "MainFragment");
+
+            Intent intent = new Intent(this,WallListActivity.class);
+            startActivity(intent);
+
+
         }
 
 
