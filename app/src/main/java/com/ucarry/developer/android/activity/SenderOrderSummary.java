@@ -177,6 +177,7 @@ public class SenderOrderSummary extends AppCompatActivity {
 
                         try {
                             Toast.makeText(SenderOrderSummary.this, "Creation Failed ! " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            t.printStackTrace();
 
                         }
                         catch (Exception e) {

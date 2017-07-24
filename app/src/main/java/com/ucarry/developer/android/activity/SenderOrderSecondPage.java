@@ -1,9 +1,11 @@
 package com.ucarry.developer.android.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Model.PickupOrderMapping;
 import com.ucarry.developer.android.Model.Quote;
 import com.ucarry.developer.android.Model.ReceiverOrderMapping;
@@ -95,12 +98,35 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            navigateUpTo(new Intent(this, SenderOrderFirstPage.class));
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(Constants.CONFIRM_BACK_NAVIGATION)
+                    .setCancelable(false)
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            navigateUpTo(new Intent(SenderOrderSecondPage.this, SenderOrderFirstPage.class));
+                        }
+                    });
+
+
+            AlertDialog alert = builder.create();
+
+            alert.show();
+            alert.getButton(alert.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+            alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -167,6 +193,9 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
 
             if(etDeliveyMobile.getText().length()==0 || etDeliveyMobile.getText().length()!=10) {
+
+
+
                 etDeliveyMobile.setError("Please enter valid 10 digit phone");
             }
 
@@ -179,6 +208,8 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
         pickupOrderMapping.setName(pickupName.getText().toString());
         pickupOrderMapping.setPhone_1(etPickMobile.getText().toString());
+
+
         pickupOrderMapping.setAddress_line_1(etFlatName.getText().toString()+","+etFlatNo.getText().toString());
         pickupOrderMapping.setAddress_line_2(etPckAddress.getText().toString());
 
@@ -197,7 +228,13 @@ public class SenderOrderSecondPage extends AppCompatActivity {
         etDeliAddress.setText(order.getTo_loc());
 
         pickupName.setText(user.get(SessionManager.KEY_NAME));
-        etPickMobile.setText(user.get(SessionManager.KEY_PHONE));
+        if(user.get(SessionManager.KEY_PHONE).length()==13) {
+            etPickMobile.setText(user.get(SessionManager.KEY_PHONE).substring(3,13));
+        }
+        else {
+            etPickMobile.setText(user.get(SessionManager.KEY_PHONE));
+
+        }
 
 
 

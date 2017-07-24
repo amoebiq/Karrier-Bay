@@ -26,6 +26,7 @@ import com.ucarry.developer.android.Model.NotificationList;
 public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 private List<Notifications> notificationLists = new ArrayList<Notifications>();
+    private static String TAG = NotificationAdapter.class.getName();
 
     public NotificationAdapter(List<Notifications> mnotificationLists) {
 
@@ -45,7 +46,7 @@ private List<Notifications> notificationLists = new ArrayList<Notifications>();
 
         NotificationViewHolder notificationViewHolder = (NotificationViewHolder) holder;
 
-        notificationViewHolder.title.setText(notificationLists.get(position).getMessage());
+        notificationViewHolder.title.setText(getProperMessage(notificationLists.get(position).getMessage()));
         notificationViewHolder.time.setText(getTimeToDisplay(notificationLists.get(position)));
 
     }
@@ -55,17 +56,30 @@ private List<Notifications> notificationLists = new ArrayList<Notifications>();
         return notificationLists.size();
     }
 
+    private String getProperMessage(String msg) {
+
+        if(msg.contains("Please see")) {
+            String m =  msg.substring(0,msg.indexOf("Please see"));
+            Log.d("Return Message",m);
+            return m;
+
+        }
+        else
+        return msg;
+
+    }
+
     private String getTimeToDisplay(Notifications notifications) {
 
-        Log.d("Date:::",notifications.getCreatedAt());
+        Log.d(TAG,notifications.getCreatedAt());
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         Date date = new Date();
-        System.out.println(dateFormat.format(date));
+
 
         try {
             Date d = dateFormat.parse(notifications.getCreatedAt());
-            System.out.println("XXX:::"+dateFormat.format(d));
+
             long diff = date.getTime() - d.getTime();
             int diffDays = (int) diff / (24 * 60 * 60 * 1000);
             System.out.println("DIFF IS "+diffDays);
@@ -79,7 +93,7 @@ private List<Notifications> notificationLists = new ArrayList<Notifications>();
 
             }
 
-            Log.d("Pending time :::",diffFinal);
+            Log.d(TAG,diffFinal);
 
            return diffFinal;
 

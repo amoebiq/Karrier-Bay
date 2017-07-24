@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.ucarry.developer.android.activity.CarrierListActivity;
 import com.ucarry.developer.android.activity.MainActivity;
+import com.ucarry.developer.android.activity.WallListActivity;
 import com.yourapp.developer.karrierbay.R;
 
 /**
@@ -45,7 +46,7 @@ public class FBMessagingService extends FirebaseMessagingService {
 
     private void sendNotification(String title , String messageBody,String action) {
         Log.d(TAG,"Title ::: "+title);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, WallListActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,

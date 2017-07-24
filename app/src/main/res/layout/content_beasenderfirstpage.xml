@@ -330,7 +330,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:onClick="dateClick"
                         android:text="Weight(in grams)"
                         android:textColor="@color/textHintColor"
                         android:textSize="@dimen/font_size" />
@@ -363,11 +362,12 @@
                     android:maxLines="1"
 
                     android:focusableInTouchMode="true"
-                    android:cursorVisible="false"
+                    android:cursorVisible="true"
 
 
                     android:singleLine="true"
                     android:focusable="false"
+                    android:nextFocusDown="@+id/orderlengthtet"
 
                     android:textColor="@color/textColorDark"
                     android:textColorHint="@color/textHintColor"
@@ -419,6 +419,7 @@
                         android:hint="length(cm)"
 
                         android:singleLine="true"
+                        android:nextFocusDown="@+id/orderbreadthtet"
 
                         android:textColor="@color/textColorDark"
                         android:textColorHint="@color/textHintColor"
@@ -434,7 +435,7 @@
                         android:backgroundTint="@color/editTextSelected"
                         android:inputType="number"
                         android:maxLines="1"
-
+                        android:nextFocusDown="@+id/orderheighttet"
                         android:hint="breadth(cm)"
 
                         android:singleLine="true"
@@ -456,6 +457,7 @@
                         android:hint="height(cm)"
 
                         android:singleLine="true"
+                        android:imeOptions="actionDone"
 
                         android:textColor="@color/textColorDark"
                         android:textColorHint="@color/textHintColor"

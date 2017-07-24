@@ -209,11 +209,12 @@
                         android:src="@drawable/verified"
                         android:id="@+id/aadhar_attachment_verified"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Verification Pending"
-                        android:textSize="10dp"
+                        android:textSize="13dp"
+                        android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
                         android:gravity="right"
                         android:id="@+id/pending_notofication"/>

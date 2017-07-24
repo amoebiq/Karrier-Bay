@@ -4,10 +4,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -171,13 +173,13 @@ public class SenderOrderFirstPage extends AppCompatActivity {
         });
 
 
-        orderWeightEt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG,"Clicked");
-
-            }
-        });
+//        orderWeightEt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG,"Clicked");
+//
+//            }
+//        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
 
@@ -314,17 +316,41 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            navigateUpTo(new Intent(this, MainActivity.class));
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(Constants.CONFIRM_BACK_NAVIGATION)
+                    .setCancelable(false)
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            navigateUpTo(new Intent(SenderOrderFirstPage.this, MainActivity.class));
+                        }
+                    });
+
+
+            AlertDialog alert = builder.create();
+
+            alert.show();
+            alert.getButton(alert.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+            alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     protected void onResume() {
