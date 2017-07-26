@@ -51,6 +51,8 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     boolean isFromDate = false;
 
+    private static final String TAG = CarrierAdapter.class.getName();
+
 
     public CarrierAdapter(List<CarrierSchedules> list) {
 
@@ -267,6 +269,8 @@ public class CarrierAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         intent.putExtra(CarrierDetailFragment.CAPACITY, schedules.getCarrierScheduleDetail().getCapacity());
         intent.putExtra(CarrierDetailFragment.SCHEDULE_ID,schedules.getSchedule_id());
         intent.putExtra(CarrierDetailFragment.USER_OBJ,schedules.getUser());
+
+        Log.d(TAG,schedules.getSchedule_id());
 
         return intent;
     }

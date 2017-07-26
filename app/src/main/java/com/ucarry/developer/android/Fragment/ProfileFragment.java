@@ -443,19 +443,6 @@ public class ProfileFragment extends BaseFragment implements
 
             Log.d("IMAGE", "Got the Image");
             Uri selectedImage = data.getData();
-//            String wholeID = getRealPathFromURI(selectedImage);//DocumentsContract.getDocumentId(selectedImage);
-//            String id = wholeID.split(":")[1];
-//            String[] column = {MediaStore.Images.Media.DATA};
-//            String sel = MediaStore.Images.Media._ID + "=?";
-//            Cursor cursor = currView.getContext().getContentResolver().
-//                    query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                            column, sel, new String[]{id}, null);
-//            String filePath = "";
-//            int columnIndex = cursor.getColumnIndex(column[0]);
-//            if (cursor.moveToFirst()) {
-//                filePath = cursor.getString(columnIndex);
-//            }
-//            cursor.close();
 
             file = new File(getRealPathFromDocumentUri(getContext(),selectedImage));
 
@@ -530,21 +517,28 @@ public class ProfileFragment extends BaseFragment implements
             public void onResponse(Call<ImageUploadResponse> call, Response<ImageUploadResponse> response) {
 
                 pd.dismiss();
-                Log.d("UPLOAD","Success:::"+response.code());
 
-                ImageUploadResponse object = response.body();
+                if(response.code()==200 || response.code()==201) {
+                    Log.d("UPLOAD", "Success:::" + response.code());
 
-                Log.d("UPLOAD","Successsss:::"+object.getUrl());
+                    ImageUploadResponse object = response.body();
 
-                Toast.makeText(currView.getContext(),"Succesfully Uploaded",Toast.LENGTH_LONG).show();
+                    Log.d("UPLOAD", "Successsss:::" + object.getUrl());
 
-                if(attachmentType.equals(attachmentTypeImage))
-                    sessionManager.put(SessionManager.KEY_IMAGE,object.getUrl());
-                else if(attachmentType.equals(attachmentTypeAadhar))
-                    sessionManager.put(SessionManager.KEY_AADHAR,object.getUrl());
+                    Toast.makeText(currView.getContext(), "Succesfully Uploaded", Toast.LENGTH_LONG).show();
 
-                displayImage(object.getUrl());
-                //displayImageWithTN(object.getUrl());
+                    if (attachmentType.equals(attachmentTypeImage))
+                        sessionManager.put(SessionManager.KEY_IMAGE, object.getUrl());
+                    else if (attachmentType.equals(attachmentTypeAadhar))
+                        sessionManager.put(SessionManager.KEY_AADHAR, object.getUrl());
+
+                    displayImage(object.getUrl());
+                    //displayImageWithTN(object.getUrl());
+
+                }
+                else {
+
+                }
 
             }
 
@@ -591,23 +585,23 @@ public class ProfileFragment extends BaseFragment implements
                             sessionManager.put(SessionManager.BANK_DETAIL_IFSC,bankDetail.getIfsc());
                             binding.bankAccountNumberEt.setText(bankDetail.getAccountNo());
                             binding.bankIfscEt.setText(bankDetail.getIfsc());
+                        }
 
+                        if(user.getDl_link()!=null) {
 
-
-
-
+                                sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
 
 
                         }
 
                     }
 
-                    //spinner = (Spinner) view.findViewById(R.id.bank_list_spinner);
+
                     spinner = (Spinner) binding.bankListSpinner;
-// Create an ArrayAdapter using the string array and a default spinner layout
+
                     adapter = ArrayAdapter.createFromResource(getContext(),
                             R.array.bank_list, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
                     if(sessionManager.getvalStr(SessionManager.BANK_DETAIL_BANK_NAME)!=null) {
@@ -619,7 +613,7 @@ public class ProfileFragment extends BaseFragment implements
                     }
                     bankSpinnerAdapter = adapter;
 
-// Apply the adapter to the spinner
+
 
 
 
@@ -633,10 +627,47 @@ public class ProfileFragment extends BaseFragment implements
                 if(pd.isShowing())
                     pd.dismiss();
 
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Error Contacting Server , Please check your connection",Toast.LENGTH_LONG).show();
 
             }
         });
+
+        try {
+
+            refresh();
+        }
+        catch(Exception e){
+
+
+
+        }
+
+    }
+
+    private void refresh() {
+
+
+        user.put(SessionManager.KEY_VERIFIED,sessionManager.getvalStr(SessionManager.KEY_VERIFIED));
+
+        if(sessionManager.getvalStr(SessionManager.KEY_IMAGE)!=null)
+            displayImage(sessionManager.getvalStr(SessionManager.KEY_IMAGE));
+
+        if(user.get(SessionManager.KEY_VERIFIED)!=null) {
+            Log.d("AADHAR_VERIFY",user.get(SessionManager.KEY_VERIFIED));
+        }
+        if(user.get(SessionManager.KEY_VERIFIED)!=null && user.get(SessionManager.KEY_VERIFIED).equals("verified")) {
+
+            binding.aadharAttachmentVerified.setVisibility(currView.VISIBLE);
+        }
+        else if(user.get(SessionManager.KEY_AADHAR)!=null) {
+
+            binding.pendingNotofication.setVisibility(currView.VISIBLE);
+        }
+        else {
+
+            binding.aadharAttachment.setVisibility(currView.VISIBLE);
+
+        }
 
     }
 }

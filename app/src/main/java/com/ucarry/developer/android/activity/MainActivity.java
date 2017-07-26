@@ -92,7 +92,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Log.d(TAG,"Checking for FCM");
 
+        if(!Utility.isOnline(getApplicationContext())) {
 
+
+
+        }
 
 
         Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
@@ -266,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void getAndUpdateUserDetails() {
 
         final ProgressDialog pd = new ProgressDialog(MainActivity.this);
-        Log.d(TAG,MyFirebaseInstanceIDService.getToken());
+        //Log.d(TAG,MyFirebaseInstanceIDService.getToken());
         MyFirebaseInstanceIDService.updateFCMRegId(MyFirebaseInstanceIDService.getToken(),MainActivity.this);
        pd.setMessage("Loading...");
         pd.setIndeterminate(true);
@@ -481,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_rate_app) {
             //final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-            final String appPackageName = "com.yourapp.batterystatus";
+            final String appPackageName = "com.ucarry.developer.android";
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
             } catch (android.content.ActivityNotFoundException anfe) {

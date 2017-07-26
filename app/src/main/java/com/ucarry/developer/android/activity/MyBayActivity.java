@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
+import com.ucarry.developer.android.Fragment.HomeFragment;
 import com.ucarry.developer.android.Fragment.MyBayFragment;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
@@ -85,6 +86,9 @@ public class MyBayActivity extends AppCompatActivity {
     private Button cancelOrderOrScheduleButton;
     private Button changeStatusButton;
 
+    private Button rateCarrier;
+    private Button rateSender;
+
     private TextView myBayDetailHeaderText;
 
     private TextView requestedTv;
@@ -141,6 +145,12 @@ public class MyBayActivity extends AppCompatActivity {
         changeStatusButton = (Button) findViewById(R.id.changestatus);
         changeStatusButton.setVisibility(View.GONE);
 
+        rateCarrier = (Button) findViewById(R.id.rate_carrier);
+        rateSender = (Button) findViewById(R.id.rate_sender);
+
+        rateCarrier.setVisibility(View.GONE);
+        rateSender.setVisibility(View.GONE);
+
         requestedEt = (TextView) findViewById(R.id.requestedEt);
         requestedTv = (TextView) findViewById(R.id.requestedTv);
 
@@ -187,6 +197,11 @@ public class MyBayActivity extends AppCompatActivity {
                         changeStatusButton.setVisibility(View.VISIBLE);
                         prepareStatusChange();
                         invalidateOptionsMenu();
+                    }
+                    else {
+
+                                rateCarrier.setVisibility(View.VISIBLE);
+
                     }
                     requestedTv.setText("Item to Carry");
                     requestedEt.setText(senderOrder.getOrder_items().get(0).getItem_type());
@@ -239,6 +254,10 @@ public class MyBayActivity extends AppCompatActivity {
 
                     Log.d(TAG,"To Cancel :::");
                     Log.d(TAG,senderOrder.getScheduleId());
+
+                    if(senderOrder.getStatus().equalsIgnoreCase("completed")) {
+                        rateSender.setVisibility(View.VISIBLE);
+                    }
 
 
                 }
@@ -668,14 +687,16 @@ public class MyBayActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
+                                    //startActivity(intent);
+                                    fragment(new HomeFragment(),"HomeFragment");
 
                                 }
                             });
 
                     AlertDialog alert = builder.create();
                     alert.show();
+                    alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 }
             }
@@ -766,4 +787,15 @@ public class MyBayActivity extends AppCompatActivity {
 
         return ret!=null?ret:"Unknown";
     }
+
+
+    public void fragment(android.support.v4.app.Fragment fragment, String transaction) {
+        String tag = transaction;
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_transaction, fragment, transaction);
+        fragmentTransaction.addToBackStack(transaction);
+        fragmentTransaction.commit();
+        Log.d("backFragment", tag);
+    }
+
 }

@@ -144,6 +144,7 @@ public class ContactActivity extends AppCompatActivity {
 
                                 AlertDialog alert = builder.create();
                                 alert.show();
+                                alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                             }
                             else {

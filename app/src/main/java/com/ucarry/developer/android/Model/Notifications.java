@@ -23,6 +23,17 @@ public class Notifications {
     @SerializedName("updated_at")
     private String updatedAt;
 
+    @SerializedName("ref_1")
+    private String ref_1;
+
+    public String getRef_1() {
+        return ref_1;
+    }
+
+    public void setRef_1(String ref_1) {
+        this.ref_1 = ref_1;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }

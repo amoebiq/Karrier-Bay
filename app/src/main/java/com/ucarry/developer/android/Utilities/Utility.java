@@ -1,11 +1,15 @@
 package com.ucarry.developer.android.Utilities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -147,5 +151,16 @@ public class Utility {
             uri = originalUri;
         Log.d("IMAGE_DISPLAY",uri);
         return uri;
+    }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+            Toast.makeText(context, "No Internet connection!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

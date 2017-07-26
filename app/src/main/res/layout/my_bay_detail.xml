@@ -601,6 +601,32 @@
                     android:textSize="@dimen/font_size_hint"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/rate_carrier"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="Rate the Carrier"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/rate_sender"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginTop="@dimen/button_gap"
+                    android:background="@drawable/button_outline"
+                    android:text="Rate the Sender"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/font_size_hint"
+                    android:textStyle="bold" />
+
 
             </LinearLayout>
 
