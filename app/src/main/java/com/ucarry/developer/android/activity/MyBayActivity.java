@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
+import com.ucarry.developer.android.Fragment.HomeFragment;
 import com.ucarry.developer.android.Fragment.MyBayFragment;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
@@ -668,14 +669,16 @@ public class MyBayActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
+                                    //startActivity(intent);
+                                    fragment(new HomeFragment(),"HomeFragment");
 
                                 }
                             });
 
                     AlertDialog alert = builder.create();
                     alert.show();
+                    alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 }
             }
@@ -766,4 +769,15 @@ public class MyBayActivity extends AppCompatActivity {
 
         return ret!=null?ret:"Unknown";
     }
+
+
+    public void fragment(android.support.v4.app.Fragment fragment, String transaction) {
+        String tag = transaction;
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_transaction, fragment, transaction);
+        fragmentTransaction.addToBackStack(transaction);
+        fragmentTransaction.commit();
+        Log.d("backFragment", tag);
+    }
+
 }

@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change Carry Status"
+        android:text="Choose the order to be notified"
         android:textSize="20dp"
         android:textColor="@color/cardview_dark_background"
 
@@ -27,25 +27,25 @@
             android:layout_height="wrap_content"
             android:id="@+id/radioGroupChangeOptions">
 
-            <RadioButton
-                android:id="@+id/radio0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Picked Up"
-                />
-            <RadioButton
-                android:id="@+id/radio1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="In Transit"
-                />
+            <!--<RadioButton-->
+                <!--android:id="@+id/radio0"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Picked Up"-->
+                <!--/>-->
+            <!--<RadioButton-->
+                <!--android:id="@+id/radio1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="In Transit"-->
+                <!--/>-->
 
-            <RadioButton
-                android:id="@+id/radio2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Completed"
-                />
+            <!--<RadioButton-->
+                <!--android:id="@+id/radio2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Completed"-->
+                <!--/>-->
         </RadioGroup>
 
 

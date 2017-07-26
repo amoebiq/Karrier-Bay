@@ -11,7 +11,7 @@ import com.yourapp.developer.karrierbay.R;
 
 public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView title,time;
+    public TextView title,time,knowMore;
     public View mView;
 
     public NotificationViewHolder(View view) {
@@ -21,7 +21,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
         mView = view;
         title = (TextView) mView.findViewById(R.id.notif_title);
         time = (TextView) mView.findViewById(R.id.notif_time);
-
+        knowMore = (TextView) mView.findViewById(R.id.know_more);
 
     }
 

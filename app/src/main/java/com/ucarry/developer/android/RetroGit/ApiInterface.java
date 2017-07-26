@@ -14,6 +14,7 @@ import com.ucarry.developer.android.Model.LoginRequest;
 import com.ucarry.developer.android.Model.LoginResponse;
 import com.ucarry.developer.android.Model.Notifications;
 import com.ucarry.developer.android.Model.OrderCompletion;
+import com.ucarry.developer.android.Model.OrdersOfUser;
 import com.ucarry.developer.android.Model.Otp;
 import com.ucarry.developer.android.Model.QuoteRequest;
 import com.ucarry.developer.android.Model.QuoteResponse;
@@ -117,8 +118,8 @@ public interface ApiInterface {
     @PUT("orchestrator/order/{orderId}/accept")
     Call<AcceptOrderResponse> acceptOrder(@Path("orderId") String orderId);
 
-    @POST("orchestrator/notify_carrier/{scheduleId}")
-    Call<GenericResponse> notifyCarrier(@Path("scheduleId") String scheduleId);
+    @POST("orchestrator/notify_carrier/{scheduleId}/order/{orderId}")
+    Call<GenericResponse> notifyCarrier(@Path("scheduleId") String scheduleId , @Path("orderId") String orderId);
 
     @POST("auth/update_fcm")
     Call<User> updateFCM(@Body FCMRequest fcmRequest);
@@ -134,5 +135,11 @@ public interface ApiInterface {
 
     @POST("orchestrator/customer_support")
     Call<JSONObject> support(@Body ContactUs contactUs);
+
+    @GET ("orchestrator/sender/orders")
+    Call<List<OrdersOfUser>> getSenderOrders();
+
+    @GET("sender/order/{orderId}")
+    Call<SenderOrder> getOrderDetails(@Path("orderId") String orderId);
 
 }
