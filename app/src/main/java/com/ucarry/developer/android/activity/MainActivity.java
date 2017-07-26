@@ -390,6 +390,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         hideKeyboard(this);
@@ -474,7 +476,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         if (id == R.id.nav_contact_us) {
-            fragment(new ContactFragment(), "ContactFragment");
+            Intent intent = new Intent(this,ContactActivity.class);
+            startActivity(intent);
         }
         if (id == R.id.nav_rate_app) {
             //final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object

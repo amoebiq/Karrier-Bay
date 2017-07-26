@@ -19,17 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
 import com.ucarry.developer.android.Fragment.MyBayFragment;
 import com.ucarry.developer.android.Model.CarrierScheduleDetail;
 import com.ucarry.developer.android.Model.CarrierScheduleDetailAttributes;
 import com.ucarry.developer.android.Model.Constants;
+import com.ucarry.developer.android.Model.OrderCompletion;
 import com.ucarry.developer.android.Model.PickupOrderMapping;
 import com.ucarry.developer.android.Model.ReceiverOrderMapping;
 import com.ucarry.developer.android.Model.SenderOrder;
@@ -41,6 +44,7 @@ import com.ucarry.developer.android.Utilities.SessionManager;
 import com.ucarry.developer.android.Utilities.Utility;
 import com.yourapp.developer.karrierbay.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -398,89 +402,122 @@ public class MyBayActivity extends AppCompatActivity {
         Map<Integer, String> optionsMap = new HashMap<>();
         LayoutInflater li = LayoutInflater.from(view.getContext());
         View prompt = li.inflate(R.layout.change_status, null);
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
-        alertBuilder.setView(prompt);
+
         String currStatus = null;
         if(senderOrder!=null) {
 
             currStatus = senderOrder.getStatus();
         }
 
-        final Dialog dialog = new Dialog(MyBayActivity.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.change_status);
 
 
-        TextView text = (TextView) dialog.findViewById(R.id.textView2);
-        text.setText("Are you sure to change the status of the order to "+humanReadableStatus(nextOrder(currStatus)));
-        final String currentStatus = currStatus;
-        Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
+
+         final String currentStatus = currStatus;
+        if (nextOrder(currStatus).equalsIgnoreCase("completed")) {
+
+            final Dialog dialog = new Dialog(MyBayActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.complete_order);
+
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
+            alertBuilder.setView(prompt);
+            Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
+
+            final EditText pinText = (EditText) dialog.findViewById(R.id.pin);
+            ImageView ivPop = (ImageView) dialog.findViewById(R.id.ivPop);
+            ivPop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //dialog.dismiss();
+                    final ProgressDialog pd = new ProgressDialog(MyBayActivity.this);
+                    pd.setIndeterminate(true);
+                    pd.setMessage("Updating ... ");
+                    pd.show();
+
+                    ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
+                    OrderCompletion oc = new OrderCompletion();
+                    oc.setOrderId(senderOrder.getOrderId());
+                    oc.setPin(pinText.getText().toString());
+                    Call<JSONObject> call = apiInterface.completeOrder(oc);
+
+                    call.enqueue(new Callback<JSONObject>() {
+                        @Override
+                        public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                            pd.dismiss();
+                            if(response.code()==200) {
+                                dialog.dismiss();
+                                fireUpdateEvent(nextOrder(currentStatus),senderOrder.getOrderId());
+
+                            }
+
+                            if(response.code()==400) {
 
 
-        ImageView ivPop = (ImageView) dialog.findViewById(R.id.ivPop);
-        ivPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+                                try {
+                                    Toast.makeText(MyBayActivity.this,"Wrong Pin , Please try again",Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
 
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                fireUpdateEvent(nextOrder(currentStatus),senderOrder.getOrderId());
-            }
-        });
+                        @Override
+                        public void onFailure(Call<JSONObject> call, Throwable t) {
 
-        dialog.show();
+                            if(pd.isShowing())
+                                pd.dismiss();
 
+                            Toast.makeText(MyBayActivity.this,t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 
-//        final RadioGroup radioGroup = (RadioGroup) prompt.findViewById(R.id.radioGroupChangeOptions);
-//
-//
-//        alertBuilder.setCancelable(true)
-//                .setPositiveButton("Change", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int it) {
-//
-//                        int i = radioGroup.getCheckedRadioButtonId();
-//                        dialogInterface.dismiss();
-//
-//                        String s = null;
-//                        switch (i) {
-//
-//                            case R.id.radio0:
-//                                s = "pickedup";
-//                                break;
-//
-//                            case R.id.radio1:
-//                                s = "intransit";
-//                                break;
-//                            case R.id.radio2:
-//                                s = "completed";
-//                                break;
-//
-//                        }
-//
-//                        fireUpdateEvent(s, orderId);
-//
-//                    }
-//                });
-//
-//        AlertDialog dialog = alertBuilder.create();
-//        dialog.show();
+                        }
+                    });
+                }
+            });
+
+            dialog.show();
+
+        }
 
 
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-//
-//
-//
-//            }
-//        });
+        else{
 
+            final Dialog dialog = new Dialog(MyBayActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.change_status);
+            TextView text = (TextView) dialog.findViewById(R.id.textView2);
+            text.setText("Are you sure to change the status of the order to "+humanReadableStatus(nextOrder(currStatus)));
+
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
+            alertBuilder.setView(prompt);
+            Button dialogButton = (Button) dialog.findViewById(R.id.btn_continue);
+
+
+            ImageView ivPop = (ImageView) dialog.findViewById(R.id.ivPop);
+            ivPop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    fireUpdateEvent(nextOrder(currentStatus), senderOrder.getOrderId());
+                }
+            });
+
+            dialog.show();
+
+        }
 
     }
 
@@ -516,11 +553,16 @@ public class MyBayActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MyBayActivity.this, MainActivity.class);
                                     startActivity(intent);
 
+                                   // finish();
+
+
+
                                 }
                             });
 
                     AlertDialog alert = builder.create();
                     alert.show();
+                    alert.getButton(alert.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
             }
 

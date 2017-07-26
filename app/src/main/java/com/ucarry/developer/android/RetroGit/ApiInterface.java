@@ -6,12 +6,14 @@ import com.ucarry.developer.android.Model.AcceptOrderResponse;
 import com.ucarry.developer.android.Model.AcceptResponse;
 import com.ucarry.developer.android.Model.CarrierScheduleRequest;
 import com.ucarry.developer.android.Model.CarrierSchedules;
+import com.ucarry.developer.android.Model.ContactUs;
 import com.ucarry.developer.android.Model.FCMRequest;
 import com.ucarry.developer.android.Model.GenericResponse;
 import com.ucarry.developer.android.Model.ImageUploadResponse;
 import com.ucarry.developer.android.Model.LoginRequest;
 import com.ucarry.developer.android.Model.LoginResponse;
 import com.ucarry.developer.android.Model.Notifications;
+import com.ucarry.developer.android.Model.OrderCompletion;
 import com.ucarry.developer.android.Model.Otp;
 import com.ucarry.developer.android.Model.QuoteRequest;
 import com.ucarry.developer.android.Model.QuoteResponse;
@@ -126,5 +128,11 @@ public interface ApiInterface {
 
     @GET("orchestrator/notifications")
     Call<List<Notifications>> getNotifications();
+
+    @POST("orchestrator/order/verify_completion")
+    Call<JSONObject> completeOrder(@Body OrderCompletion completion);
+
+    @POST("orchestrator/customer_support")
+    Call<JSONObject> support(@Body ContactUs contactUs);
 
 }

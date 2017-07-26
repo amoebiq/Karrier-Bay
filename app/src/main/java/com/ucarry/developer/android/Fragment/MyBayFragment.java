@@ -45,7 +45,10 @@ public class MyBayFragment extends Fragment {
         viewPager.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onResume() {
+        setupViewPager(binding.viewpager);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

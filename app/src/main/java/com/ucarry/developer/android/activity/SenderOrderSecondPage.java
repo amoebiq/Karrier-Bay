@@ -207,14 +207,14 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
 
         pickupOrderMapping.setName(pickupName.getText().toString());
-        pickupOrderMapping.setPhone_1(etPickMobile.getText().toString());
+        pickupOrderMapping.setPhone_1("+91"+etPickMobile.getText().toString());
 
 
         pickupOrderMapping.setAddress_line_1(etFlatName.getText().toString()+","+etFlatNo.getText().toString());
         pickupOrderMapping.setAddress_line_2(etPckAddress.getText().toString());
 
         receiverOrderMapping.setName(etDeliveryName.getText().toString());
-        receiverOrderMapping.setPhone_1(etDeliveyMobile.getText().toString());
+        receiverOrderMapping.setPhone_1("+91"+etDeliveyMobile.getText().toString());
         receiverOrderMapping.setAddress_line_1(etDeliveyFlatNo.getText().toString()+","+etDeliveryFlatName.getText().toString());
         receiverOrderMapping.setAddress_line_2(etDeliAddress.getText().toString());
 
