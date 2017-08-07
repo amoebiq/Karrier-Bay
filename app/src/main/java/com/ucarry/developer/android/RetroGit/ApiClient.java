@@ -1,11 +1,15 @@
 package com.ucarry.developer.android.RetroGit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.IOException;
 
 import com.ucarry.developer.android.Utilities.SessionManager;
+import com.ucarry.developer.android.activity.LoginActivity;
+import com.ucarry.developer.android.activity.SignUpActivity;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -40,50 +44,40 @@ public class ApiClient {
 
        if (sessionManager.checkLogin()) {
 
-//            OkHttpClient httpClient = new OkHttpClient();
-//
-//            httpClient.networkInterceptors().add(new Interceptor() {
-//                @Override
-//                public okhttp3.Response intercept(Chain chain) throws IOException {
-//                    Request request = chain.request().newBuilder().addHeader("Uid", sessionManager.getUserDetails().get(SessionManager.KEY_NAME)).
-//                            addHeader(SessionManager.CLIENT,sessionManager.sharedPreferences.getString(SessionManager.CLIENT,""))
-//                            .addHeader(SessionManager.ACCESS_TOKEN,sessionManager.sharedPreferences.getString(SessionManager.ACCESS_TOKEN,"")).build();
-//                    return chain.proceed(request);
-//                }
-//            });
-//             retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(httpClient).build();
-//
-//
-//
-//        }
 
+           String uid = sessionManager.getUserDetails().get(SessionManager.KEY_UID);
 
-           OkHttpClient okClient = new OkHttpClient.Builder()
-                   .addInterceptor(
-                           new Interceptor() {
-                               @Override
-                               public Response intercept(Interceptor.Chain chain) throws IOException {
+           if(null==uid || uid.isEmpty()) {
+
+               Log.d(TAG,"No login Info .. Hence going to sign up page");
+               Intent intent = new Intent(c, LoginActivity.class);
+               c.startActivity(intent);
+           }
+
+           else {
+               OkHttpClient okClient = new OkHttpClient.Builder()
+                       .addInterceptor(
+                               new Interceptor() {
+                                   @Override
+                                   public Response intercept(Interceptor.Chain chain) throws IOException {
 
                                        Request request = chain.request().newBuilder().addHeader("Uid", sessionManager.getUserDetails().get(SessionManager.KEY_UID)).build();
-                                              // addHeader(SessionManager.CLIENT, sessionManager.sharedPreferences.getString(SessionManager.CLIENT, ""))
-                                              // .addHeader(SessionManager.ACCESS_TOKEN, sessionManager.sharedPreferences.getString(SessionManager.ACCESS_TOKEN, "")).build();
-//                                Request original = chain.request();
-//
-//                                // Request customization: add request headers
-//                                Request.Builder requestBuilder = original.newBuilder()
-//                                        .header("Authorization", token)
-//                                        .method(original.method(), original.body());
+                                       Log.d(TAG, sessionManager.getUserDetails().get(SessionManager.KEY_UID));
+                                       return chain.proceed(request);
 
-                                   //    Request request = requestBuilder.build();
-                                   Log.d(TAG,sessionManager.getUserDetails().get(SessionManager.KEY_UID));
-                                   return chain.proceed(request);
+                                   }
+                               })
+                       .build();
 
-                               }
-                           })
-                   .build();
+               retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(okClient).build();
 
-           retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(okClient).build();
+           }
+       } else {
 
+
+           Log.d(TAG,"No login Info .. Hence going to sign up page");
+           Intent intent = new Intent(c, SignUpActivity.class);
+           c.startActivity(intent);
        }
        return retrofit;
    }

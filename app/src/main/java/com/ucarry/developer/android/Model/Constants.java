@@ -19,4 +19,5 @@ public class Constants {
     public static String ORDER_CREATION_MESSAGE = "You have succesfully created the order . Will help you in getting a carrier for You!";
     public static String CONFIRM_BACK_NAVIGATION = "Are you sure ? All filled data will be lost";
     public static String FROM_TO_DATE_VALIDATION = "Start date should be less than end date";
+    public static String GOOGLE_PLAY_WARNING = "Please install the Google Play from playstore to use crowdcarry";
 }

@@ -102,4 +102,23 @@
     <string name="title_wall_detail">Wall Detail</string>
 
 
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">CrowdCarry</string>
+    <string name="slide_1_desc">Helping common people earn money on the fly . Perfect crowdshipping platform and the first one in India</string>
+
+    <string name="slide_2_title">Easy Process</string>
+    <string name="slide_2_desc">Just create a carry request if you wish to earn . Create a send request if you want to send something</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+
+    <string name="slide_4_title">Easy Payment</string>
+    <string name="slide_4_desc">Update the bank details in your profile section . Payments will be credited within 3 days of you accepting the order.</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
+
 </resources>
