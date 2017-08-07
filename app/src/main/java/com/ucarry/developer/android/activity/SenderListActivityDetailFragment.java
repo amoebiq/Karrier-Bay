@@ -125,6 +125,7 @@ public class SenderListActivityDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.sender_detail_item_rate)).setText(getArguments().getString(RATE));
         ((TextView) rootView.findViewById(R.id.sender_detail_category)).setText(getArguments().getString(CATEGORY));
         ((TextView) rootView.findViewById(R.id.sender_detail_sub_category)).setText(getArguments().getString(SUB_CATEGORY));
+        ((TextView) rootView.findViewById(R.id.sender_detail_item_weight)).setText(getArguments().getString(ITEM_WEIGHT));
 
         Button acceptButton = (Button) rootView.findViewById(R.id.sender_trip_accept);
         acceptButton.setOnClickListener(new View.OnClickListener() {

@@ -85,11 +85,16 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
 
             case TYPE_CELL:
             SenderViewHolder sVH = (SenderViewHolder)holder;
+                ArrayList<SenderOrderItemAttributes> items = senderOrderList.get(position).getOrder_items();
+                if(items==null) {
+                    items = new ArrayList<SenderOrderItemAttributes>();
+                }
                 sVH.sender_name.setText(senderOrderList.get(position).getUser().getName());
                 sVH.sender_from_val.setText(senderOrderList.get(position).getFrom_loc());
                 sVH.sender_to_val.setText(senderOrderList.get(position).getTo_loc());
                 sVH.sender_address.setText(senderOrderList.get(position).getUser().getAddress());
                 sVH.tvAmount.setText(senderOrderList.get(position).getTotal_amount());
+                sVH.tvItem.setText(items.get(0).getItem_type());
 
                 Log.d("SENDER_LIST",senderOrderList.get(position).getFrom_loc()+" ::: "+senderOrderList.get(position).getId());
 
@@ -162,6 +167,7 @@ import com.ucarry.developer.android.activity.SenderListActivityDetailFragment;
         intent.putExtra(SenderListActivityDetailFragment.RATE,order.getTotal_amount());
         intent.putExtra(SenderListActivityDetailFragment.SUB_CATEGORY,item.getItem_subtype());
         intent.putExtra(SenderListActivityDetailFragment.CATEGORY,item.getItem_type());
+        intent.putExtra(SenderListActivityDetailFragment.ITEM_WEIGHT,order.getRef_1());
         intent.putExtra(SenderListActivityDetailFragment.USER_OBJ,order.getUser());
 
 
