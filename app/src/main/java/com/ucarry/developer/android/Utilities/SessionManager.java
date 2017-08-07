@@ -3,12 +3,16 @@ package com.ucarry.developer.android.Utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 
 import java.util.HashMap;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.ucarry.developer.android.Model.BankDetail;
 import com.ucarry.developer.android.activity.LoginActivity;
 import okhttp3.Headers;
+import com.yourapp.developer.karrierbay.R;
 
 
 /**
@@ -108,7 +112,12 @@ public class SessionManager {
      * **/
     // Get Login State
     public boolean checkLogin(){
-        return sharedPreferences.getBoolean(IS_LOGIN, false);
+
+        String uid = sharedPreferences.getString(SessionManager.KEY_UID,null);
+        if(null == uid || uid.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     public HashMap<String,String> getUserDetails()
@@ -161,6 +170,15 @@ public class SessionManager {
         editor.putString(KEY_LATITUDE,lat);
         editor.putString(KEY_LONGITUDE,lon);
         editor.commit();
+    }
+
+    public boolean checkForPlayService(Context ctx) {
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        int code = api.isGooglePlayServicesAvailable(ctx);
+        if (code == ConnectionResult.SUCCESS) {
+            return true;
+        }
+        return false;
     }
 
     }

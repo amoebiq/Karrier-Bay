@@ -184,10 +184,11 @@
         <activity
             android:name="com.ucarry.developer.android.activity.ContactActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name="com.ucarry.developer.android.activity.NotificationSenderFlow"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.ucarry.developer.android.activity.NotificationSenderFlow"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.ucarry.developer.android.activity.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

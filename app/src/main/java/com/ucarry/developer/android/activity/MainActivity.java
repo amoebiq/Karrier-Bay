@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
@@ -38,6 +39,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.ucarry.developer.android.Utilities.MyFirebaseInstanceIDService;
+import com.ucarry.developer.android.Utilities.PrefManager;
 import com.yourapp.developer.karrierbay.R;
 
 import java.util.Calendar;
@@ -82,7 +84,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResumeFragments() {
-        getAndUpdateUserDetails();
+        if(sessionManager==null) {
+            sessionManager = new SessionManager(getApplicationContext());
+
+        }
+        if(sessionManager.checkLogin()) {
+            getAndUpdateUserDetails();
+        }
+        else {
+            gotoLogin(this);
+        }
     }
 
     @Override
@@ -101,130 +112,119 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = new Intent(this, MyFirebaseInstanceIDService.class);
         startService(intent);
-
-        boolean isPermission = isStoragePermissionGranted();
-
-        Log.d(TAG,isPermission+" Permission Available");
-
-        //createNotification();
-        //String refreshToken = FirebaseInstanceId.getInstance().getToken();
-        //Log.d("TOKEN", "Refreshed token: " + refreshToken);
-        getAndUpdateUserDetails();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         sessionManager = new SessionManager(getApplicationContext());
-        //Sender flow
-        String s = "{\"carrier_schedule_detail_attributes\":{},\"fromDate\":\"5-3-2017\",\"fromTime\":\"13:52\",\"from_geo_lat\":\"11.8014\",\"from_geo_long\":\"76.0044\",\"from_loc\":\"Rajapalayam, Tamil Nadu, India\",\"pickup_order_mapping\":{\"address_line_1\":\"hshshsh\",\"address_line_2\":\"Rajapalayam, Tamil Nadu, India\",\"fullAdress\":\"hshhs\\ngsg\\nhshshsh\\nRajapalayam, Tamil Nadu, India\\n9894100115\",\"landmark\":\"gsg\",\"name\":\"hshhs\",\"phone_1\":\"9894100115\"},\"receiver_order_mapping\":{\"address_line_1\":\"gah\",\"address_line_2\":\"Chennai, Tamil Nadu, India\",\"fullAdress\":\"nsjsj\\ngs\\ngah\\nChennai, Tamil Nadu, India\\n9894100445\",\"landmark\":\"gs\",\"name\":\"nsjsj\",\"phone_1\":\"9894100445\"},\"sender_order_item_attributes\":[{\"end_time\":\"2017-04-05T08:22:49.072\",\"item_attributes\":{\"breadth\":\"64\",\"height\":\"54\",\"length\":\"64\",\"volumetricfullDetails\":\"64  64  54\\n\",\"item_weight\":\"21\",\"breadthIndex\":0},\"item_subtype\":\"Electronic Item\",\"item_type\":\"Article\",\"start_time\":\"2017-04-05T08:22:49.070\",\"item_subtype_index\":0,\"item_type_index\":0}],\"toDate\":\"5-3-2017\",\"toTime\":\"13:52\",\"to_geo_lat\":\"12.9716\",\"to_geo_long\":\"77.5946\",\"to_loc\":\"Chennai, Tamil Nadu, India\",\"user\":{},\"from_loc_index\":0,\"isSender\":true,\"spinWantToSendIdx\":0}";
-        String quot = "{\"breadth\":\"64\",\"height\":\"54\",\"item_weight\":\"21\",\"lat1\":\"9.465337699999997\",\"lat2\":\"13.082680199999997\",\"length\":\"64\",\"long1\":\"77.5275463\",\"long2\":\"80.2707184\"}";
 
-        Gson gson = new Gson();
         try {
-            sender = gson.fromJson(s, SenderOrder.class);
-            quoteRequest = gson.fromJson(quot, QuoteRequest.class);
-        } catch (Exception e) {
+        String uid = sessionManager.getUserDetails().get(SessionManager.KEY_UID);
+           if(null==uid || uid.isEmpty()) {
+                Log.d(TAG,"No Login information available , Henxece giunf ti login screen");
+               gotoLogin(this);
+
+           }
+
+           else {
+
+               boolean isPermission = isStoragePermissionGranted();
+
+               Log.d(TAG, isPermission + " Permission Available");
+
+               //createNotification();
+               //String refreshToken = FirebaseInstanceId.getInstance().getToken();
+               //Log.d("TOKEN", "Refreshed token: " + refreshToken);
+               getAndUpdateUserDetails();
+               Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+               DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+               navigationView = (NavigationView) findViewById(R.id.nav_view);
+               navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+               setSupportActionBar(toolbar);
+
+               getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+               getSupportActionBar().setDisplayShowHomeEnabled(true);
+               getSupportActionBar().setDisplayShowTitleEnabled(true);
+               getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+               getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CrowdCarry</font>"));
+
+               View hView = navigationView.getHeaderView(0);
+               emailHeader = (TextView) hView.findViewById(R.id.email_header);
+               nameHeader = (TextView) hView.findViewById(R.id.name_header);
+               user = sessionManager.getUserDetails();
+
+               ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                       this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                   public void onDrawerClosed(View view) {
+                       super.onDrawerClosed(view);
+                       // Do whatever you want here
+
+                       Log.d(TAG, "Drawer Closed:::" + user.get(SessionManager.KEY_NAME));
+                   }
+
+                   /**
+                    * Called when a drawer has settled in a completely open state.
+                    */
+                   public void onDrawerOpened(View drawerView) {
+                       super.onDrawerOpened(drawerView);
+                       // Do whatever you want here
+
+                       Log.d(TAG, "Drawer Opened:::" + user.get(SessionManager.KEY_NAME));
+                       emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
+                       nameHeader.setText(user.get(SessionManager.KEY_NAME));
+
+                   }
+               };
+               drawer.setDrawerListener(toggle);
+               toggle.syncState();
+
+
+               emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
+               nameHeader.setText(user.get(SessionManager.KEY_NAME));
+
+               String token = sessionManager.getvalStr(SessionManager.FCM_REG_ID);
+
+
+               if (token != null) {
+
+                   Log.d("FCM TOKEN:::", token);
+
+                   MyFirebaseInstanceIDService.updateFCMRegId(token, getApplicationContext());
+
+               }
+
+
+               hView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+
+
+
+                       fragment(new ProfileFragment(), "ProfileFragment");
+                       DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                       drawer.closeDrawer(GravityCompat.START);
+                   }
+               });
+
+               Log.d(TAG, "IMAGE IS CHECKED");
+               String image = sessionManager.getvalStr("image");
+               if (image != null) {
+
+                   Log.d(TAG, "IMAGE IS NOT NULL");
+                   displayImage(hView, image);
+
+               } else {
+
+                   Log.d(TAG, "IMAGE IS NULL");
+               }
+
+               fragment(new HomeFragment(), "MainFragment");
+           }
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
-
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>CrowdCarry</font>"));
-
-        View hView = navigationView.getHeaderView(0);
-        emailHeader = (TextView) hView.findViewById(R.id.email_header);
-        nameHeader = (TextView) hView.findViewById(R.id.name_header);
-        user = sessionManager.getUserDetails();
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                // Do whatever you want here
-
-                Log.d(TAG , "Drawer Closed:::"+user.get(SessionManager.KEY_NAME));
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                // Do whatever you want here
-
-                Log.d(TAG , "Drawer Opened:::"+user.get(SessionManager.KEY_NAME));
-                emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
-                nameHeader.setText(user.get(SessionManager.KEY_NAME));
-
-            }
-        };
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-
-
-
-
-
-        emailHeader.setText(user.get(SessionManager.KEY_EMAIL));
-        nameHeader.setText(user.get(SessionManager.KEY_NAME));
-
-        String token = sessionManager.getvalStr(SessionManager.FCM_REG_ID);
-
-
-        if(token!=null) {
-
-            Log.d("FCM TOKEN:::", token);
-
-            MyFirebaseInstanceIDService.updateFCMRegId(token, getApplicationContext());
-
-        }
-
-
-//        ImageView iv = (ImageView) findViewById(R.id.profilepic);
-//        iv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_LONG);
-//            }
-//        });
-        hView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                Fragment frg = null;
-//                frg = getSupportFragmentManager().findFragmentByTag("ProfileFragment");
-//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.detach(frg);
-//                ft.attach(frg);
-//                ft.commit();
-
-
-                fragment(new ProfileFragment(), "ProfileFragment");
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-            }
-        });
-
-        Log.d(TAG,"IMAGE IS CHECKED");
-        String image = sessionManager.getvalStr("image");
-        if(image!=null) {
-
-            Log.d(TAG,"IMAGE IS NOT NULL");
-              displayImage(hView, image);
-
-        }
-        else {
-
-            Log.d(TAG,"IMAGE IS NULL");
-        }
-
-        fragment(new HomeFragment(), "MainFragment");
     }
 
 
@@ -271,56 +271,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final ProgressDialog pd = new ProgressDialog(MainActivity.this);
         //Log.d(TAG,MyFirebaseInstanceIDService.getToken());
-        MyFirebaseInstanceIDService.updateFCMRegId(MyFirebaseInstanceIDService.getToken(),MainActivity.this);
-       pd.setMessage("Loading...");
-        pd.setIndeterminate(true);
-        pd.show();
-        ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
-        Call<User> call = apiInterface.getUserDetails();
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+        String token = MyFirebaseInstanceIDService.getToken();
+        if(token!=null) {
+            MyFirebaseInstanceIDService.updateFCMRegId(token, MainActivity.this);
+            pd.setMessage("Loading...");
+            pd.setIndeterminate(true);
+            pd.show();
+            ApiInterface apiInterface = ApiClient.getClientWithHeader(getApplicationContext()).create(ApiInterface.class);
+            Call<User> call = apiInterface.getUserDetails();
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
 
-                pd.dismiss();
-                if(response.code()==200) {
+                    pd.dismiss();
+                    if (response.code() == 200) {
 
-                    Log.d(TAG,"Got 200!");
-                    User user = response.body();
-                    if(user.getImage()!=null)
-                        sessionManager.put(SessionManager.KEY_IMAGE,user.getImage());
-                    if(user.getAadhar_link()!=null)
-                        sessionManager.put(SessionManager.KEY_AADHAR,user.getAadhar_link());
+                        Log.d(TAG, "Got 200!");
+                        User user = response.body();
+                        if (user.getImage() != null)
+                            sessionManager.put(SessionManager.KEY_IMAGE, user.getImage());
+                        if (user.getAadhar_link() != null)
+                            sessionManager.put(SessionManager.KEY_AADHAR, user.getAadhar_link());
 
-                    if(user.getAddress()!=null) {
-                        sessionManager.put(SessionManager.KEY_ADDRESS,user.getAddress());
+                        if (user.getAddress() != null) {
+                            sessionManager.put(SessionManager.KEY_ADDRESS, user.getAddress());
+                        }
+
+                        sessionManager.put(SessionManager.KEY_VERIFIED, user.getVerified());
+
+                        HashMap<String, String> u = sessionManager.getUserDetails();
+                        Log.d(TAG, "Verify User");
+                        if (u.get(SessionManager.KEY_IMAGE) != null)
+                            Log.d(TAG, u.get("image"));
+                        if (u.get(SessionManager.KEY_AADHAR) != null)
+                            Log.d(TAG, u.get(SessionManager.KEY_AADHAR));
+
+                        //  pd.dismiss();
+
                     }
-
-                    sessionManager.put(SessionManager.KEY_VERIFIED,user.getVerified());
-
-                    HashMap<String,String> u = sessionManager.getUserDetails();
-                    Log.d(TAG,"Verify User");
-                    if(u.get(SessionManager.KEY_IMAGE)!=null)
-                    Log.d(TAG,u.get("image"));
-                    if(u.get(SessionManager.KEY_AADHAR)!=null)
-                        Log.d(TAG,u.get(SessionManager.KEY_AADHAR));
-
-                  //  pd.dismiss();
 
                 }
 
-            }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-                if(pd.isShowing())
-                    pd.dismiss();
+                    if (pd.isShowing())
+                        pd.dismiss();
 
 
-            }
-        });
+                }
+            });
 
-
+        }
     }
 
     public void displayImage(View view ,final String url) {
@@ -341,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     protected void onResume() {
-        apiService = ApiClient.getClientWithHeader(this).create(ApiInterface.class);
+        //apiService = ApiClient.getClientWithHeader(this).create(ApiInterface.class);
 
         super.onResume();
     }
@@ -552,6 +554,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
+    }
+
+    private void gotoLogin(Context ctx) {
+        Intent intent = new Intent(ctx,LoginActivity.class);
+        startActivity(intent);
     }
 
 }
