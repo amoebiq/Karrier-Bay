@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.text.Line;
 import com.ucarry.developer.android.Model.Constants;
 import com.ucarry.developer.android.Model.PickupOrderMapping;
 import com.ucarry.developer.android.Model.Quote;
@@ -62,6 +64,14 @@ public class SenderOrderSummary extends AppCompatActivity {
     private TextView delAddr2;
     private TextView delAddr3;
 
+    private LinearLayout itemWeightLayout;
+    private LinearLayout itemTypeLayout;
+    private LinearLayout itemSubTypeLayout;
+    private LinearLayout itemRateLayout;
+    private LinearLayout passengerLayout;
+
+    private boolean isPassenger;
+
     private ApiInterface apiService;
 
     private static final String TAG = "SenderOrderSV";
@@ -79,6 +89,7 @@ public class SenderOrderSummary extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         order = (SenderOrder)getIntent().getSerializableExtra("SenderOrder");
+        isPassenger = getIntent().getBooleanExtra("isPassenger",false);
         orderItems = order.getOrder_items().get(0);
         quote = (Quote) getIntent().getSerializableExtra("Quote");
         pickupOrderMapping = order.getPickupOrderMapping();
@@ -225,6 +236,29 @@ public class SenderOrderSummary extends AppCompatActivity {
         delAddr2 = (TextView) findViewById(R.id.del_address_line_2);
         delAddr3 = (TextView) findViewById(R.id.del_address_line_3);
 
+        itemRateLayout = (LinearLayout) findViewById(R.id.rate_layout);
+        itemWeightLayout = (LinearLayout) findViewById(R.id.weight_layout);
+        itemSubTypeLayout = (LinearLayout) findViewById(R.id.sub_type_layout);
+        passengerLayout = (LinearLayout) findViewById(R.id.passenger_layout);
+
+        if(!isPassenger) {
+
+
+            itemWeightLayout.setVisibility(View.VISIBLE);
+            itemRateLayout.setVisibility(View.VISIBLE);
+            itemSubTypeLayout.setVisibility(View.VISIBLE);
+            passengerLayout.setVisibility(View.GONE);
+        }
+
+        else {
+
+            itemWeightLayout.setVisibility(View.GONE);
+            itemRateLayout.setVisibility(View.GONE);
+            itemSubTypeLayout.setVisibility(View.GONE);
+            passengerLayout.setVisibility(View.VISIBLE);
+        }
+
+
         initialize();
 
     }
@@ -236,9 +270,12 @@ public class SenderOrderSummary extends AppCompatActivity {
         toTv.setText(order.getTo_loc());
         toDateTV.setText(Utility.convertToProperDate(orderItems.getEnd_time()));
         wantToSend.setText(orderItems.getItem_type());
-        rate.setText(Math.ceil(Double.parseDouble(quote.getGrand_total()))+"");
-        itemWeight.setText(order.getRef_1());
-        itemSubType.setText(orderItems.getItem_subtype());
+
+        if(!isPassenger) {
+            rate.setText(Math.ceil(Double.parseDouble(quote.getGrand_total())) + "");
+            itemWeight.setText(order.getRef_1());
+            itemSubType.setText(orderItems.getItem_subtype());
+        }
 
         pickAddr1.setText(pickupOrderMapping.getName()+","+pickupOrderMapping.getPhone_1());
         pickAddr2.setText(pickupOrderMapping.getAddress_line_1());

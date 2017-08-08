@@ -289,7 +289,7 @@
                         android:textSize="@dimen/font_size" />
 
                     <EditText
-                        android:id="@+id/labelorderpassengerseatset"
+                        android:id="@+id/noofpassenger"
                         android:layout_width="130dp"
                         android:layout_height="@dimen/edit_text_height"
                         android:layout_weight="50"

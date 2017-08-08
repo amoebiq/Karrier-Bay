@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ucarry.developer.android.Model.Constants;
@@ -37,6 +38,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
     private EditText etDeliveyFlatNo;
     private EditText etDeliveryFlatName;
     private EditText etDeliAddress;
+    private TextView labelDeliveyDetails;
     private Button btn_sender_next;
     private SenderOrder order;
     private Quote quote;
@@ -44,6 +46,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
     private ReceiverOrderMapping receiverOrderMapping = new ReceiverOrderMapping();
     private SessionManager sessionManager;
     private HashMap<String, String> user;
+    private boolean isPassenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
         getBindings();
         order = (SenderOrder) getIntent().getSerializableExtra("SenderOrder");
         quote = (Quote) getIntent().getSerializableExtra("Quote");
+        isPassenger = getIntent().getBooleanExtra("isPassenger",false);
 
         try {
             sessionManager = new SessionManager(getApplicationContext());
@@ -88,6 +92,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
                     Intent intent = new Intent(SenderOrderSecondPage.this,SenderOrderSummary.class);
                     intent.putExtra("SenderOrder",order);
                     intent.putExtra("Quote",quote);
+                    intent.putExtra("isPassenger",isPassenger);
                     startActivity(intent);
                 }
 
@@ -146,6 +151,7 @@ public class SenderOrderSecondPage extends AppCompatActivity {
         etDeliveryFlatName = (EditText) findViewById(R.id.etDeliveryFlatName);
         etDeliAddress = (EditText) findViewById(R.id.etDeliAddress);
         btn_sender_next = (Button) findViewById(R.id.btn_sender_next);
+        labelDeliveyDetails = (TextView) findViewById(R.id.labelDeliveyDetails);
 
 
     }
@@ -236,7 +242,9 @@ public class SenderOrderSecondPage extends AppCompatActivity {
 
         }
 
-
+        if(isPassenger) {
+            labelDeliveyDetails.setText("Drop Details");
+        }
 
     }
 

@@ -74,7 +74,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
     private EditText depTime;
     private EditText arrDate;
     private EditText arrTime;
-
+    private EditText noOfPassenger;
     private EditText heightET;
     private EditText breadthET;
     private EditText lengthET;
@@ -87,6 +87,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
     private boolean passenger=false;
 
     private static String ARTICLE = "ARTICLE";
+    private static String GOODS = "GOODS";
     private static String PASSENGER = "PASSENGER";
     private static String ITEM_SUB_TYPE = "Electronic Item";
     private static String fromDateData = null;
@@ -250,6 +251,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
                                         Intent intent = new Intent(SenderOrderFirstPage.this,SenderOrderSecondPage.class);
                                         intent.putExtra("SenderOrder",order);
+                                        intent.putExtra("isPassenger",passenger);
                                         intent.putExtra("Quote",quoteResponse.quote);
                                         startActivity(intent);
                                         dialog.dismiss();
@@ -378,7 +380,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
                     showPassenger();
 
                 }
-                if(item.equalsIgnoreCase(ARTICLE)) {
+                if(item.equalsIgnoreCase(GOODS)) {
 
                     passenger = false;
                     hidePassenger();
@@ -474,7 +476,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
         breadthET = (EditText) findViewById(R.id.orderbreadthtet);
         heightET = (EditText) findViewById(R.id.orderheighttet);
 
-
+        noOfPassenger = (EditText) findViewById(R.id.noofpassenger);
 
 
 
@@ -656,7 +658,7 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
 
         boolean invalid=false;
-        if(!isPassenger && orderWeightEt.getText().length()==0) {
+        if(!passenger && (orderWeightEt.getText().length()==0 || lengthET.getText().length()==0 || breadthET.getText().length()==0 || heightET.getText().length()==0)) {
 
             orderWeightEt.setError("Please Enter Weight");
             invalid = true;
@@ -664,7 +666,13 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
         }
 
-        if(fromLoc.getText().length()==0 || toLoc.getText().length()==0 || depDate.getText().length()==0 || arrDate.getText().length()==0 || depTime.getText().length()==0 || arrTime.getText().length()==0 || lengthET.getText().length()==0 || breadthET.getText().length()==0 || heightET.getText().length()==0 || invalid) {
+        if(passenger) {
+            if(noOfPassenger.getText().length()==0) {
+                noOfPassenger.setError("Please enter number of Passengers");
+               invalid = true;
+            }
+        }
+        if(fromLoc.getText().length()==0 || toLoc.getText().length()==0 || depDate.getText().length()==0 || arrDate.getText().length()==0 || depTime.getText().length()==0 || arrTime.getText().length()==0  || invalid) {
 
             if(fromLoc.getText().length()==0) {
                 fromLoc.setError("Please fill from location");
@@ -686,18 +694,29 @@ public class SenderOrderFirstPage extends AppCompatActivity {
 
             }
 
-            if(lengthET.getText().length()==0) {
-                lengthET.setError("Please Enter length in cm");
+            if(passenger) {
+
+                if(noOfPassenger.getText().length()==0) {
+                    noOfPassenger.setError("Please enter number of Passengers");
+                }
             }
 
-            if(breadthET.getText().length()==0) {
-                breadthET.setError("Please Enter breadth in cm");
-            }
+            else {
 
-            if(heightET.getText().length()==0) {
-                heightET.setError("Please Enter height in cm");
-            }
+                if(lengthET.getText().length()==0) {
+                    lengthET.setError("Please Enter length in cm");
+                }
 
+                if(breadthET.getText().length()==0) {
+                    breadthET.setError("Please Enter breadth in cm");
+                }
+
+                if(heightET.getText().length()==0) {
+                    heightET.setError("Please Enter height in cm");
+                }
+
+
+            }
             return false;
 
 

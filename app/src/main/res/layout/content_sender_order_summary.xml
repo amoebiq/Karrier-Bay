@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/textColorDark"
-                android:text="Bangalore"
+                android:text="Documents"
                 android:gravity="right"/>
         </LinearLayout>
 
@@ -192,7 +192,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/detail_view_margin">
+            android:layout_margin="@dimen/detail_view_margin"
+            android:id="@+id/sub_type_layout">
 
 
             <TextView
@@ -210,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/textColorDark"
-                android:text="Bangalore"
+                android:text="Household"
                 android:gravity="right"/>
         </LinearLayout>
 
@@ -218,6 +219,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:id="@+id/weight_layout"
             android:layout_margin="@dimen/detail_view_margin">
 
 
@@ -240,10 +242,39 @@
                 android:gravity="right"/>
         </LinearLayout>
 
-        <LinearLayout
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/passenger_layout"
+                    android:layout_margin="@dimen/detail_view_margin">
+
+
+                    <TextView
+                        android:id="@+id/textView91"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No Of Passengers"
+                        android:textColor="@color/greyColor"
+                        android:layout_gravity="left"/>
+
+                    <TextView
+                        android:id="@+id/sender_details_passengers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/textColorDark"
+                        android:text="1"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+                    android:id="@+id/rate_layout"
             android:layout_margin="@dimen/detail_view_margin">
 
 

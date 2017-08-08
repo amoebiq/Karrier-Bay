@@ -6,8 +6,8 @@
         <item>Madurai</item>
     </string-array>
     <string-array name="wanttosend">
-        <item>Articles</item>
-        <!--<item>Passenger</item>-->
+        <item>Goods</item>
+        <item>Passenger</item>
     </string-array>
 
     <string-array name="article_subcategory">
@@ -15,6 +15,7 @@
         <item>Luggage</item>
         <item>Clothing</item>
         <item>Household Items</item>
+        <item>Documents</item>
     </string-array>
 
     <string-array name="width">
